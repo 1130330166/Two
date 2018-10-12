@@ -229,7 +229,7 @@
                     <section class="widget widget-links widget-light-skin">
                         <h3 class="widget-title">友情链接</h3>
                         <ul>
-                            <li><a href="#">友情链接一</a></li>
+                            <li><a href="/friendslinkinfo">友情链接</a></li>
                         </ul>
                     </section>
                 </div>

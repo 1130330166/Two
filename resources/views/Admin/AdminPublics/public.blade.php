@@ -117,6 +117,8 @@
     <!-- Main Navigation --> 
     <div id="mws-navigation"> 
      <ul>
+
+      <!-- 管理员管理开始 -->
       <li> <a href="#"><i class="icon-user"></i> 管理员管理</a> 
        <ul class="closed"> 
         <li><a href="/adminusers/create">管理员添加</a></li> 
@@ -125,27 +127,42 @@
         <li><a href="/nodelist/create">权限添加</a></li>
         <li><a href="/nodelist">权限列表</a></li>
       </ul></li> 
+      <!-- 管理员管理结束 -->
+
+      <!-- 会员管理开始 -->
       <li> <a href="#"><i class="icon-user"></i> 会员管理</a> 
        <ul class="closed"> 
        <!--  <li><a href="/adminuser/create">会员添加</a></li>  -->
         <li><a href="/adminuser">会员列表</a></li> 
        </ul> </li> 
+       <!-- 会员管理结束 -->
+
+       <!-- 分类管理开始 -->
       <li> <a href="#"><i class="icon-th-list"></i> 分类管理</a> 
        <ul class="closed"> 
         <li><a href="/admincate/create">分类添加</a></li> 
         <li><a href="/admincate">分类列表</a></li> 
        </ul> </li> 
+       <!-- 分类管理结束 -->
+
+       <!-- 文章管理开始 -->
       <li> <a href="#"><i class="icon-file"></i> 文章管理</a> 
        <ul class="closed"> 
         <li><a href="">文章添加</a></li> 
         <li><a href="">文章列表</a></li> 
        </ul> </li> 
+       <!-- 文章管理结束 -->
+
+       <!-- 商品管理开始 -->
       <li> <a href="#"><i class="icon-file"></i> 商品管理</a> 
        <ul class="closed"> 
         <li><a href="">商品添加</a></li> 
         <li><a href="">商品列表</a></li> 
        </ul> 
       </li>
+      <!-- 商品管理结束 -->
+
+      <!-- 广告管理开始 -->
       <li> 
       <a href="#"><i class="icon-file"></i> 广告管理</a> 
        <ul class="closed"> 
@@ -153,6 +170,9 @@
         <li><a href="/guanggao/create">广告添加</a></li>
        </ul> 
       </li>
+      <!-- 广告管理结束 -->
+
+      <!-- 轮播图管理开始 -->
       <li> 
       <a href="#"><i class="icon-file"></i> 轮播图管理</a> 
        <ul class="closed"> 
@@ -160,6 +180,16 @@
         <li><a href="/lunbo/create">轮播图添加</a></li>
        </ul> 
       </li> 
+      <!-- 轮播图管理结束 -->
+
+      <!-- 友情链接模块开始 -->
+      <li> <a href="#"><i class="icon-link"></i> 友情链接</a> 
+       <ul class="closed"> 
+        <li><a href="/friendslink">已审核链接</a></li> 
+        <li><a href="/friendslinknoverify">未审核链接</a></li> 
+       </ul> </li>
+       <!-- 友情链接模块结束 -->
+       
      </ul> 
     </div> 
    </div> 

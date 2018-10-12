@@ -46,10 +46,12 @@ class RolelistController extends Controller
         $rid=$request->input("rid");
         @$nids=$_POST['nids'];
          // 删除当前角色已有的权限信息
-        DB::table("mall_role_node")->where("rid",'=',$rid)->delete();
+        
         if(empty($nids)){
+            
             return redirect("/adminrolelist")->with('error',"该用户没有给予任何权限");
         }
+        DB::table("mall_role_node")->where("rid",'=',$rid)->delete();
         // 遍历
         foreach ($nids as $key => $value) {
             // 入库操作
