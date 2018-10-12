@@ -38,3 +38,11 @@ Route::resource("/admin","Admin\Admin\AdminController");
 Route::resource("/adminuser","Admin\User\UserController");
 // 分类管理
 Route::resource("/admincate","Admin\Cate\CateController");
+//广告管理
+Route::resource("/guanggao","Admin\GuangGao\GuangGaoController");
+//广告Aajx修改状态
+Route::get("/demo","Admin\GuangGao\GuangGaoController@ajax");
+//轮播图管理
+Route::resource("/lunbo","Admin\Carousel\CarouselController");
+//轮播图Aajx修改状态
+Route::get("/edit","Admin\Carousel\CarouselController@ajax");

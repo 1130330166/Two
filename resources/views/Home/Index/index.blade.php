@@ -17,16 +17,31 @@
     <!-- End Hero Content -->
     <!-- Video Carousel-->
     <section class="container padding-top-3x padding-bottom-3x" id="collections">
+        <!-- 这是广告 -->
+        @foreach($list as $v)
+        @if($v->status)
+        <div class="alert alert-default alert-dismissible fade show text-center margin-bottom-1x"><span class="alert-close" data-dismiss="alert"></span>
+            <p>这是广告</p>
+            <img src="{{$v->url}}" alt="这是广告" style="width:1135px;height:200px">
+        </div>
+        @endif
+        @endforeach
+        <!-- 广告结束 -->
+        {{dd($one)}}
+         <!-- 轮播图 -->
+        @if(count($arr) > 0)
         <h3 class="text-center mb-30">iWatch Video Collections</h3>
         <div class="row justify-content-center">
             <div class="col-xl-10">
-                <div class="gallery-wrapper owl-carousel" data-owl-carousel="{ 'nav': false, 'dots': false }">
-                    <div class="gallery-item no-hover-effect"><a href="#" data-type="video" data-video="<div class='wrapper'><div class='video-wrapper'><iframe class='pswp__video' width='960' height='640' src=static/assets/videos/video-1.html?color=ffffff&amp;title=0&amp;byline=0&amp;portrait=0%22 frameborder='0' allowfullscreen></iframe></div></div>"><img src="static/assets/images/video-covers/01.jpg" alt="Cover"></a><span class="caption">Classic Collection</span></div>
-                    <div class="gallery-item no-hover-effect"><a href="#" data-type="video" data-video="<div class='wrapper'><div class='video-wrapper'><iframe class='pswp__video' width='960' height='640' src=static/assets/videos/video-2.html?color=ffffff&amp;title=0&amp;byline=0&amp;portrait=0%22 frameborder='0' allowfullscreen></iframe></div></div>"><img src="static/assets/images/video-covers/02.jpg" alt="Cover"></a><span class="caption">Prestige Collection</span></div>
-                    <div class="gallery-item no-hover-effect"><a href="#" data-type="video" data-video="<div class='wrapper'><div class='video-wrapper'><iframe class='pswp__video' width='960' height='640' src=static/assets/videos/video-3.html?color=ffffff&amp;title=0&amp;byline=0&amp;portrait=0%22 frameborder='0' allowfullscreen></iframe></div></div>"><img src="static/assets/images/video-covers/03.jpg" alt="Cover"></a><span class="caption">Sports Collection</span></div>
-                </div>
+                <div class="gallery-wrapper owl-carousel" data-owl-carousel="{ 'nav': true, 'dots': true }">
+                	@foreach($arr as $row)
+                    <div class="gallery-item no-hover-effect"><a href="#" data-video="<div class='wrapper'><div class='video-wrapper'><iframe class='pswp__video' width='960' height='640' "><img src="{{$row->path}}" alt="Cover" style="width:1000px;height:500px"></a><span class="caption">Classic Collection</span></div>
+        			@endforeach
+                </div> 
             </div>
         </div>
+        @endif
+       	<!-- 轮播图 -->
     </section>
     <!-- Start Hero Products -->
     <section class="bg-secondary padding-top-3x padding-bottom-3x">

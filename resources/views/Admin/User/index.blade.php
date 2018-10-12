@@ -42,7 +42,7 @@
         <td class=" ">created_at</td> 
         <td class=" ">updated_at</td> 
         <td class=" ">
-          <form action="#
+          <form action="#">
             <button class="btn btn-success">普通删除</button>
           </form>
           <a href="#" class="btn btn-info">会员详情</a>

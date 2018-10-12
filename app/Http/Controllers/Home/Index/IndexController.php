@@ -19,9 +19,15 @@ class IndexController extends Controller
     {
 
         $cates = self::getCatesByPid(0);
+        $list = DB::table('mall_guanggao')->get();
+        $arr = DB::table('mall_carousel')->where('status','=',1)->get();
+        $atr = DB::table('mall_guanggao')->where('id','=',3)->first();
+        // dd(count($arr));
+        // dd($arr);
         // dd($cates);
+        // dd($list);
         //加载前台首页模板
-        return view("Home.Index.index",["cates"=>$cates]);
+        return view("Home.Index.index",["cates"=>$cates,"list"=>$list,'arr'=>$arr,]);
 
     }
 
