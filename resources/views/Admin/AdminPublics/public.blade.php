@@ -91,13 +91,12 @@
      <!-- Username and Functions --> 
      <div id="mws-user-functions"> 
       <div id="mws-username">
-        Hello, John Doe 
+        你好, {{session('name')}}
       </div> 
       <ul> 
-       <li><a href="#">Profile</a></li> 
-       <li><a href="#">Change Password</a></li> 
-       <li><a href="index.html">Logout</a></li> 
-      </ul> 
+       <li><a href="#">Profile</a></li>  
+       <li><a href="/adminlogin">退出</a></li> 
+      </ul>  
      </div> 
     </div> 
    </div> 
@@ -117,10 +116,18 @@
     </div> 
     <!-- Main Navigation --> 
     <div id="mws-navigation"> 
-     <ul> 
+     <ul>
+      <li> <a href="#"><i class="icon-user"></i> 管理员管理</a> 
+       <ul class="closed"> 
+        <li><a href="/adminusers/create">管理员添加</a></li> 
+        <li><a href="/adminusers">管理员列表</a></li>
+        <li><a href="/adminrolelist">管理员角色管理</a></li>
+        <li><a href="/nodelist/create">权限添加</a></li>
+        <li><a href="/nodelist">权限列表</a></li>
+      </ul></li> 
       <li> <a href="#"><i class="icon-user"></i> 会员管理</a> 
        <ul class="closed"> 
-        <li><a href="/adminuser/create">会员添加</a></li> 
+       <!--  <li><a href="/adminuser/create">会员添加</a></li>  -->
         <li><a href="/adminuser">会员列表</a></li> 
        </ul> </li> 
       <li> <a href="#"><i class="icon-th-list"></i> 分类管理</a> 

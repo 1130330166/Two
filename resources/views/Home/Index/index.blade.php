@@ -27,7 +27,6 @@
         @endif
         @endforeach
         <!-- 广告结束 -->
-        {{dd($one)}}
          <!-- 轮播图 -->
         @if(count($arr) > 0)
         <h3 class="text-center mb-30">iWatch Video Collections</h3>

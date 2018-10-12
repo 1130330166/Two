@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin\User;
+namespace App\Http\Controllers\Admin\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
-class UserController extends Controller
+use App\Http\Requests\NodelistInsert;
+class NodelistController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,11 +15,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        //获取前台会员列表
-        $home_users=DB::table("mall_home_users")->paginate(3);
-        // dd($home_users);die;
-        //导入模块
-        return view("Admin.User.index",['users'=>$home_users]);
+        //获取权限信息
+        $nodelist=DB::table("mall_node")->get();
+        // 加载模版
+        return view("Admin.Nodelist.index",['nodelist'=>$nodelist]);
     }
 
     /**
@@ -28,8 +28,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        //导入添加模块
-        return view("Admin.User.add");
+        //加载添加模板
+        return view("Admin.Nodelist.add");
     }
 
     /**
@@ -38,10 +38,20 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(NodelistInsert $request)
     {
-        //
-    }
+        //获取所有参数
+        // dd($request->all());
+        // 除去token添加进数据库
+        $data=$request->except('_token');
+        // 封装status
+        $data['status']=1;
+        // dd($data);die;
+        // 写入数据库
+        if(DB::table("mall_node")->insert($data)){
+        return redirect("nodelist")->with("success",'添加成功');
+    	}
+}
 
     /**
      * Display the specified resource.
@@ -85,6 +95,12 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // echo $id;	
+        // 执行操作
+          if(DB::table("mall_node")->where("id",'=',$id)->delete()){
+            return redirect("/nodelist")->with('success','权限删除成功');
+        }else{
+            return redirect("/nodelist")->with('error','权限删除失败');
+        }
     }
 }
