@@ -15,11 +15,13 @@ class FriendsLinkController extends Controller
      * @return \Illuminate\Http\Response
      */
     //后台显示审核的友情链接
-    public function index()
+    public function index(Request $request)
     {
+
+    	$keywords = $request->input('keywords');
         
         //后台遍历通过审核状态的友情链接
-        $data = DB::table('mall_flink')->where('status','=',1)->get();
+        $data = DB::table('mall_flink')->where('lname','like','%'.$keywords.'%')->where('status','=',1)->paginate(3);
         //处理display字段的显示 0->下架 1->上架
         $arr = array('下架','上架');
         // 遍历处理display字段
@@ -31,14 +33,16 @@ class FriendsLinkController extends Controller
         // var_dump($data);exit;
 
         //加载模板分配数据
-        return view("Admin.FriendsLink.index",['data'=>$data]); 
+        return view("Admin.FriendsLink.index",['data'=>$data,'request'=>$request->all()]); 
     }
 
     //后台显示未审核状态的链接
-    public function adminFlink(){
+    public function adminFlink(Request $request){
+
+    	$keywords = $request->input('keywords');
 
         //查询未审核状态链接数据
-        $data = DB::table('mall_flink')->where('status','=',0)->get();
+        $data = DB::table('mall_flink')->where('lname','like','%'.$keywords.'%')->where('status','=',0)->paginate(3);
         //处理status字段显示 0->待审核 1->已通过
         $arr = array('待审核','已通过');
 
@@ -50,7 +54,7 @@ class FriendsLinkController extends Controller
         // var_dump($data);exit;
 
         //加载模板 分配数据
-        return view('Admin.FriendsLink.noverify',['data'=>$data]);
+        return view('Admin.FriendsLink.noverify',['data'=>$data,'request'=>$request->all()]);
     }
 
     /**
