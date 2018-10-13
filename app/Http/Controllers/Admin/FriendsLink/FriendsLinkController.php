@@ -14,6 +14,7 @@ class FriendsLinkController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //后台显示审核的友情链接
     public function index()
     {
         
@@ -52,16 +53,6 @@ class FriendsLinkController extends Controller
         return view('Admin.FriendsLink.noverify',['data'=>$data]);
     }
 
-    //查询数据遍历到前台
-    public function homeFlink(){
-
-        //获取上架的友情链接
-        $data = DB::table('mall_flink')->where('display','=',1)->get();
-
-        //加载友情链接模板 分配数据
-        return view("Home.FriendsLink.index",['data'=>$data]);
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -79,20 +70,10 @@ class FriendsLinkController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    //前台申请友情链接
     public function store(Request $request)
     {
-        //获取数据
-        $arr = $request->except("_token");
-        //将数据添加到数据库
-        if(DB::table('mall_flink')->insert($arr)){
-
-            return redirect('/friendslink')->with('success','申请成功,请等待审核!');
-        }else{
-
-            return redirect('/friendslink')->with('error','申请失败,请联系客服!');
-        }
-        // var_dump($arr);
+        //
+        
     }
 
     /**
