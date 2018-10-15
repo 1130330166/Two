@@ -22,13 +22,15 @@ class IndexController extends Controller
         $list = DB::table('mall_guanggao')->get();
         $arr = DB::table('mall_carousel')->where('status','=',1)->get();
         $atr = DB::table('mall_guanggao')->where('id','=',3)->first();
-        // 获取商品信息
-        $goods=DB::table("mall_goods")->get();
-        // 获取分类名字
-        foreach ($goods as $key => $value) {
-            $name=DB::table("mall_cates")->where("id",'=',$value->cate_id)->first();
-            $goods[$key]->catename=$name->name;
-        }
+        // 获取商品信息-------------第一种方法
+        // $goods=DB::table("mall_goods")->get();
+        // // 获取分类名字
+        // foreach ($goods as $key => $value) {
+        //     $catename=DB::table("mall_cates")->where("id",'=',$value->cate_id)->first();
+        //     $goods[$key]->catename=$catename->name;
+        // }
+        // 获取商品信息-------------第二种方法
+        $goods=DB::table("mall_goods")->join('mall_cates','mall_goods.cate_id','=','mall_cates.id')->select('mall_goods.id as id','mall_goods.name as name','mall_cates.id as cid','mall_cates.name as catename','mall_goods.pic','mall_goods.des','mall_goods.num','mall_goods.price')->get();
         // var_dump($goods);die;
         // dd(count($arr));
         // dd($arr);

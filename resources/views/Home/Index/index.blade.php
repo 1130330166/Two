@@ -57,7 +57,7 @@
                             <img src="{{$v->pic}}" alt="Product" style="width: 225px;height: 200px">
                         </a>
                         <h2 class="product-title"><a href="shop-single-1.html">{{$v->name}}</a></h3>
-                        <h3 class="product-title">Cates : {{$v->catename}}</h3>
+                        <h3 class="product-title">类别 : {{$v->catename}}</h3>
                         <h4 class="product-price">¥ {{$v->price}}</h4>
                         <div class="product-buttons">
                             <button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="Whishlist">
