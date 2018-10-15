@@ -14,7 +14,7 @@
         <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper" role="grid">
 
         <!-- 搜索开始 -->
-        <form action="/admincate" method="get">
+        <form action="/friendslinknoverify" method="get">
          <div class="dataTables_filter" id="DataTables_Table_1_filter">
           <label><input type="text" aria-controls="DataTables_Table_1" name="keywords"  value="{{$request['keywords'] or ''}}"/></label>
           <!-- <input type="submit" value="搜索"> -->
@@ -78,7 +78,7 @@
 
          <!-- 分页开始 -->
          <div class="dataTables_paginate paging_full_numbers" id="pages">
-
+          {{$data->appends($request)->render()}}
          </div>
          <!-- 分页结束 -->
 

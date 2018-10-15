@@ -229,7 +229,7 @@
                     <section class="widget widget-links widget-light-skin">
                         <h3 class="widget-title">友情链接</h3>
                         <ul>
-                            <li><a href="/friendslinkinfo">友情链接</a></li>
+                            <li><a href="/friendslinks">友情链接</a></li>
                         </ul>
                     </section>
                 </div>
@@ -253,7 +253,7 @@
             <!-- End Footer Info -->
             <hr class="hr-light">
             <!-- Start Copyright -->
-            <p class="footer-copyright text-center">© 2018 Inspina | All rights <a href="http://www.17sucai.com/">Reserved</a></p>
+            <p class="footer-copyright text-center">© 2018 Inspina | All rights <a href="">Reserved</a></p>
             <!-- End Copyright -->
         </div>
     </footer>

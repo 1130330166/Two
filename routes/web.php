@@ -37,8 +37,10 @@ Route::get("register","Home\Login\LoginController@register");
 //前台注销
 Route::get("logout","Home\Login\LoginController@logout");
 
-//前台遍历友情链接
-	Route::get("/friendslinkinfo","Admin\FriendsLink\FriendsLinkController@homeFlink");
+//前台友情链接
+Route::resource('/friendslinks',"Home\FriendsLink\FriendsLinkController");
+//前台Ajax校验友情链接名 URL 联系电话是否唯一
+Route::get("/verifyflink","Home\FriendsLink\FriendsLinkController@verifyflink");
 
 // ---------------前后台路由分割线--------------------
 
@@ -53,7 +55,7 @@ Route::group(['middleware'=>'adminlogin'],function(){
 	// 分类管理
 	Route::resource("/admincate","Admin\Cate\CateController");
 
-	//友情链接
+	//后台友情链接
 	Route::resource("/friendslink","Admin\FriendsLink\FriendsLinkController");
 	//后台未审核状态的友情链接
 	Route::get('/friendslinknoverify','Admin\FriendsLink\FriendsLinkController@adminFlink');

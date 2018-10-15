@@ -30,7 +30,7 @@
 
     <h3 class="padding-top-2x">申请友情链接</h3>
 
-    <form action="/friendslink" class="row" method="post">
+    <form action="/friendslinks" class="row" method="post">
         <div class="col-sm-4">
             <div class="form-group">
                 <label>链接名</label>　<span id="checkExistlname"></span>
@@ -75,25 +75,26 @@
     </form>
     <script type="text/javascript">
 
-        // 验证链接名
+        // 正则验证链接名
         function isChinaName(name) {
-            var pattern = /^[\u4E00-\u9FA5]{1,6}$/;
+            var pattern = /^([\u4e00-\u9fa5]|\w){1,6}$/;
             return pattern.test(name);
         }
 
-        // 验证链接URL
+        // 正则验证链接URL
         function isURL(url) {
             var pattern = /^((ht|f)tps?):\/\/[\w\-]+(\.[\w\-]+)+([\w\-\.,@?^=%&:\/~\+#]*[\w\-\@?^=%&\/~\+#])?$/;
             return pattern.test(url);
         }
 
-        // 验证手机号
+        // 正则验证手机号
         function isPhoneNo(phone) {
             var pattern = /^1[34578]\d{9}$/;
             return pattern.test(phone);
         }
-        
-        function tijiao() {
+
+        //验证连接名
+        function checkName(){
 
             //判断链接名是否填写
             if ($.trim($('#lname').val()).length == 0) {
@@ -104,14 +105,59 @@
                 //判断链接名是否符合规则
                 if (isChinaName($.trim($('#lname').val())) == false) {
                     //链接名不符合规则 提示用户并组织表单提交
-                    $('#checkExistlname').html("<font style='color:#f00'>链接名必须为1-6为汉字!</font>");
+                    $('#checkExistlname').html("<font style='color:#f00'>链接名不能大于6位!</font>");
                     return false;
                 }else{
-                    //链接名符合规则 提示用户
-                    $('#checkExistlname').html("<font style='color:green'>链接名可以使用!</font>");
-                    // return true;
+
+                    // //判断链接名是否存在
+                    // $.get('/verifyflink',{lname:$('#lname').val()},function(data){
+
+                    //     if(data == 1){
+
+                    //         //链接名已存在 提示用户并阻止表单提交
+                    //         $('#checkExistlname').html("<font style='color:#f00'>链接名已存在!</font>");
+                    //         return false;
+
+                    //     }else{
+
+                    //         //链接名符合规则 提示用户
+                    //         $('#checkExistlname').html("<font style='color:green'>链接名可以使用!</font>");
+                    //         return true;
+                    //     }
+                    // });
+
+                    var str;
+
+                    $.ajax({
+
+                        async: false,
+                        url: '/verifyflink?lname='+$('#lname').val(),
+                        success: function(data){
+
+                            if(data == 1){
+
+                                //链接名已存在 提示用户并阻止表单提交
+                                $('#checkExistlname').html("<font style='color:#f00'>链接名已存在!</font>");
+                                str = false;
+
+                            }else{
+
+                                //链接名符合规则 提示用户
+                                $('#checkExistlname').html("<font style='color:green'>链接名可以使用!</font>");
+                                str = true;
+                            }
+                        }
+
+                    });
+
+                    return str;
+
                 }
             }
+        }
+
+        //验证URL
+        function checkURL(){
 
             //判断链接URL是否填写
             if ($.trim($('#lurl').val()).length == 0) {
@@ -125,11 +171,55 @@
                     $('#checkExistURL').html("<font style='color:#f00'>示例 http://www.baidu.com</font>");
                     return false;
                 }else{
-                    //链接URL符合规则 提示用户
-                    $('#checkExistURL').html("<font style='color:green'>链接URL可以使用!</font>");
-                    // return true;
+
+                    // //判断URL是否存在
+                    // $.get('/verifyflink',{lurl:$('#lurl').val()},function(data){
+
+                    //     if(data == 2){
+
+                    //         //链接URL已存在 提示用户并最终表单提交
+                    //         $('#checkExistURL').html("<font style='color:#f00'>链接URL已存在!</font>");
+                    //         return false;
+
+                    //     }else{
+
+                    //         //链接URL符合规则 提示用户
+                    //         $('#checkExistURL').html("<font style='color:green'>链接URL可以使用!</font>");
+                    //         return true;
+                    //     }
+                    // });
+                    
+                    var str;
+
+                    $.ajax({
+
+                        async: false,
+                        url: '/verifyflink?lurl='+$('#lurl').val(),
+                        success: function(data){
+
+                            if(data == 2){
+
+                                //链接URL已存在 提示用户并最终表单提交
+                                $('#checkExistURL').html("<font style='color:#f00'>链接URL已存在!</font>");
+                                str = false;
+
+                            }else{
+
+                                //链接URL符合规则 提示用户
+                                $('#checkExistURL').html("<font style='color:green'>链接URL可以使用!</font>");
+                                str = true;
+                            }
+                        }
+
+                    });
+
+                    return str;
                 }
             }
+        }
+
+        //验证手机号
+        function checkPhone(){
 
             //判断联系电话是否填写
             if ($.trim($('#phone').val()).length == 0) {
@@ -143,11 +233,56 @@
                     $('#checkExistPhone').html("<font style='color:#f00'>该号码不存在</font>");
                     return false;
                 }else{
-                    //联系电话符合规则 提示用户
-                    $('#checkExistPhone').html("<font style='color:green'>该号码可以使用!</font>");
-                    // return true;
+
+                    // //判断联系电话是否存在
+                    // $.get('/verifyflink',{phone:$('#phone').val()},function(data){
+
+                    //     if(data == 3){
+
+                    //         //联系电话已存在 提示用户并阻止表单提交
+                    //         $('#checkExistPhone').html("<font style='color:#f00'>该号码已存在!</font>");
+                    //         return false;
+
+                    //     }else{
+
+                    //         //联系电话符合规则 提示用户
+                    //         $('#checkExistPhone').html("<font style='color:green'>该号码可以使用!</font>");
+                    //         return true;
+                    //     }
+                        
+                    // });
+
+                    var str;
+
+                    $.ajax({
+
+                        async: false,
+                        url: '/verifyflink?phone='+$('#phone').val(),
+                        success: function(data){
+
+                            if(data == 3){
+
+                                //联系电话已存在 提示用户并阻止表单提交
+                                $('#checkExistPhone').html("<font style='color:#f00'>该号码已存在!</font>");
+                                str = false;
+
+                            }else{
+
+                                //联系电话符合规则 提示用户
+                                $('#checkExistPhone').html("<font style='color:green'>该号码可以使用!</font>");
+                                str = true;
+                            }
+                        }
+
+                    });
+
+                    return str;
                 }
             }
+        }
+
+        //验证网站信息
+        function checkLinfo(){
 
             //判断网站描述是否填写
             if ($.trim($('#linfo').val()).length == 0) {
@@ -157,6 +292,22 @@
             }else{
 
                 $('#checkExistInfo').html("<font style='color:green'>网站描述可以使用!</font>");
+                return true;
+            }
+        }
+
+
+        
+        //点击申请友情链接时校验
+        function tijiao() {
+            
+            //判断是否所有校验都通过验证
+            if(checkName() && checkURL() && checkPhone() && checkLinfo()){
+
+                return true;
+            }else{
+
+                return false;
             }
         }
         
@@ -180,12 +331,24 @@
                     //判断链接名是否符合规则
                     if (isChinaName($.trim($('#lname').val())) == false) {
                         //链接名不符合规则 提示用户
-                        $('#checkExistlname').html("<font style='color:#f00'>链接名必须为1-6为汉字!</font>");
+                        $('#checkExistlname').html("<font style='color:#f00'>链接名不能大于6位!</font>");
 
                     }else{
-                        //链接名符合规则 提示用户
-                        $('#checkExistlname').html("<font style='color:green'>链接名可以使用!</font>");
-                        
+
+                        //判断链接名是否存在
+                        $.get('/verifyflink',{lname:$('#lname').val()},function(data){
+
+                            if(data == 1){
+
+                                //链接名已存在 提示用户
+                                $('#checkExistlname').html("<font style='color:#f00'>链接名已存在!</font>");
+
+                            }else{
+
+                                //链接名符合规则 提示用户
+                                $('#checkExistlname').html("<font style='color:green'>链接名可以使用!</font>");
+                            }
+                        });    
                     }
                 }
             });
@@ -204,9 +367,21 @@
                         $('#checkExistURL').html("<font style='color:#f00'>示例 http://www.baidu.com</font>");
 
                     }else{
-                        //链接URL符合规则 提示用户
-                        $('#checkExistURL').html("<font style='color:green'>链接URL可以使用!</font>");
 
+                        //判断URL是否存在
+                        $.get('/verifyflink',{lurl:$('#lurl').val()},function(data){
+
+                            if(data == 2){
+
+                                //链接URL已存在 提示用户
+                                $('#checkExistURL').html("<font style='color:#f00'>链接URL已存在!</font>");
+
+                            }else{
+
+                                //链接URL符合规则 提示用户
+                                $('#checkExistURL').html("<font style='color:green'>链接URL可以使用!</font>");
+                            }
+                        });
                     }
                 }
             });
@@ -226,9 +401,22 @@
                         $('#checkExistPhone').html("<font style='color:#f00'>该号码不存在</font>");
 
                     }else{
-                        //联系电话符合规则 提示用户
-                        $('#checkExistPhone').html("<font style='color:green'>该号码可以使用!</font>");
 
+                        //判断联系电话是否存在
+                        $.get('/verifyflink',{phone:$('#phone').val()},function(data){
+
+                            if(data == 3){
+
+                                //联系电话已存在 提示用户
+                                $('#checkExistPhone').html("<font style='color:#f00'>该号码已存在!</font>");
+
+                            }else{
+
+                                //联系电话符合规则 提示用户
+                                $('#checkExistPhone').html("<font style='color:green'>该号码可以使用!</font>");
+                            }
+                            
+                        });
                     }
                 }
             });
