@@ -156,8 +156,8 @@
        <!-- 商品管理开始 -->
       <li> <a href="#"><i class="icon-file"></i> 商品管理</a> 
        <ul class="closed"> 
-        <li><a href="">商品添加</a></li> 
-        <li><a href="">商品列表</a></li> 
+        <li><a href="/goods/create">商品添加</a></li> 
+        <li><a href="/goods">商品列表</a></li> 
        </ul> 
       </li>
       <!-- 商品管理结束 -->

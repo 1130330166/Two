@@ -82,4 +82,8 @@ Route::group(['middleware'=>'adminlogin'],function(){
 	Route::resource("/lunbo","Admin\Carousel\CarouselController");
 	//轮播图Aajx修改状态
 	Route::get("/edit","Admin\Carousel\CarouselController@ajax");
+	// 商品模块
+	Route::resource("/goods","Admin\Goods\GoodsController");
+	// 商品ajax修改状态
+	Route::get("/goodsstatus","Admin\Goods\GoodsController@ajax");
 });

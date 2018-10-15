@@ -26,13 +26,16 @@ class AdminUserInsert extends FormRequest
         return [
             //会员名做规则
             // 不能重复
-            'name'=>'unique:mall_admin_users'
+            'name'=>'unique:mall_admin_users',
+            'password'=>'required|regex:/\S/'
         ];
     }
     // 自定义错误信息
     public function messages(){
         return[
-        'name.unique'=>'用户名不能重复'
+        'name.unique'=>'用户名不能重复',
+        'password.required'=>'密码不能为空',
+        'password.regex'=>'密码不能为空或者空格',
         ];
     }
 }

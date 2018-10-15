@@ -87,10 +87,10 @@ class FriendsLinkController extends Controller
         //将数据添加到数据库
         if(DB::table('mall_flink')->insert($arr)){
 
-            return redirect('/friendslink')->with('success','申请成功,请等待审核!');
+            return redirect('/friendslinks')->with('success','申请成功,请等待审核!');
         }else{
 
-            return redirect('/friendslink')->with('error','申请失败,请联系客服!');
+            return redirect('/friendslinks')->with('error','申请失败,请联系客服!');
         }
         // var_dump($arr);
     }

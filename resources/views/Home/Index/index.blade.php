@@ -45,220 +45,30 @@
     <!-- Start Hero Products -->
     <section class="bg-secondary padding-top-3x padding-bottom-3x">
         <div class="container">
-            <h3 class="text-center mb-30">Explore iWatch Types</h3>
-            <ul class="nav nav-pills justify-content-center">
-                <li class="nav-item"><a class="nav-link active" href="#" data-filter="*">All</a></li>
-                <li class="nav-item"><a class="nav-link" href="#" data-filter=".classic">Classic</a></li>
-                <li class="nav-item"><a class="nav-link" href="#" data-filter=".digital">Digital</a></li>
-                <li class="nav-item"><a class="nav-link" href="#" data-filter=".prestige">Prestige</a></li>
-                <li class="nav-item"><a class="nav-link" href="#" data-filter=".sport">Sport</a></li>
-            </ul>
+            <h3 class="text-center mb-30">Trend Product Gathering Place</h3>
             <div class="isotope-grid filter-grid cols-4 mt-30">
                 <div class="gutter-sizer"></div>
                 <div class="grid-sizer"></div>
-                <!-- Start Product #1 -->
+                <!-- Start 手机 #1 -->
+                @foreach($goods as $v)
                 <div class="grid-item classic">
                     <div class="product-card">
                         <a class="product-thumb" href="shop-single-1.html">
-                            <img src="static/assets/images/shop/products/w12.jpg" alt="Product">
+                            <img src="{{$v->pic}}" alt="Product" style="width: 225px;height: 200px">
                         </a>
-                        <h3 class="product-title"><a href="shop-single-1.html">Smart Watch Z8</a></h3>
-                        <h4 class="product-price">$249.00</h4>
+                        <h2 class="product-title"><a href="shop-single-1.html">{{$v->name}}</a></h3>
+                        <h3 class="product-title">Cates : {{$v->catename}}</h3>
+                        <h4 class="product-price">¥ {{$v->price}}</h4>
                         <div class="product-buttons">
                             <button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="Whishlist">
                                 <i class="icon-heart"></i>
                             </button>
-                            <button class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Product" data-toast-message="successfuly added to cart!">Add to Cart</button>
+                            <button class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Product" data-toast-message="successfuly added to cart!" href="#">Add to Cart</button>
                         </div>
                     </div>
                 </div>
-                <!-- End Product #1 -->
-                <!-- Start Product #2 -->
-                <div class="grid-item digital">
-                    <div class="product-card">
-                        <a class="product-thumb" href="shop-single-2.html"><img src="static/assets/images/shop/products/w11.jpg" alt="Product">
-                        </a>
-                        <h3 class="product-title"><a href="shop-single-2.html">Apple Watch 3 </a></h3>
-                        <h4 class="product-price">$329.00</h4>
-                        <div class="product-buttons">
-                            <button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="Whishlist">
-                                <i class="icon-heart"></i>
-                            </button>
-                            <button class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Product" data-toast-message="successfuly added to cart!">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Product #2 -->
-                <!-- Start Product #3 -->
-                <div class="grid-item prestige">
-                    <div class="product-card">
-                        <a class="product-thumb" href="shop-single-3.html">
-                            <img src="static/assets/images/shop/products/w10.jpg" alt="Product">
-                        </a>
-                        <h3 class="product-title"><a href="shop-single-3.html">Android Watch X8</a></h3>
-                        <h4 class="product-price">$521.00</h4>
-                        <div class="product-buttons">
-                            <button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="Whishlist">
-                                <i class="icon-heart"></i>
-                            </button>
-                            <button class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Product" data-toast-message="successfuly added to cart!">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Product #3 -->
-                <!-- Start Product #4 -->
-                <div class="grid-item classic">
-                    <div class="product-card">
-                        <a class="product-thumb" href="shop-single-1.html">
-                            <img src="static/assets/images/shop/products/w9.jpg" alt="Product">
-                        </a>
-                        <h3 class="product-title"><a href="shop-single-1.html">Nokia WatchMX</a></h3>
-                        <h4 class="product-price">$179.00</h4>
-                        <div class="product-buttons">
-                            <button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="Whishlist">
-                                <i class="icon-heart"></i>
-                            </button>
-                            <button class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Product" data-toast-message="successfuly added to cart!">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Product #4 -->
-                <!-- Start Product #5 -->
-                <div class="grid-item digital">
-                    <div class="product-card">
-                        <a class="product-thumb" href="shop-single-2.html">
-                            <img src="static/assets/images/shop/products/w8.jpg" alt="Product">
-                        </a>
-                        <h3 class="product-title"><a href="shop-single-2.html">Apple Watch Sport</a></h3>
-                        <h4 class="product-price">$336.00</h4>
-                        <div class="product-buttons">
-                            <button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="Whishlist">
-                                <i class="icon-heart"></i>
-                            </button>
-                            <button class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Product" data-toast-message="successfuly added to cart!">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Product #5 -->
-                <!-- Start Product #6 -->
-                <div class="grid-item sport">
-                    <div class="product-card">
-                        <a class="product-thumb" href="shop-single-3.html">
-                            <img src="static/assets/images/shop/products/w7.jpg" alt="Product">
-                        </a>
-                        <h3 class="product-title"><a href="shop-single-3.html">Sony Watch Z2</a></h3>
-                        <h4 class="product-price">$175.00</h4>
-                        <div class="product-buttons">
-                            <button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="Whishlist">
-                                <i class="icon-heart"></i>
-                            </button>
-                            <button class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Product" data-toast-message="successfuly added to cart!">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Product #6 -->
-                <!-- Start Product #7 -->
-                <div class="grid-item prestige">
-                    <div class="product-card">
-                        <a class="product-thumb" href="shop-single-1.html">
-                            <img src="static/assets/images/shop/products/w6.jpg" alt="Product">
-                        </a>
-                        <h3 class="product-title"><a href="shop-single-1.html">iWatch Sport ML</a></h3>
-                        <h4 class="product-price">$562.00</h4>
-                        <div class="product-buttons">
-                            <button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="Whishlist">
-                                <i class="icon-heart"></i>
-                            </button>
-                            <button class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Product" data-toast-message="successfuly added to cart!">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Product #7 -->
-                <!-- Start Product #8 -->
-                <div class="grid-item classic">
-                    <div class="product-card">
-                        <a class="product-thumb" href="shop-single-2.html">
-                            <img src="static/assets/images/shop/products/w5.jpg" alt="Product">
-                        </a>
-                        <h3 class="product-title"><a href="shop-single-2.html">Lenowo Watch S9</a></h3>
-                        <h4 class="product-price">$596.00</h4>
-                        <div class="product-buttons">
-                            <button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="Whishlist">
-                                <i class="icon-heart"></i>
-                            </button>
-                            <button class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Product" data-toast-message="successfuly added to cart!">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Product #8 -->
-                <!-- Start Product #9 -->
-                <div class="grid-item prestige">
-                    <div class="product-card">
-                        <a class="product-thumb" href="shop-single-3.html">
-                            <img src="static/assets/images/shop/products/w4.jpg" alt="Product">
-                        </a>
-                        <h3 class="product-title"><a href="shop-single-3.html">Asus Watch 880</a></h3>
-                        <h4 class="product-price">€460.00</h4>
-                        <div class="product-buttons">
-                            <button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="Whishlist">
-                                <i class="icon-heart"></i>
-                            </button>
-                            <button class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Product" data-toast-message="successfuly added to cart!">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Product #9 -->
-                <!-- Start Product #10 -->
-                <div class="grid-item classic">
-                    <div class="product-card">
-                        <a class="product-thumb" href="shop-single-1.html">
-                            <img src="static/assets/images/shop/products/w3.jpg" alt="Product">
-                        </a>
-                        <h3 class="product-title"><a href="shop-single-1.html">Apple watch 2018</a></h3>
-                        <h4 class="product-price">$680.00</h4>
-                        <div class="product-buttons">
-                            <button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="Whishlist">
-                                <i class="icon-heart"></i>
-                            </button>
-                            <button class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Product" data-toast-message="successfuly added to cart!">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Product #10 -->
-                <!-- Start Product #11 -->
-                <div class="grid-item digital">
-                    <div class="product-card">
-                        <a class="product-thumb" href="shop-single-2.html">
-                            <img src="static/assets/images/shop/products/w2.jpg" alt="Product">
-                        </a>
-                        <h3 class="product-title"><a href="shop-single-2.html">Sony Watch XXL</a></h3>
-                        <h4 class="product-price">$278.00</h4>
-                        <div class="product-buttons">
-                            <button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="Whishlist">
-                                <i class="icon-heart"></i>
-                            </button>
-                            <button class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Product" data-toast-message="successfuly added to cart!">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Product #11 -->
-                <!-- Start Product #12 -->
-                <div class="grid-item sport">
-                    <div class="product-card">
-                        <a class="product-thumb" href="shop-single-3.html">
-                            <img src="static/assets/images/shop/products/w1.jpg" alt="Product">
-                        </a>
-                        <h3 class="product-title"><a href="shop-single-3.html">Samsung Watch 999</a></h3>
-                        <h4 class="product-price">$590.00</h4>
-                        <div class="product-buttons">
-                            <button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="Whishlist">
-                                <i class="icon-heart"></i>
-                            </button>
-                            <button class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Product" data-toast-message="successfuly added to cart!">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Product #12 -->
+                @endforeach
+                <!-- End 手机 #1 -->
             </div>
         </div>
     </section>
