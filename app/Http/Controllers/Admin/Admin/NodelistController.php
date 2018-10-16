@@ -18,7 +18,8 @@ class NodelistController extends Controller
         //获取权限信息
         $nodelist=DB::table("mall_node")->get();
         // 加载模版
-        return view("Admin.Nodelist.index",['nodelist'=>$nodelist]);
+        $i=1;
+        return view("Admin.Nodelist.index",['nodelist'=>$nodelist,'i'=>$i]);
     }
 
     /**
@@ -72,7 +73,12 @@ class NodelistController extends Controller
      */
     public function edit($id)
     {
-        //
+        // echo $id;die;
+        // 从数据库获取数据
+        $nodelist=DB::table("mall_node")->where('id',"=",$id)->first();
+        // var_dump($nodelist);die;
+        //加载修改页面
+        return view("Admin.Nodelist.edit",['nodelist'=>$nodelist]);
     }
 
     /**
@@ -84,7 +90,13 @@ class NodelistController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // echo $id;die;
+        // var_dump($request->all());die;
+        $data=$request->except("_token","_method");
+        // var_dump($data);die;
+        if(DB::table("mall_node")->where('id','=',$id)->update($data)){
+            return redirect("/nodelist")->with('success','权限数据修改成功');
+        }
     }
 
     /**

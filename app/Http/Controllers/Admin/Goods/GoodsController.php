@@ -14,15 +14,17 @@ class GoodsController extends Controller
      */
     public function index()
     {   
-        $data=DB::table("mall_goods")->get();
+        $data=DB::table("mall_goods")->paginate(3);
         // dd($data);die;
         foreach ($data as $key => $value) {
             $name=DB::table("mall_cates")->where("id",'=',$value->cate_id)->first();
             $data[$key]->catename=$name->name;
+
         }
+        $i=1;
         // var_dump($data);die;
         //加载商品列表
-        return view("Admin.Goods.index",['data'=>$data]);
+        return view("Admin.Goods.index",['data'=>$data,'i'=>$i]);
     }
 
     /**

@@ -19,8 +19,9 @@ class AdminuserController extends Controller
     {   
         // 获取管理员列表
         $adminuser=DB::table('mall_admin_users')->paginate(3);
+        $i=1;
         // 加载模板
-        return view("Admin.adminusers.index",['adminuser'=>$adminuser]);
+        return view("Admin.adminusers.index",['adminuser'=>$adminuser,"i"=>$i]);
     }
     // 分配角色
     public function rolelist($id){
