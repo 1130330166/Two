@@ -40,8 +40,10 @@
        @endforeach
       </tbody>
      </table>
-     <div class="dataTables_paginate paging_full_numbers" id="pages">
-     </div>
+      <!-- 分页开始 -->
+         <div class="dataTables_paginate paging_full_numbers" id="pages">
+         </div>
+         <!-- 分页结束 -->
     </div> 
    </div> 
   </div>

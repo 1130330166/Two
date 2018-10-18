@@ -200,7 +200,7 @@
                 //1为登录成功
                 if(data == 1){
                     //跳转首页
-                    $(location).attr('href','/');
+                    $(location).attr('href','/home');
                 }
                 //2为登录不成功
                 if(data == 2){

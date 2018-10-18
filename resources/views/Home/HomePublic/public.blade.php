@@ -9,23 +9,23 @@
     <!-- Mobile Specific Meta Tag -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="static/assets/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="/static/assets/images/favicon.ico">
     <!-- Bootsrap CSS -->
-    <link rel="stylesheet" media="screen" href="static/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" media="screen" href="/static/assets/css/bootstrap.min.css">
     <!-- Font Awesome CSS -->
-    <link rel="stylesheet" media="screen" href="static/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" media="screen" href="/static/assets/css/font-awesome.min.css">
     <!-- Feather Icons CSS -->
-    <link rel="stylesheet" media="screen" href="static/assets/css/feather-icons.css">
+    <link rel="stylesheet" media="screen" href="/static/assets/css/feather-icons.css">
     <!-- Pixeden Icons CSS -->
-    <link rel="stylesheet" media="screen" href="static/assets/css/pixeden.css">
+    <link rel="stylesheet" media="screen" href="/static/assets/css/pixeden.css">
     <!-- Social Icons CSS -->
-    <link rel="stylesheet" media="screen" href="static/assets/css/socicon.css">
+    <link rel="stylesheet" media="screen" href="/static/assets/css/socicon.css">
     <!-- PhotoSwipe CSS -->
-    <link rel="stylesheet" media="screen" href="static/assets/css/photoswipe.css">
+    <link rel="stylesheet" media="screen" href="/static/assets/css/photoswipe.css">
     <!-- Izitoast Notification CSS -->
-    <link rel="stylesheet" media="screen" href="static/assets/css/izitoast.css">
+    <link rel="stylesheet" media="screen" href="/static/assets/css/izitoast.css">
     <!-- Main Style CSS -->
-    <link rel="stylesheet" media="screen" href="static/assets/css/style.css">
+    <link rel="stylesheet" media="screen" href="/static/assets/css/style.css">
 </head>
 <body>
 
@@ -78,8 +78,8 @@
         <div class="inner">
             <a class="offcanvas-toggle cats-toggle" href="#shop-categories" data-toggle="offcanvas"></a>
             <a class="offcanvas-toggle menu-toggle" href="#mobile-menu" data-toggle="offcanvas"></a>
-            <a class="site-logo light-logo" href="javascript:void(0);"><img src="static/assets/images/logo/logo-light.png" alt="Inspina"></a>
-            <a class="site-logo logo-stuck" href="javascript:void(0);"><img src="static/assets/images/logo/logo.png" alt="Inspina"></a>
+            <a class="site-logo light-logo" href="/home"><img src="/static/assets/images/logo/logo-light.png" alt="Inspina"></a>
+            <a class="site-logo logo-stuck" href="javascript:void(0);"><img src="/static/assets/images/logo/logo.png" alt="Inspina"></a>
         </div>
     </div>
     <!-- End Logo -->
@@ -99,7 +99,7 @@
                         @if(!empty($rows->dev))
                         <ul class="sub-menu">
                             @foreach($rows->dev as $rowss)
-                            <li><a href="shop-categories-1.html">{{$rowss->name}}</a></li>
+                            <li><a href="javascript:void(0);" id="goodsurl">{{$rowss->name}}</a></li>
                             @endforeach
                         </ul>
                         @endif
@@ -127,10 +127,10 @@
                     <ul class="toolbar-dropdown">
                         <li class="sub-menu-user">
                             <div class="user-ava">
-                                <img src="" alt="Tony Stark">
+                                <img src="/static/assets/images/reviews/01.jpg" alt="Tony Stark">
                             </div>
                             <div class="user-info">
-                                <h6 class="user-name">姓名</h6>
+                                <h6 class="user-name">{{session('name')}}</h6>
                                 <span class="text-xs text-muted"></span>
                             </div>
                         </li>
@@ -159,7 +159,7 @@
                         <div class="dropdown-product-item">
                             <span class="dropdown-product-remove"><i class="icon-cross"></i></span>
                             <a class="dropdown-product-thumb" href="shop-single-1.html">
-                                <img src="static/assets/images/cart-dropdown/01.jpg" alt="Product">
+                                <img src="/static/assets/images/cart-dropdown/01.jpg" alt="Product">
                             </a>
                             <div class="dropdown-product-info">
                                 <a class="dropdown-product-title" href="shop-single-1.html">Samsung Galaxy A8</a>
@@ -302,32 +302,32 @@
 <!-- End Back To Top -->
 <div class="site-backdrop"></div>
 <!-- Modernizr JS -->
-<script src="static/assets/js/modernizr.min.js"></script>
+<script src="/static/assets/js/modernizr.min.js"></script>
 <!-- JQuery JS -->
-<script src="static/assets/js/jquery.min.js"></script>
+<script src="/static/assets/js/jquery.min.js"></script>
 <!-- Popper JS -->
-<script src="static/assets/js/popper.min.js"></script>
+<script src="/static/assets/js/popper.min.js"></script>
 <!-- Bootstrap JS -->
-<script src="static/assets/js/bootstrap.min.js"></script>
+<script src="/static/assets/js/bootstrap.min.js"></script>
 <!-- CountDown JS -->
-<script src="static/assets/js/count.min.js"></script>
+<script src="/static/assets/js/count.min.js"></script>
 <!-- Gmap JS -->
-<script src="static/assets/js/gmap.min.js"></script>
+<script src="/static/assets/js/gmap.min.js"></script>
 <!-- ImageLoader JS -->
-<script src="static/assets/js/imageloader.min.js"></script>
+<script src="/static/assets/js/imageloader.min.js"></script>
 <!-- Isotope JS -->
-<script src="static/assets/js/isotope.min.js"></script>
+<script src="/static/assets/js/isotope.min.js"></script>
 <!-- NouiSlider JS -->
-<script src="static/assets/js/nouislider.min.js"></script>
+<script src="/static/assets/js/nouislider.min.js"></script>
 <!-- OwlCarousel JS -->
-<script src="static/assets/js/owl.carousel.min.js"></script>
+<script src="/static/assets/js/owl.carousel.min.js"></script>
 <!-- PhotoSwipe UI JS -->
-<script src="static/assets/js/photoswipe-ui-default.min.js"></script>
+<script src="/static/assets/js/photoswipe-ui-default.min.js"></script>
 <!-- PhotoSwipe JS -->
-<script src="static/assets/js/photoswipe.min.js"></script>
+<script src="/static/assets/js/photoswipe.min.js"></script>
 <!-- Velocity JS -->
-<script src="static/assets/js/velocity.min.js"></script>
+<script src="/static/assets/js/velocity.min.js"></script>
 <!-- Main JS -->
-<script src="static/assets/js/script.js"></script><script src="static/assets/js/custom.js"></script>
+<script src="/static/assets/js/script.js"></script><script src="/static/assets/js/custom.js"></script>
 </body>
 </html>

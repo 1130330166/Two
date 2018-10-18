@@ -55,6 +55,9 @@ class GoodsController extends Controller
         $data['price']=$request->input('price');
         $data['des']=$request->input('des');
         $data['num']=$request->input('num');
+        $data['title']=$request->input('title');
+        $data['color']=$request->input('color');
+        $data['size']=$request->input('size');
         $data['status']=1;
         if($request->hasfile('pic')){
             //初始化名字

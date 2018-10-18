@@ -151,6 +151,6 @@ class LoginController extends Controller
         //删除session值
         $request->session()->pull('name');
         // 跳转到主页
-        return redirect("/");
+        return redirect("/home");
     }
 }

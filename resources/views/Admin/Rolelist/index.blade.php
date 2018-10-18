@@ -25,12 +25,7 @@
         <td class=" ">{{$row->name}}</td> 
         <td class=" ">
           <a href="/auth/{{$row->id}}" class="btn btn-info">分配权限</a>
-          <!-- <form action="/adminuser/{{$row->id}}" method="post">
-            <button class="btn btn-success">普通删除</button>
-            {{method_field("DELETE")}}
-            {{csrf_field()}}
-          </form>
-          <a href="/adminuser/{{$row->id}}/edit" class="btn btn-info"><i class="icon-wrench"></i></a> --></td> 
+        </td> 
        </tr>
        @endforeach
       </tbody>

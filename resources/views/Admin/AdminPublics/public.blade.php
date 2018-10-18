@@ -44,20 +44,17 @@
    <div id="mws-user-tools" class="clearfix"> 
     <!-- Notifications --> 
     <div id="mws-user-notif" class="mws-dropdown-menu"> 
-     <a href="#" data-toggle="dropdown" class="mws-dropdown-trigger"><i class="icon-exclamation-sign"></i></a> 
+     <a href="#" data-toggle="dropdown" class="mws-dropdown-trigger"><i class="icon-winsows"></i></a> 
      <!-- Unread notification count --> 
-     <span class="mws-dropdown-notif">35</span> 
+     <span class="mws-dropdown-notif">01</span> 
      <!-- Notifications dropdown --> 
      <div class="mws-dropdown-box"> 
       <div class="mws-dropdown-content"> 
        <ul class="mws-notifications"> 
-        <li class="read"> <a href="#"> <span class="message"> Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore </span> <span class="time"> January 21, 2012 </span> </a> </li> 
-        <li class="read"> <a href="#"> <span class="message"> Lorem ipsum dolor sit amet </span> <span class="time"> January 21, 2012 </span> </a> </li> 
-        <li class="unread"> <a href="#"> <span class="message"> Lorem ipsum dolor sit amet </span> <span class="time"> January 21, 2012 </span> </a> </li> 
-        <li class="unread"> <a href="#"> <span class="message"> Lorem ipsum dolor sit amet </span> <span class="time"> January 21, 2012 </span> </a> </li> 
+        <li class="read"> <a href="#"> <span class="message"> 恭 喜 你 们 , 二 期 项 目 开 始 了.</span> <span class="time"> 十月 08, 2018 </span> </a> </li> 
        </ul> 
        <div class="mws-dropdown-viewall"> 
-        <a href="#">View All Notifications</a> 
+        <a href="#">加载全部消息</a> 
        </div> 
       </div> 
      </div> 
@@ -66,18 +63,15 @@
     <div id="mws-user-message" class="mws-dropdown-menu"> 
      <a href="#" data-toggle="dropdown" class="mws-dropdown-trigger"><i class="icon-envelope"></i></a> 
      <!-- Unred messages count --> 
-     <span class="mws-dropdown-notif">35</span> 
+     <span class="mws-dropdown-notif">01</span> 
      <!-- Messages dropdown --> 
      <div class="mws-dropdown-box"> 
       <div class="mws-dropdown-content"> 
        <ul class="mws-messages"> 
-        <li class="read"> <a href="#"> <span class="sender">John Doe</span> <span class="message"> Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore </span> <span class="time"> January 21, 2012 </span> </a> </li> 
-        <li class="read"> <a href="#"> <span class="sender">John Doe</span> <span class="message"> Lorem ipsum dolor sit amet </span> <span class="time"> January 21, 2012 </span> </a> </li> 
-        <li class="unread"> <a href="#"> <span class="sender">John Doe</span> <span class="message"> Lorem ipsum dolor sit amet </span> <span class="time"> January 21, 2012 </span> </a> </li> 
-        <li class="unread"> <a href="#"> <span class="sender">John Doe</span> <span class="message"> Lorem ipsum dolor sit amet </span> <span class="time"> January 21, 2012 </span> </a> </li> 
+        <li class="read"> <a href="#"> <span class="sender">Turbo</span> <span class="message"> 预计会在2018年10月26日结束 </span> <span class="time"> October 26, 2018 </span> </a> </li> 
        </ul> 
        <div class="mws-dropdown-viewall"> 
-        <a href="#">View All Messages</a> 
+        <a href="#">加载全部消息</a> 
        </div> 
       </div> 
      </div> 
@@ -91,11 +85,10 @@
      <!-- Username and Functions --> 
      <div id="mws-user-functions"> 
       <div id="mws-username">
-        你好, {{session('name')}}
+        你好, <font color="#CE00FF" size="4">{{session('name')}}</font>
       </div> 
-      <ul> 
-       <li><a href="#">Profile</a></li>  
-       <li><a href="/adminlogin">退出</a></li> 
+      <ul>   
+       <li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="/adminlogin" class="icon-remove"> 退出 </a></li> 
       </ul>  
      </div> 
     </div> 
@@ -120,17 +113,29 @@
 
       <!-- 管理员管理开始 -->
       <li> <a href="#"><i class="icon-user"></i> 管理员管理</a> 
-       <ul class="closed"> 
-        <li><a href="/adminusers/create">管理员添加</a></li> 
+       <ul class="closed">
         <li><a href="/adminusers">管理员列表</a></li>
-        <li><a href="/adminrolelist">管理员角色管理</a></li>
-        <li><a href="/nodelist/create">权限添加</a></li>
-        <li><a href="/nodelist">权限列表</a></li>
+        <li><a href="/adminusers/create">管理员添加</a></li> 
       </ul></li> 
       <!-- 管理员管理结束 -->
 
+      <!-- 角色管理开始 -->
+      <li> <a href="#"><i class="icon-add-contact"></i> 管理员角色管理</a> 
+       <ul class="closed">
+        <li><a href="/adminrolelist">角色管理</a></li>
+      </ul></li> 
+      <!-- 角色管理结束 -->
+
+      <!-- 权限管理开始 -->
+      <li> <a href="#"><i class="icon-warning-sign"></i> 权限管理</a> 
+       <ul class="closed"> 
+          <li><a href="/nodelist/create">权限添加</a></li>
+        <li><a href="/nodelist">权限列表</a></li>
+       </ul> </li> 
+       <!-- 权限管理结束 -->
+
       <!-- 会员管理开始 -->
-      <li> <a href="#"><i class="icon-user"></i> 会员管理</a> 
+      <li> <a href="#"><i class="icon-users"></i> 会员管理</a> 
        <ul class="closed"> 
        <!--  <li><a href="/adminuser/create">会员添加</a></li>  -->
         <li><a href="/adminuser">会员列表</a></li> 
@@ -146,15 +151,15 @@
        <!-- 分类管理结束 -->
 
        <!-- 文章管理开始 -->
-      <li> <a href="#"><i class="icon-file"></i> 文章管理</a> 
+      <!-- <li> <a href="#"><i class="icon-file"></i> 文章管理</a> 
        <ul class="closed"> 
         <li><a href="">文章添加</a></li> 
         <li><a href="">文章列表</a></li> 
-       </ul> </li> 
+       </ul> </li>  -->
        <!-- 文章管理结束 -->
 
        <!-- 商品管理开始 -->
-      <li> <a href="#"><i class="icon-file"></i> 商品管理</a> 
+      <li> <a href="#"><i class="icon-shopping-cart"></i> 商品管理</a> 
        <ul class="closed"> 
         <li><a href="/goods/create">商品添加</a></li> 
         <li><a href="/goods">商品列表</a></li> 
@@ -164,7 +169,7 @@
 
       <!-- 广告管理开始 -->
       <li> 
-      <a href="#"><i class="icon-file"></i> 广告管理</a> 
+      <a href="#"><i class="icon-attachment"></i> 广告管理</a> 
        <ul class="closed"> 
         <li><a href="/guanggao">广告列表</a></li> 
         <li><a href="/guanggao/create">广告添加</a></li>
@@ -174,7 +179,7 @@
 
       <!-- 轮播图管理开始 -->
       <li> 
-      <a href="#"><i class="icon-file"></i> 轮播图管理</a> 
+      <a href="#"><i class="icon-picture"></i> 轮播图管理</a> 
        <ul class="closed"> 
         <li><a href="/lunbo">轮播图列表</a></li> 
         <li><a href="/lunbo/create">轮播图添加</a></li>
@@ -190,6 +195,13 @@
        </ul> </li>
        <!-- 友情链接模块结束 -->
        
+       <!-- 公告模块开始 -->
+       <li> <a href="#"><i class="icon-file-powerpoint"></i> 公告管理</a> 
+       <ul class="closed"> 
+        <li><a href="/article">公告列表</a></li> 
+        <li><a href="/article/create">添加公告</a></li> 
+       </ul> </li>
+       <!-- 公告模块结束 -->
      </ul> 
     </div> 
    </div> 
@@ -214,7 +226,7 @@
     </div> 
     <!-- footer --> 
     <div id="mws-footer">
-      Copyright Your Website 2012. All Rights Reserved. 
+      Copyright Your Website 2019. All Rights Reserved. 
     </div> 
    </div> 
    <!-- Main Container End --> 

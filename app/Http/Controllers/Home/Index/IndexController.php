@@ -70,7 +70,19 @@ class IndexController extends Controller
      */
     public function show($id)
     {
-        //
+        // echo $id;die;
+        // 获取分类导航数据
+        $cates = self::getCatesByPid(0);
+        // 获取商品详情
+        $info=DB::table('mall_goods')->where("id",'=',$id)->first();
+        $data=DB::table("mall_cates")->select(DB::raw("*,concat(path,',',id) as paths"))->orderBy("paths")->where("id",'=',$info->cate_id)->first();
+        $catename=$data->name;
+        $pic=ltrim(($info->pic),"./");
+        // var_dump($info);
+        // var_dump($catename);
+        // var_dump($pic);die;
+        // 加载模板
+        return view("Home.Index.goodsinfo",['cates'=>$cates,'info'=>$info,'pic'=>$pic,'catename'=>$catename]);
     }
 
     /**

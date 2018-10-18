@@ -1,17 +1,18 @@
 @extends("Home.HomePublic.public")
 @section("title","前台首页")
 @section("home")
+<script type="text/javascript" src="/static/jquery-1.8.3.min.js"></script>
 <!-- End NavBar -->
 <div class="offcanvas-wrapper">
     <!-- Start Hero Content -->
     <section class="fw-section padding-top-7x padding-bottom-7x home-3-hero">
         <div class="container padding-top-3x text-center">
-            <div class="d-inline-block mb-30">
-                <img class="d-block w-150" src="static/assets/images/hero/logo-watch.png" alt="iWatch">
+            <div class="mb-30">
+                <h1 class="text-white text-normal mb-2" title="超级产品">Super Product</h1>
             </div>
-            <h2 class="text-white text-normal mb-2">iWatch Premium Watch Collection</h2>
-            <h6 class="text-white text-normal opacity-80 mb-4">Lorem Ipsum is simply dummy text of the printing and typesetting industry ...</h6>
-            <a class="btn btn-primary scroll-to" href="#collections">View Collection</a>
+            <h2 class="text-white text-normal mb-2">趋 势 产 品 聚 集 地</h2>
+            <h6 class="text-white text-normal opacity-80 mb-4">Welcome to here !</h6>
+            <a class="btn btn-primary scroll-to" href="/goodslist" title="更多精彩">More</a>
         </div>
     </section>
     <!-- End Hero Content -->
@@ -29,7 +30,7 @@
         <!-- 广告结束 -->
          <!-- 轮播图 -->
         @if(count($arr) > 0)
-        <h3 class="text-center mb-30">iWatch Video Collections</h3>
+        <h3 class="text-center mb-30" title="轮播图">Sowing map</h3>
         <div class="row justify-content-center">
             <div class="col-xl-10">
                 <div class="gallery-wrapper owl-carousel" data-owl-carousel="{ 'nav': true, 'dots': true }">
@@ -45,7 +46,7 @@
     <!-- Start Hero Products -->
     <section class="bg-secondary padding-top-3x padding-bottom-3x">
         <div class="container">
-            <h3 class="text-center mb-30">Trend Product Gathering Place</h3>
+            <h3 class="text-center mb-30" title="趋势产品聚集地">Trend Product Gathering Place</h3>
             <div class="isotope-grid filter-grid cols-4 mt-30">
                 <div class="gutter-sizer"></div>
                 <div class="grid-sizer"></div>
@@ -53,10 +54,10 @@
                 @foreach($goods as $v)
                 <div class="grid-item classic">
                     <div class="product-card">
-                        <a class="product-thumb" href="shop-single-1.html">
+                        <a class="product-thumb" href="/home/{{$v->id}}">
                             <img src="{{$v->pic}}" alt="Product" style="width: 225px;height: 200px">
                         </a>
-                        <h2 class="product-title"><a href="shop-single-1.html">{{$v->name}}</a></h3>
+                        <h2 class="product-title"><a href="/{{$v->id}}">{{$v->name}}</a></h3>
                         <h3 class="product-title">类别 : {{$v->catename}}</h3>
                         <h4 class="product-price">¥ {{$v->price}}</h4>
                         <div class="product-buttons">
@@ -78,23 +79,23 @@
         <div class="row">
             <div class="col-md-3 col-sm-6 text-center home-cat">
                 <img class="d-block w-90 img-thumbnail rounded-circle mx-auto mb-3" src="static/assets/images/services/01.png" alt="Shipping">
-                <h6>Free Shipping</h6>
-                <p class="text-muted margin-bottom-none">On order over $200 ...</p>
+                <h6>免 费 拿 货</h6>
+                <p class="text-muted margin-bottom-none">订 单 金 额 超 过 1299 元</p>
             </div>
             <div class="col-md-3 col-sm-6 text-center home-cat">
                 <img class="d-block w-90 img-thumbnail rounded-circle mx-auto mb-3" src="static/assets/images/services/02.png" alt="Money Back">
-                <h6>Money Back</h6>
-                <p class="text-muted margin-bottom-none">Moneyback guarantee ...</p>
+                <h6>退 款</h6>
+                <p class="text-muted margin-bottom-none">退 款 保 证</p>
             </div>
             <div class="col-md-3 col-sm-6 text-center home-cat">
                 <img class="d-block w-90 img-thumbnail rounded-circle mx-auto mb-3" src="static/assets/images/services/03.png" alt="Support">
-                <h6>24/7 Support</h6>
-                <p class="text-muted margin-bottom-none">Online consultations ...</p>
+                <h6>24 小 时 在 线</h6>
+                <p class="text-muted margin-bottom-none">在 线 客 服</p>
             </div>
             <div class="col-md-3 col-sm-6 text-center home-cat">
                 <img class="d-block w-90 img-thumbnail rounded-circle mx-auto mb-3" src="static/assets/images/services/04.png" alt="Payment">
-                <h6>Secure Payment</h6>
-                <p class="text-muted margin-bottom-none">Safe Shopping Guarantee ...</p>
+                <h6>安 全 付 款</h6>
+                <p class="text-muted margin-bottom-none">安 全 购 物 保 证</p>
             </div>
         </div>
     </section>

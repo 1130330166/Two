@@ -27,7 +27,7 @@ Route::group(["middleware"=>"login"],function(){
 	//地址
 });
 //前台首页
-Route::resource("/","Home\Index\IndexController");
+Route::resource("/home","Home\Index\IndexController");
 //前台登录
 Route::resource("login","Home\Login\LoginController");
 //前台登录处理
@@ -41,6 +41,8 @@ Route::get("logout","Home\Login\LoginController@logout");
 Route::resource('/friendslinks',"Home\FriendsLink\FriendsLinkController");
 //前台Ajax校验友情链接名 URL 联系电话是否唯一
 Route::get("/verifyflink","Home\FriendsLink\FriendsLinkController@verifyflink");
+// 商品列表
+Route::resource("goodslist","Home\Goodslist\GoodslistController");
 
 // ---------------前后台路由分割线--------------------
 
@@ -88,4 +90,8 @@ Route::group(['middleware'=>'adminlogin'],function(){
 	Route::resource("/goods","Admin\Goods\GoodsController");
 	// 商品ajax修改状态
 	Route::get("/goodsstatus","Admin\Goods\GoodsController@ajax");
+	// 公告模块
+	Route::resource("/article","Admin\Article\ArticleController");
+	// 公告ajax批量删除
+	Route::get("/articledel","Admin\Article\ArticleController@ajax");
 });

@@ -15,7 +15,7 @@
          <h4>管理员 : [ {{$info->name}} ] 的角色信息</h4>
          <ul class="mws-form-list inline">
          @foreach($role as $row)
-          <li><label><input id="r" type="radio" name="rids[]" class="radio" value="{{$row->id}}" @if(in_array($row->id,$rids))checked @endif id/> {{$row->name}}</label></li>
+          <input id="r" type="radio" name="rids[]" class="radio" value="{{$row->id}}" @if(in_array($row->id,$rids))checked @endif id/> {{$row->name}}
           @endforeach
          </ul> 
         </div> 
