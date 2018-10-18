@@ -135,9 +135,9 @@
                             </div>
                         </li>
                         <li><a href="javascript:void(0);">个人信息</a></li>
-                        <li><a href="javascript:void(0);">我的订单</a></li>
+                        <li><a href="/homeorder">我的订单</a></li>
                         <li><a href="javascript:void(0);">找回密码</a></li>
-                        <li><a href="javascript:void(0);">邮寄地址</a></li>
+                        <li><a href="/homeaddress">邮寄地址</a></li>
                         <li class="sub-menu-separator"></li>
                         <li><a href="/logout">退出</a></li>
                     </ul>

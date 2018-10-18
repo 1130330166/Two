@@ -167,6 +167,19 @@
       </li>
       <!-- 商品管理结束 -->
 
+      <!-- 订单管理开始 -->
+      <li> <a href="#"><i class="icon-list-2"></i> 订单管理</a> 
+       <ul class="closed"> 
+        <li><a href="/adminorder">待付款订单</a></li> 
+        <li><a href="/adminorderunsend">待发货订单</a></li> 
+        <li><a href="/adminorderwaitreceipt">待收货订单</a></li> 
+        <li><a href="/adminorderreceived">已收货订单</a></li> 
+        <!-- <li><a href="">退货中订单</a></li>  -->
+        <!-- <li><a href="">已退货订单</a></li>  -->
+       </ul> 
+      </li>
+      <!-- 订单管理结束 -->
+
       <!-- 广告管理开始 -->
       <li> 
       <a href="#"><i class="icon-attachment"></i> 广告管理</a> 

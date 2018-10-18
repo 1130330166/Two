@@ -17,14 +17,18 @@
 //中间件结合路由组使用
 Route::group(["middleware"=>"login"],function(){
 	//购物车
-	//订单
+	//前台订单管理
+	Route::resource("/homeorder","Home\Order\OrderController");
 	//订单详情
 	//个人信息
 	//结算页
 	//支付接口
 	//短信接口
 	//忘记密码
-	//地址
+	//前台用户地址管理
+	Route::resource("/homeaddress","Home\Address\AddressController");
+	//前台用户设置默认地址
+	Route::get("/homeaddresssetdefault/{id}","Home\Address\AddressController@setDefault");
 });
 //前台首页
 Route::resource("/home","Home\Index\IndexController");
@@ -75,6 +79,16 @@ Route::group(['middleware'=>'adminlogin'],function(){
 	Route::get('/friendslinknoverify','Admin\FriendsLink\FriendsLinkController@adminFlink');
 	//后台删除已审核的链接
 	Route::get('/friendslinkDelVerifyPass/{id}','Admin\FriendsLink\FriendsLinkController@destroyPass');
+
+	//后台订单管理
+	Route::resource("/adminorder","Admin\Order\OrderController");
+	//后台加载待发货订单
+	Route::get("/adminorderunsend","Admin\Order\OrderController@unSend");
+	//后台加载待收货订单
+	Route::get("/adminorderwaitreceipt","Admin\Order\OrderController@waitReceipt");
+	//后台加载已收货订单
+	Route::get("/adminorderreceived","Admin\Order\OrderController@received");
+
 
 	// 管理员管理
 	Route::resource("/adminusers","Admin\Admin\AdminuserController");
