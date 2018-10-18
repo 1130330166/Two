@@ -102,7 +102,7 @@ class LoginController extends Controller
             //通过Hash给传递过来密码加密再比对数据库里的密码
     		if(Hash::check($pass,$arr->password)){
                 //把登录名存进session
-                session(['name'=>$name]);
+                session(['username'=>$name,'uid'=>$arr->id]);
     			return 1;
     		}else{
     			return 2;
@@ -149,7 +149,7 @@ class LoginController extends Controller
     //登出模块
     public function logout(Request $request){
         //删除session值
-        $request->session()->pull('name');
+        $request->session()->pull('username');
         // 跳转到主页
         return redirect("/home");
     }

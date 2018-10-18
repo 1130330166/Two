@@ -43,6 +43,18 @@ Route::resource('/friendslinks',"Home\FriendsLink\FriendsLinkController");
 Route::get("/verifyflink","Home\FriendsLink\FriendsLinkController@verifyflink");
 // 商品列表
 Route::resource("goodslist","Home\Goodslist\GoodslistController");
+//购物车
+Route::resource('/cart','Home\ShopCart\ShopCartController');
+//购物车ajax储存cookie
+Route::get('/addcart','Home\ShopCart\ShopCartController@cookie');
+//购物车商品减少数量
+Route::get('/reduce','Home\ShopCart\ShopCartController@reduce');
+//购物车商品增加数量
+Route::get('/increase','Home\ShopCart\ShopCartController@increase');
+//清空购物车
+Route::get('/clean','Home\ShopCart\ShopCartController@clean');
+//购物车删除单件商品
+Route::get('/del','Home\ShopCart\ShopCartController@del');
 
 // ---------------前后台路由分割线--------------------
 

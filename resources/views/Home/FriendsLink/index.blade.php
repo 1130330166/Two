@@ -2,7 +2,7 @@
 @section("title","友情链接")
 @section("home")
     <script type="text/javascript" src="/static/jquery-1.8.3.min.js"></script>
-    <div style="background-color: dodgerblue; height: 124px;"></div>
+    <div style="background-color: #36414F; height: 124px;"></div>
 
     @if(session('success'))
     <div class="alert alert-success alert-dismissible fade show text-center margin-bottom-1x">

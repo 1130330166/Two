@@ -123,14 +123,14 @@
                 <div class="account">
                     <a href="javascript:void(0);"></a><i class="icon-head"></i>
                     <!-- 判断是否存在session(是否登录) -->
-                    @if(!empty(session('name')))
+                    @if(!empty(session('username')))
                     <ul class="toolbar-dropdown">
                         <li class="sub-menu-user">
                             <div class="user-ava">
                                 <img src="/static/assets/images/reviews/01.jpg" alt="Tony Stark">
                             </div>
                             <div class="user-info">
-                                <h6 class="user-name">{{session('name')}}</h6>
+                                <h6 class="user-name">{{session('username')}}</h6>
                                 <span class="text-xs text-muted"></span>
                             </div>
                         </li>
@@ -152,37 +152,9 @@
                 <!-- End Account -->
                 <!-- Start Cart -->
                 <div class="cart">
-                    <a href="#"></a>
+                    <a href="/cart"></a>
                     <i class="icon-bag"></i>
                     <span class="subtotal">购物车</span>
-                    <div class="toolbar-dropdown">
-                        <div class="dropdown-product-item">
-                            <span class="dropdown-product-remove"><i class="icon-cross"></i></span>
-                            <a class="dropdown-product-thumb" href="shop-single-1.html">
-                                <img src="/static/assets/images/cart-dropdown/01.jpg" alt="Product">
-                            </a>
-                            <div class="dropdown-product-info">
-                                <a class="dropdown-product-title" href="shop-single-1.html">Samsung Galaxy A8</a>
-                                <span class="dropdown-product-details">1 x $520</span>
-                            </div>
-                        </div>
-                        <div class="toolbar-dropdown-group">
-                            <div class="column">
-                                <span class="text-lg">总价格</span>
-                            </div>
-                            <div class="column text-right">
-                                <span class="text-lg text-medium">$1920 </span>
-                            </div>
-                        </div>
-                        <div class="toolbar-dropdown-group">
-                            <div class="column">
-                                <a class="btn btn-sm btn-block btn-secondary" href="cart.html">查看购物车</a>
-                            </div>
-                            <div class="column">
-                                <a class="btn btn-sm btn-block btn-success" href="checkout-address.html">购买</a>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <!-- End Cart -->
             </div>
