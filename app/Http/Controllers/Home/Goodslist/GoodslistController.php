@@ -12,6 +12,7 @@ class GoodslistController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // 商品分类主页
     public function index()
     {
         // 获取分类 
@@ -51,6 +52,7 @@ class GoodslistController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    // 商品详情页
     public function show($id)
     {
         // echo $id;
@@ -100,6 +102,19 @@ class GoodslistController extends Controller
     public function destroy($id)
     {
         //
+    }
+    // 商品分类模块
+    public function goodscates($id){
+    	$cates = self::getCatesByPid(0);
+    	// echo "分类商品详情 : $id";
+    	// 获取当前分类名
+    	$catess=DB::table("mall_cates")->where("id",'=',$id)->first();
+    	$catesname=$catess->name;
+    	// 获取分类下的所有商品
+    	$goods=DB::select("SELECT * FROM mall_goods WHERE name LIKE '%$catesname%'");
+    	// var_dump($goods);die;
+    	// var_dump($catesname);die;
+    	return view("Home.goodscates.index",['catesname'=>$catesname,'goods'=>$goods,'cates'=>$cates]);
     }
     //无限分类递归数据遍历
     public static function getCatesByPid($pid){

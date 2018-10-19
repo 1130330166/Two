@@ -1,15 +1,14 @@
 @extends("Home.HomePublic.public")
-@section("title","商品列表")
+@section("title","商品分类列表")
 @section("home")
 <div style="background-color: #36414F; height: 124px;"></div>
-<script type="text/javascript" src="static/jquery-1.8.3.min.js"></script>
 <!-- Start Page Content -->
     <div class="container padding-top-1x padding-bottom-3x">
         <!-- Start Toolbar -->
         <div class="shop-toolbar mb-30">
             <div class="column">
                 <div class="shop-sorting">
-                    <center><h1>Goods List</h1></center>
+                    <h6>当前分类 &gt; {{$catesname}} </h6>
                 </div>
             </div>
             <!-- 这里右上角的按钮位置 -->
@@ -26,7 +25,7 @@
             <div class="grid-item">
                 <div class="product-card">
                     <a class="product-thumb" href="/goodslist/{{$v->id}}">
-                        <img src="{{$v->pic}}" alt="Product">
+                        <img src="../{{$v->pic}}" style="width: 100%;height:200px">
                     </a>
                     <h3 class="product-title"><a href="#">{{$v->name}}</a></h3>
                     <h4 class="product-price">
@@ -45,6 +44,7 @@
             <!-- 商品遍历结束 -->
         </div>
     </div>
+    <script type="text/javascript" src=".././static/jquery-1.8.3.min.js"></script>
     <script>
         // 获取button按钮单击事件
         $(":button").click(function(){
@@ -52,7 +52,7 @@
             //获取gid
             gid = $(this).parent().find('div').html();
             // alert(gid)
-            // 使用ajax存储cookie
+            //使用ajax存储cookie
                 $.get('/addcart',{gid:gid},function(data){
                 });
         })

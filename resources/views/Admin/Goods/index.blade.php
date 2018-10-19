@@ -14,6 +14,7 @@
       <thead> 
        <tr role="row">
         <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">编号</th>
+        <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Id</th>
         <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">商品名称</th>
         <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending">价格</th>
         <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending">商品分类</th>
@@ -28,6 +29,7 @@
         @foreach($data as $v)
       <tr class="odd">
         <td class="sorting_1">{{$i++}}</td>
+        <td class="sorting_1">{{$v->id}}</td>
         <td class="sorting_1">{{$v->name}}</td>
         <td class="sorting_1">{{$v->price}}</td>
         <td class="sorting_1">{{$v->catename}}</td>
@@ -37,9 +39,9 @@
         <!-- <td class="sorting_1">{{$v->status=='0'?'下架':'上架'}}</td> -->
         <!-- 这里用ajax作按钮操作状态 -->
          @if($v->status)
-        <td class="  sorting_1"><center><a href="javascript:void(0)" class="btn btn-info jia">上架</a></center></td>
+        <td class="  sorting_1"><center><a href="javascript:void(0)" class="btn btn-info status">上架</a></center></td>
         @else
-        <td class="  sorting_1"><center><a href="javascript:void(0)" class="btn btn-danger jia">下架</a></center></td>
+        <td class="  sorting_1"><center><a href="javascript:void(0)" class="btn btn-danger status">下架</a></center></td>
         @endif
         <td class="  sorting_1">
           <center>
@@ -65,24 +67,24 @@
   </div>
  </body>
  <script type="text/javascript">
-    $('.jia').click(function(){
+    $('.status').click(function(){
       // alert(1);
-      jia=$(this).html();
-      id=$(this).parents().find('td:first').html();
+      status=$(this).html();
+      id=$(this).parents('tr').find('td:first').next().html();
       a=$(this);
       // alert(id);
-      if(jia=='下架'){
-        jia='1';
+      if(status=='下架'){
+        status='1';
       }else{
-        jia='0';
+        status='0';
       }
-      // alert(jia);
-      $.get('/goodsstatus',{status:jia,id:id},function(data){
+      // alert(status);
+      $.get('/goodsstatus',{status:status,id:id},function(data){
         if(data){
-          if(jia == 1){
-            a.html('上架').attr('class','btn btn-info jia');
-          }else if(jia == 0){
-            a.html('下架').attr('class','btn btn-danger jia');
+          if(status == 1){
+            a.html('上架').attr('class','btn btn-info status');
+          }else if(status == 0){
+            a.html('下架').attr('class','btn btn-danger status');
           }
         }
     });

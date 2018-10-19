@@ -31,7 +31,7 @@ Route::group(["middleware"=>"login"],function(){
 	Route::get("/homeaddresssetdefault/{id}","Home\Address\AddressController@setDefault");
 });
 //前台首页
-Route::resource("/home","Home\Index\IndexController");
+Route::resource("/","Home\Index\IndexController");
 //前台登录
 Route::resource("login","Home\Login\LoginController");
 //前台登录处理
@@ -59,6 +59,8 @@ Route::get('/increase','Home\ShopCart\ShopCartController@increase');
 Route::get('/clean','Home\ShopCart\ShopCartController@clean');
 //购物车删除单件商品
 Route::get('/del','Home\ShopCart\ShopCartController@del');
+// 商品分类模块
+Route::get("goodscates/{id}","Home\Goodslist\GoodslistController@goodscates");
 
 // ---------------前后台路由分割线--------------------
 

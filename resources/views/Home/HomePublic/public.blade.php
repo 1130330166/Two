@@ -47,7 +47,7 @@
                 @if(!empty($row->dev))
                 <ul class="offcanvas-submenu">
                     @foreach($row->dev as $rows)
-                    <li><a href="javascript:void(0);">{{$rows->name}}</a></li>
+                    <li><a href="/goodscates/{{$rows->id}}">{{$rows->name}}</a></li>
                     @endforeach
                 </ul>
                 @endif
@@ -78,7 +78,7 @@
         <div class="inner">
             <a class="offcanvas-toggle cats-toggle" href="#shop-categories" data-toggle="offcanvas"></a>
             <a class="offcanvas-toggle menu-toggle" href="#mobile-menu" data-toggle="offcanvas"></a>
-            <a class="site-logo light-logo" href="/home"><img src="/static/assets/images/logo/logo-light.png" alt="Inspina"></a>
+            <a class="site-logo light-logo" href="/"><img src="/static/assets/images/logo/logo-light.png" alt="Inspina"></a>
             <a class="site-logo logo-stuck" href="javascript:void(0);"><img src="/static/assets/images/logo/logo.png" alt="Inspina"></a>
         </div>
     </div>
@@ -95,11 +95,11 @@
                 <ul class="sub-menu">
                     @foreach($row->dev as $rows)
                     <li class="has-children">
-                        <a href="javascript:void(0);"><span>{{$rows->name}}</span></a>
+                        <a href="/goodscates/{{$rows->id}}"><span>{{$rows->name}}</span></a>
                         @if(!empty($rows->dev))
                         <ul class="sub-menu">
                             @foreach($rows->dev as $rowss)
-                            <li><a href="javascript:void(0);" id="goodsurl">{{$rowss->name}}</a></li>
+                            <li><a href="/goodscates/{{$rowss-id}}" id="goodsurl">{{$rowss->name}}</a></li>
                             @endforeach
                         </ul>
                         @endif

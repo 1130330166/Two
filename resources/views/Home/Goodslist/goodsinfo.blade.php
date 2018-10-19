@@ -1,7 +1,6 @@
 @extends("Home.HomePublic.public")
 @section("home")
 <div style="background-color: #36414F; height: 124px;"></div>
-<script type="text/javascript" src="/static/jquery-1.8.3.min.js"></script>
 <!-- Start Product Content -->
     <div class="container padding-top-1x padding-bottom-3x">
         <div class="row">
@@ -80,7 +79,7 @@
                 <br>
                 <div class="padding-bottom-1x mb-2">
                     <span class="text-medium">类 别 :&nbsp;</span>
-                    <a class="navi-link" href="#">{{$catename}}</a>
+                    <a class="navi-link" href="javascript:void(0);">{{$catename}}</a>
                 </div>
             </div>
             <div class="col-md-12">
@@ -107,7 +106,8 @@
                         <button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="" data-original-title="Whishlist">
                             <i class="icon-heart"></i>
                         </button>
-                        <button class="btn btn-primary" data-toast="" data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Product" data-toast-message="successfuly added to cart!"><i class="icon-bag"></i> Add to Cart</button>
+                        <div style="display:none">{{$info->id}}</div>
+                        <button class="btn btn-primary" data-toast="" data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Product" data-toast-message="successfuly added to cart!"><i class="icon-bag"></i> 加 入 购 物 车</button>
                     </div>
                 </div>
             </div>
@@ -178,6 +178,19 @@
         </div>
         <!-- End Product Tabs -->
     </div>
-    <!-- End Product Content -->            
+    <!-- End Product Content -->
+<script type="text/javascript" src=".././static/jquery-1.8.3.min.js"></script>
+<script>
+        // 获取button按钮单击事件
+        $(":button").click(function(){
+            // alert(1);
+            //获取gid
+            gid = $(this).parent().find('div').html();
+            // alert(gid)
+            //使用ajax存储cookie
+                $.get('/addcart',{gid:gid},function(data){
+                });
+        })
+    </script>          
 @endsection
 @section("title","商品详情页")

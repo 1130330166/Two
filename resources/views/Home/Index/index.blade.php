@@ -54,8 +54,8 @@
                 @foreach($goods as $v)
                 <div class="grid-item classic">
                     <div class="product-card">
-                        <a class="product-thumb" href="/home/{{$v->id}}">
-                            <img src="{{$v->pic}}" alt="Product" style="width: 225px;height: 200px">
+                        <a class="product-thumb" href="/goodslist/{{$v->id}}">
+                            <img src="{{$v->pic}}" style="width: 100%;height:200px">
                         </a>
                         <h2 class="product-title"><a href="/{{$v->id}}">{{$v->name}}</a></h3>
                         <h3 class="product-title">类别 : {{$v->catename}}</h3>
