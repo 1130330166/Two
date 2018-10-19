@@ -106,11 +106,11 @@
                         <tr class="trs">
                             <td>
                                 <div class="product-item">
-                                    <a class="product-thumb" href="">
+                                    <a class="product-thumb" href="/goodslist/{{$v['gid']}}">
                                         <img src="{{$v['pic']}}" alt="Product">
                                     </a>
                                     <div class="product-info">
-                                        <h4 class="product-title"><a href="">{{$v['name']}}</a></h4>
+                                        <h4 class="product-title"><a href="/goodslist/{{$v['gid']}}">{{$v['name']}}</a></h4>
                                     </div>
                                 </div>
                             </td>
@@ -156,11 +156,11 @@
                     <tr class="trs">
                         <td>
                             <div class="product-item">
-                                <a class="product-thumb" href="shop-single-1.html">
+                                <a class="product-thumb" href="/goodslist/{{$v->id}}">
                                     <img src="{{$v->pic}}" alt="Product">
                                 </a>
                                 <div class="product-info">
-                                    <h4 class="product-title"><a href="">{{$v->name}}</a></h4>
+                                    <h4 class="product-title"><a href="/goodslist/{{$v->id}}">{{$v->name}}</a></h4>
                                 </div>
                             </div>
                         </td>
@@ -223,24 +223,26 @@
         <h3 class="text-center padding-top-3x mb-30">发布的产品</h3>
         <div class="owl-carousel" data-owl-carousel='{ "nav": false, "dots": false, "margin": 30, "responsive": {"0":{"items":1},"576":{"items":2},"768":{"items":3},"991":{"items":4},";1200":{"items":4}} }'>
             <!-- Start Product #1 -->
+            @foreach($random as $v)
             <div class="grid-item">
                 <div class="product-card">
-                    <!--==================== 修改动作 ======================-->
-                    <a class="product-thumb" href="/goodslist/">
-                        <img src="static/assets/images/shop/products/01.jpg" alt="Product">
+                    <a class="product-thumb" href="/goodslist/{{$v->id}}">
+                        <img src="{{$v->pic}}" alt="Product">
                     </a>
-                    <h3 class="product-title"><a href="shop-single-3.html">iPhone X</a></h3>
-                    <h4 class="product-price">$749.99</h4>
+                    <h3 class="product-title"><a href="/goodslist/{{$v->id}}">{{$v->name}}</a></h3>
+                    <h4 class="product-price">{{$v->price}}</h4>
                     <div class="product-buttons">
                         <div class="product-buttons">
                             <button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="Whishlist">
                                 <i class="icon-heart"></i>
                             </button>
-                            <button class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="商品" data-toast-message="成功加入购物车，请更新购物车">加入购物车</button>
+                            <button class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Product" data-toast-message="successfuly added to cart!">加 入 购 物 车</button>
                         </div>
                     </div>
                 </div>
             </div>
+            @endforeach
+
             <!-- End Product #1 -->
         </div>
         <!-- End Related Products -->
@@ -283,6 +285,16 @@
 <script src="static/assets/js/script.js"></script><script src="static/assets/js/custom.js"></script>
 </body>
 <script>
+    // 获取button按钮单击事件
+    $(":button").click(function(){
+        // alert(1);
+        //获取gid
+        gid = $(this).parent().find('div').html();
+        alert(gid)
+        //使用ajax存储cookie
+        $.get('/addcart',{gid:gid},function(data){
+            });
+        })
     //更新购物车
     $('#update').click(function(){
         window.location.reload();

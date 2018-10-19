@@ -120,8 +120,21 @@ class ShopCartController extends Controller
                     // var_dump($art);exit;
                 }
                 $cates = self::getCatesByPid(0);
+                //查询商品表
+                $goods = DB::table('mall_goods')->get();
+                //统计有多少件商品
+                $num = count($goods);
+                // 商品的总数-1
+                $num = $num-1;
+                //随机获取4件商品
+                for($i=1;$i<7;$i++){
+                    //随机生成0到一个商品总数-1的以内的数字
+                    $rands = rand(0,$num);
+                    //把随机数写入商品数据的键位。随机生成数组
+                    $random[] = $goods[$rands];
+                }
                 //跳转到首页并分配数据
-                return view('Home.ShopCart.index',['cates'=>$cates,'cookie'=>$cookies,'art'=>$art]);
+                return view('Home.ShopCart.index',['cates'=>$cates,'cookie'=>$cookies,'art'=>$art,'random'=>$random]);
             }else{
                 //没有商品的情况
                 $cates = self::getCatesByPid(0);
@@ -129,14 +142,54 @@ class ShopCartController extends Controller
                 $total = 0;
                 //初始化$art
                 $art = array();
+                //查询商品表
+                $goods = DB::table('mall_goods')->get();
+                //统计有多少件商品
+                $num = count($goods);
+                // 商品的总数-1
+                $num = $num-1;
+                //随机获取4件商品
+                for($i=1;$i<7;$i++){
+                    //随机生成0到一个商品总数-1的以内的数字
+                    $rands = rand(0,$num);
+                    //把随机数写入商品数据的键位。随机生成数组
+                    $random[] = $goods[$rands];
+                }
                 //跳转到首页并分配数据
-                return view('Home.ShopCart.index',['cates'=>$cates,'cookie'=>$cookies,'art'=>$art]);
+                return view('Home.ShopCart.index',['cates'=>$cates,'cookie'=>$cookies,'art'=>$art,'random'=>$random]);
             }
         }else{
             // 没有登录的情况下
             $cates = self::getCatesByPid(0);
+            //查询商品表
+            $goods = DB::table('mall_goods')->get();
+            //统计有多少件商品
+            $num = count($goods);
+            // 商品的总数-1
+            $num = $num-1;
+            foreach($goods as $k=>$v){
+                //获取所有的键值
+                $set[] = $k;
+            }
+            // var_dump($set);exit;
+            //随机获取4件商品
+            for($i=1;$i<5;$i++){
+                //随机生成0到一个商品总数-1的以内的数字
+                $rands = rand(0,$num);
+                if(in_array($rands,$set)){
+                    //把随机数写入商品数据的键位。随机生成数组
+                    $random[] = $goods[$rands];
+                    unset($set[$rands]);
+                }else{
+                    $i--;
+                }
+            }
+            // var_dump($set);exit;
+            // var_dump($random);exit;
+            // var_dump($rands);
+            // var_dump($goods);exit;
             //跳转到首页并分配数据
-            return view('Home.ShopCart.index',['cates'=>$cates,'cookie'=>$cookies,'total'=>0]);
+            return view('Home.ShopCart.index',['cates'=>$cates,'cookie'=>$cookies,'total'=>0,'random'=>$random]);
         }    
     }
 

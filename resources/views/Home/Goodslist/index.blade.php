@@ -36,6 +36,7 @@
                         <button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="Whishlist">
                             <i class="icon-heart"></i>
                         </button>
+                        <div style="display:none">{{$v->id}}</div>
                         <button class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Product" data-toast-message="successfuly added to cart!">Add to Cart</button>
                     </div>
                 </div>
@@ -44,4 +45,16 @@
             <!-- 商品遍历结束 -->
         </div>
     </div>
+    <script>
+        // 获取button按钮单击事件
+        $(":button").click(function(){
+            // alert(1);
+            //获取gid
+            gid = $(this).parent().find('div').html();
+            // alert(gid)
+            // 使用ajax存储cookie
+                $.get('/addcart',{gid:gid},function(data){
+                });
+        })
+    </script>
 @endsection
