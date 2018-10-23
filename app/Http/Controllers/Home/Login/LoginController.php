@@ -174,7 +174,15 @@ class LoginController extends Controller
 
         //把传递过来的值存进数据库
         if(DB::table('mall_home_users')->insert($result)){
-            return 2;
+            $user = DB::table('mall_home_users')->where('username','=',$username)->first();
+            $info['uid'] = $user->id;
+            $info['email'] = $result['email'];
+            $info['telphone'] = $result['phone'];
+            $info['pic'] = "/static/assets/images/account/default.png";
+            // var_dump($info);exit;
+            if(DB::table('mall_home_userinfo')->insert($info)){
+                return 2;
+            }
         }
     }
 
