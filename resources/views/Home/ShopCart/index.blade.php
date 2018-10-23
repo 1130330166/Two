@@ -117,7 +117,7 @@
                             <td class="text-center">
                                 <div class="gw_num">
                                     <center>
-                                   <input type="text" value="1" class="num" readonly/>
+                                   <input type="text" value="{{$v['num']}}" class="num" readonly/>
                                    </center>
                                 </div>
                             </td>
@@ -198,12 +198,6 @@
             <!-- 登录状态结束 -->
         </div>
         <div class="shopping-cart-footer">
-            <div class="column">
-                <form class="coupon-form" method="post">
-                    <input class="form-control form-control-sm" type="text" placeholder="Coupon Code" required>
-                    <button class="btn btn-outline-primary btn-sm" type="submit">Add Coupon</button>
-                </form>
-            </div>
             <div class="column text-lg total">总计： 
                 
                 <span class="total"></span>
@@ -236,7 +230,8 @@
                             <button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="Whishlist">
                                 <i class="icon-heart"></i>
                             </button>
-                            <button class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Product" data-toast-message="successfuly added to cart!">加 入 购 物 车</button>
+                            <div style="display:none">{{$v->id}}</div>
+                            <button class="btn btn-outline-primary btn-sm addcart" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Product" data-toast-message="successfuly added to cart!">加 入 购 物 车</button>
                         </div>
                     </div>
                 </div>
@@ -286,11 +281,11 @@
 </body>
 <script>
     // 获取button按钮单击事件
-    $(":button").click(function(){
+    $(".addcart").click(function(){
         // alert(1);
         //获取gid
         gid = $(this).parent().find('div').html();
-        alert(gid)
+        // alert(gid)
         //使用ajax存储cookie
         $.get('/addcart',{gid:gid},function(data){
             });

@@ -26,15 +26,19 @@ class ShopCartController extends Controller
         // var_dump($cookies);exit;
         // 遍历cookie
         foreach($cookies as $key=>$v){
+            //查询哪个用户添加的商品
+            $uids = session('uid');
             //根据cookie里的gid查询购物车表
-            $list = DB::table('mall_cart')->where('gid','=',$v['gid'])->first();
+            $list = DB::table('mall_cart')->where('gid','=',$v['gid'])->where('uid','=',$uids)->first();
             // var_dump($list);exit;
             // var_dump($cookies);
             // 判断购物车有没有这件商品
             if(empty($list)){
+                // echo 1;exit;
                 //没有的这件商品的情况下
                 //判断是否登录的状态
                 if(!empty(session('username'))){
+                    // echo 2;exit;
                     // 有登录的情况下
                     //获取登录名
                     $name = session('username');
@@ -55,7 +59,7 @@ class ShopCartController extends Controller
                         // var_dump($cookies);exit;
                         // 根据$row的gid查询购物车表有没有这件商品
                         // var_dump($row['gid']);die;
-                        $relist = DB::table('mall_cart')->where('gid','=','12')->first();
+                        $relist = DB::table('mall_cart')->where('gid','=',$row['gid'])->where('uid','=',$uid)->first();
                         //判断是否为空，不为空就有这件商品，为空就没有。
                         if(empty($relist)){
                         //没有这件商品的情况下
@@ -70,7 +74,7 @@ class ShopCartController extends Controller
                             // 有这件商品的情况下
                             $v['num']+1;
                             //如果有这件商品就cookie的把$v的数量加1再加入购物车表
-                            DB::table('mall_cart')->where('gid','=',$v['gid'])->update(['num'=>$v['num']]);
+                            DB::table('mall_cart')->where('gid','=',$v['gid'])->where('uid','=',$uid)->update(['num'=>$v['num']]);
                             // echo 2;exit;
                             // 清除cookie
                             setcookie($key,null,time()-3600);
@@ -80,11 +84,12 @@ class ShopCartController extends Controller
             }else{
                 // 判断是否登录状态
                 if(!empty(session('username'))){
+                    $reuid = session('uid');
                     //有登陆的情况下
                     //如果有这件商品，$v数量+1.
                     $v['num']+1;
                     //把数据写入购物车表
-                    DB::table('mall_cart')->where('gid','=',$v['gid'])->update(['num'=>$v['num']]);
+                    DB::table('mall_cart')->where('gid','=',$v['gid'])->where('uid','=',$reuid)->update(['num'=>$v['num']]);
                     //清除cookie
                     setcookie($key,null,time()-3600);
                 }
@@ -103,8 +108,10 @@ class ShopCartController extends Controller
             // 根据uid查询该用户所有的商品
             $arr = DB::table('mall_cart')->where('uid','=',$uid)->get();
             // var_dump($arr);exit;
+            // var_dump(count($arr));exit;
             // 判断该用户有没有商品
             if(count($arr)){
+                // echo 1;exit;
                 // 有商品的情况
                 //遍历$arr
                 foreach($arr as $k=>$v){
@@ -136,6 +143,7 @@ class ShopCartController extends Controller
                 //跳转到首页并分配数据
                 return view('Home.ShopCart.index',['cates'=>$cates,'cookie'=>$cookies,'art'=>$art,'random'=>$random]);
             }else{
+                // echo 2;exit;
                 //没有商品的情况
                 $cates = self::getCatesByPid(0);
                 //初始化总价格
@@ -357,6 +365,7 @@ class ShopCartController extends Controller
         $list = DB::table('mall_home_users')->where('username','=',$name)->first();
         // 把查询的id赋值给$uid
         $uid = $list->id;
+        // var_dump($uid);
         //根据$uid删除商品
         DB::table('mall_cart')->where('uid','=',$uid)->delete();
     }

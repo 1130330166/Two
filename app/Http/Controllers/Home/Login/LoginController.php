@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use DB;
 //导入Hash类
 use Hash;
+//导入Mail
+use Mail;
 class LoginController extends Controller
 {
     /**
@@ -48,8 +50,8 @@ class LoginController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
+    {   
+
     }
 
     /**
@@ -60,7 +62,7 @@ class LoginController extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
     /**
@@ -72,7 +74,7 @@ class LoginController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
     }
 
     /**
@@ -115,12 +117,27 @@ class LoginController extends Controller
         //获取传递过来的除了Phone的值
         $result = $request->except('phone');
         //获取传递过来的username
-        $arr = $request->input('username');
+        $username = $request->input('username');
+        //获取传递过来的email
+        $email = $request->input('email');
+        //获取传递过来的phone
+        $phone = $request->input('phone');
         //查询username字段的值
-        $data = DB::table('mall_home_users')->pluck('username');
+        $data1 = DB::table('mall_home_users')->pluck('username');
+        //查询email字段
+        $data2 = DB::table('mall_home_users')->pluck('email');
+        //查询phone字段
+        $data3 = DB::table('mall_home_users')->pluck('phone');
+
         //遍历
-        foreach($data as $v){
-            $atr[] = $v;
+        foreach($data1 as $v){
+            $atr1[] = $v;
+        }
+        foreach($data2 as $v){
+            $atr2[] = $v;
+        }
+        foreach($data3 as $v){
+            $atr3[] = $v;
         }
         //设置状态为开启
         $result['status'] = 1;
@@ -128,15 +145,30 @@ class LoginController extends Controller
         $result['token'] = rand(1000,100000)+time();
         //给传递过来的密码Hash加密
         $result['password'] = Hash::make($result['password']);
+        //设置电话
+        $result['phone'] = $phone;
         // dd($data);
-        // dd($arr);
-        // dd($atr);
+        // dd($atr1);
+        // dd($atr2);
+        // dd($atr3);
         // dd($result);
         
-        if(!empty($atr)){
+        if(!empty($atr1)){
             // 判断有没有用户注册了这个用户名
-            if(in_array($arr,$atr)){
+            if(in_array($username,$atr1)){
                 return 1;
+            }
+        }
+        if(!empty($atr2)){
+            //判断用户有没有注册这个邮箱
+            if(in_array($email,$atr2)){
+                return 3;
+            }
+        }
+        if(!empty($atr3)){
+            //判断用户有没有注册这个邮箱
+            if(in_array($phone,$atr3)){
+                return 4;
             }
         }
 
@@ -150,7 +182,102 @@ class LoginController extends Controller
     public function logout(Request $request){
         //删除session值
         $request->session()->pull('username');
+        $request->session()->pull('uid');
         // 跳转到主页
         return redirect("/");
+    }
+
+    //注册验证码模块
+    public function code(Request $request){
+        // var_dump($request->all());exit;
+        $phone = $request->input('phone');
+        $json = message($phone);
+    }
+
+    //验证验证码
+    public function test(Request $request){
+        if($request->session()->has('code')){
+            return session('code');
+        }
+    }
+
+    //忘记密码电话验证码
+    public function forget(){
+        return view('Home.Forget.index');
+    }
+
+    //忘记密码验证码模块
+    public function fgcode(Request $request){
+        // var_dump($request->all());exit;
+        $phone = $request->input('phone');
+        $json = message($phone);
+    }
+
+    //验证验证码
+    public function fgtest(Request $request){
+        if($request->session()->has('code')){
+            return session('code');
+        }
+    }
+
+    //密码修改首页
+    public function change(Request $request){
+        // var_dump($request->all());exit;
+        $phone = $request->input('phone');
+        // var_dump($phone);exit;
+        session(['phone'=>$phone]);
+        return view('Home.Forget.edit');
+    }
+
+    public function operation(Request $request){
+        $pass = $request->all('password');
+        $phone = session('phone');
+        // var_dump($phone);exit;
+        $list = DB::table('mall_home_users')->where('phone','=',$phone)->first();
+        // var_dump($list);
+        // var_dump($pass);exit;
+        $id = $list->id;
+        $result['password'] = Hash::make($pass['password']);
+        // var_dump($result);
+        if(DB::table('mall_home_users')->where('id','=',$id)->update($result)){
+            $request->session()->pull('phone');
+            return redirect("/login");
+        }
+    }
+
+    public function email(){
+        return view('Home.Register.index');
+    }
+
+    public function send(Request $request){
+        // var_dump($request->all());exit;
+        $email = $request->input('email');
+        session(['email'=>$email]);
+        Mail::send('Home.Register.a',['email'=>$email],function($message)use($email){
+            $message->subject('用户激活');
+            $message->to($email);
+        });
+        return view('Home.Register.send');
+    }
+    
+
+    public function xiugai(){
+        return view('Home.Register.edit');
+    }
+
+    public function xiugaicaozuo(Request $request){
+        $pass = $request->all('password');
+        $email = session('email');
+        // var_dump($email);exit;
+        $list = DB::table('mall_home_users')->where('email','=',$email)->first();
+        // var_dump($list);exit;
+        // var_dump($pass);exit;
+        $id = $list->id;
+        $result['password'] = Hash::make($pass['password']);
+        // var_dump($result);
+        if(DB::table('mall_home_users')->where('id','=',$id)->update($result)){
+            $request->session()->pull('email');
+            return redirect("/login");
+        }
     }
 }

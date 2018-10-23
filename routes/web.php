@@ -61,6 +61,28 @@ Route::get('/clean','Home\ShopCart\ShopCartController@clean');
 Route::get('/del','Home\ShopCart\ShopCartController@del');
 // 商品分类模块
 Route::get("goodscates/{id}","Home\Goodslist\GoodslistController@goodscates");
+//注册短信验证
+Route::get('/code',"Home\Login\LoginController@code");
+//注册短信验证码验证
+Route::get('/test',"Home\Login\LoginController@test");
+//忘记密码
+Route::get('/forget',"Home\Login\LoginController@forget");
+//忘记密码短信验证
+Route::get('/fgcode',"Home\Login\LoginController@fgcode");
+//忘记密码短信验证码验证
+Route::get('/fgtest',"Home\Login\LoginController@fgtest");
+//密码修改页面
+Route::post('/change',"Home\Login\LoginController@change");
+//短信修改登录密码操作
+Route::post('/operation',"Home\Login\LoginController@operation");
+//邮箱忘记密码首页
+Route::get('/email',"Home\Login\LoginController@email");
+//发送邮箱操作与页面
+Route::post('/send',"Home\Login\LoginController@send");
+//邮箱忘记密码修改页
+Route::get('/xiugai',"Home\Login\LoginController@xiugai");
+//邮箱忘记密码修改操作
+Route::post('/xiugaicaozuo',"Home\Login\LoginController@xiugaicaozuo");
 
 // ---------------前后台路由分割线--------------------
 

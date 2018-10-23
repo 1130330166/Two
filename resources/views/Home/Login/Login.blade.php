@@ -64,7 +64,7 @@
                             <div class="custom-control custom-checkbox">
                                 <input class="custom-control-input" type="checkbox" id="remember_me" checked>
                                 <label class="custom-control-label" for="remember_me">记住我</label>
-                            </div><a class="navi-link" href="account-password-recovery.html">忘记密码</a>
+                            </div><a class="navi-link" href="/forget">忘记密码</a>
                         </div>
                         <div class="text-center text-sm-right">
                             {{csrf_field()}}
@@ -84,17 +84,10 @@
                             <input class="form-control" type="text" id="reg-fn" placeholder="请填写账号" name="name" required value="">
                         </div>
                     </div>
-                    <div class="col-sm-6"></div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="reg-email">邮箱</label>
                             <input class="form-control" type="email" id="reg-email" placeholder="请填写邮箱" name="email" required>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="reg-phone">电话号码</label>
-                            <input class="form-control" type="text" id="reg-phone" placeholder="请填写电话号码" name="phone" required>
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -109,9 +102,25 @@
                             <input class="form-control" type="password" id="reg-pass-confirm" placeholder="请再次填写密码" name="repass" required>
                         </div>
                     </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="reg-phone">电话号码</label>
+                            <input class="form-control" type="text" id="reg-phone" placeholder="请填写电话号码" name="phone" required>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <br>
+                        <button class="btn btn-success margin-bottom-none  code" type="submit">获取验证码</button>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="reg-phone">验证码</label>
+                            <input class="form-control" type="text" id="recode" placeholder="请输入获取的验证码" name="recode" required>
+                        </div>
+                    </div>
                     <div class="col-12 text-center text-sm-right">
                         已注册用户，<a href="/login">去登陆</a>
-                        <button class="btn btn-primary margin-bottom-none button" type="submit">注册</button>
+                        <button class="btn btn-primary margin-bottom-none button" type="button">注册</button>
                     </div>
                 </form>
             </div>
@@ -126,7 +135,7 @@
                     <p>用户名格式错误，字母开头，允许4-16字节，允许字母数字下划线</p>
                 </div>
                 <div class="alert alert-danger alert-dismissible fade show text-center margin-bottom-1x perror" style="display:none">
-                    <p>密码不能含有非法字符，长度在6-20之间,允许字母数字下划线小数点</p>
+                    <p>密码不能含有非法字符，长度在6-22之间,允许字母数字下划线小数点</p>
                 </div>
                 <div class="alert alert-danger alert-dismissible fade show text-center margin-bottom-1x eerror" style="display:none">
                     <p>邮箱格式错误，请填写真确的邮箱</p>
@@ -142,6 +151,15 @@
                 </div>
                 <div class="alert alert-danger alert-dismissible fade show text-center margin-bottom-1x rnerror" style="display:none">
                     <p>该用户名已被注册</p>
+                </div>
+                <div class="alert alert-danger alert-dismissible fade show text-center margin-bottom-1x enerror" style="display:none">
+                    <p>邮箱已被注册</p>
+                </div>
+                <div class="alert alert-danger alert-dismissible fade show text-center margin-bottom-1x pnerror" style="display:none">
+                    <p>该电话号码已被注册</p>
+                </div>
+                <div class="alert alert-danger alert-dismissible fade show text-center margin-bottom-1x cerror" style="display:none">
+                    <p>验证码错误，请输入正确的验证码</p>
                 </div>
             </div>
         </div>
@@ -177,6 +195,59 @@
 <script src="static/assets/js/script.js"></script><script src="static/assets/js/custom.js"></script>
 </body>
 <script>
+    //触发单击时间
+    $('.code').click(function(){
+        //手机验证正则表达式
+        var h = /^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$/;
+        //获取用户输入的电话号码
+        phone = $('input[name=phone]').val();
+        if(h.test(phone) == false){
+            $('.herror').attr('style','display:block');
+            setTimeout(function(){
+                $('.herror').attr('style','display:none');
+            },2000);
+            return false;
+        }
+        // alert(phone);
+        // 设置计时器
+        var times = setInterval(func,1000);
+        //定义秒数
+        num = 60;
+        function func(){
+            //几时开始时，把按钮设定为禁用，再把html内容改掉
+            $('.code').attr('disabled',true).html("("+num+")秒后重新发送");
+            num--;
+            //判断当num = 0的时候
+            if(num == 0){
+                //num = 0时候，把按钮样式改为可用，再把HTML内容改掉
+                $('.code').attr('disabled',false).html("重新发送");
+                //停止定时器
+                clearInterval(times);
+            }
+        }
+        //使用ajax调用接口
+        $.get('/code',{phone:phone},function(data){
+
+        });
+            // alert(data);
+        return false;
+    });
+    //失去光标事件
+    $('input[name=recode]').blur(function(){
+        //调用ajax
+        $.get('/test',{},function(result){
+            //获取用户输入的验证码
+            var recode = $('input[name=recode]').val();
+            //判断验证码是否正确
+            if(recode != result){
+                $('.cerror').attr('style','display:block');
+                    setTimeout(function(){
+                       $('.cerror').attr('style','display:none'); 
+                    },2000);
+                $('input[name=recode]').val('');
+            }
+        });
+    });
     //触发单击事件
     $('.login').click(function(){
         // 获取表单的username
@@ -187,11 +258,11 @@
         if(pass == '' || name == ''){
             //更改display属性为显示
             $('.errorr').attr('style','display:block');
-            //单击事件
-            $('.errorr').click(function(){
+            //计时器
+            setTimeout(function(){
                 //更改display属性为隐藏
                 $('.errorr').attr('style','display:none');
-            });
+            },2000);   
         }else{
             //连接Ajax
             $.get('/check',{name:name,pass:pass},function(data){
@@ -207,9 +278,9 @@
                     //把密码设置为空
                     $(':password').html();
                     $('.error').attr('style','display:block');
-                    $('.error').click(function(){
+                    setTimeout(function(){
                         $('.error').attr('style','display:none');
-                    });
+                    },2000)
                 }
             });
         }
@@ -224,8 +295,8 @@
         $('.two').attr('style','display:block');
         //用户名正则，(字母开头，允许4-16字节，允许字母数字下划线)
         var n = /^[a-zA-Z][a-zA-Z0-9_]{3,15}$/;
-        //密码不能含有非法字符，长度在4-10之间
-        var p = /^[a-zA-Z0-9_.]{6,20}$/;
+        //密码不能含有非法字符，长度在6-223之间
+        var p = /^[a-zA-Z0-9_.]{6,22}$/;
         //邮箱验证
         var e = /^\w+@\w+(\.[a-zA-Z]{2,3}){1,2}$/;
         //手机号验证
@@ -239,11 +310,12 @@
             if(n.test(name) == false){
                 //错误提示
                 $('.nerror').attr('style','display:block');
-                //错误提示的单击事件
-                $('.nerror').click(function(){
+                //错误提示
+                setTimeout(function(){
                     //隐藏错误提示
-                	$('.nerror').attr('style','display:none');
-                });
+                    $('.nerror').attr('style','display:none');
+                },2000);
+                    
                 //设置用户框的value为空
                 $('input[name=name]').val('');
             }
@@ -254,9 +326,9 @@
             var pass = $('input[name=pass]').val();
             if(p.test(pass) == false){
                 $('.perror').attr('style','display:block');
-                $('.perror').click(function(){
-                	$('.perror').attr('style','display:none');
-                });
+                setTimeout(function(){
+                    $('.perror').attr('style','display:none');
+                },2000);
                 $('input[name=pass]').val('');
             }
         });
@@ -266,9 +338,9 @@
             var email = $('input[name=email]').val();
             if(e.test(email) == false){
                 $('.eerror').attr('style','display:block');
-                $('.eerror').click(function(){
-                	$('.eerror').attr('style','display:none');
-                });
+                setTimeout(function(){
+                    $('.eerror').attr('style','display:none');
+                },2000);
                 $('input[name=email]').val('');
             }
         });
@@ -278,9 +350,9 @@
             var phone = $('input[name=phone]').val();
             if(h.test(phone) == false){
                 $('.herror').attr('style','display:block');
-                $('.herror').click(function(){
-                	$('.herror').attr('style','display:none');
-                });
+                setTimeout(function(){
+                    $('.herror').attr('style','display:none');
+                },2000);
                 $('input[name=phone]').val('');
             }
         });
@@ -291,17 +363,17 @@
             var pass = $('input[name=pass]').val();
             if(p.test(repass) == false){
                 $('.perror').attr('style','display:block');
-                $('.perror').click(function(){
-                	$('.perror').attr('style','display:none');
-                });
+                setTimeout(function(){
+                    $('.perror').attr('style','display:none');
+                },2000);
                 $('input[name=repass]').val('');
             }
             //判断密码框的值和重复密码框的值是否为空
             if(pass != repass){
                 $('.rerror').attr('style','display:block');
-                $('.rerror').click(function(){
-                	$('.rerror').attr('style','display:none');
-                });
+                setTimeout(function(){
+                    $('.rerror').attr('style','display:none');
+                },2000);
                 $('input[name=pass]').val('');
                 $('input[name=repass]').val('');
             }
@@ -312,30 +384,44 @@
         	var pass = $('input[name=pass]').val();
         	var email = $('input[name=email]').val();
         	var phone = $('input[name=phone]').val();
+            var recode = $('input[name=recode]').val();
             //判断每个框是否为空
-            if(name == '' || pass == '' || email == '' || phone == ''){
+            if(name == '' || pass == '' || email == '' || phone == '' || recode == ''){
                 $('.qerror').attr('style','display:block');
-                $('.qerror').click(function(){
-                	$('.qerror').attr('style','display:none');
-                });
+                setTimeout(function(){
+                    $('.qerror').attr('style','display:none');
+                },2000);
+                	
                 //阻止Ajax传值
                 return false;
-            }   
+            }
                 //Ajax的传值
                 $.get('/register',{username:name,password:pass,email:email,phone:phone},function(data){
                     // alert(data);
                     // 判断是否注册成功
-                    // 1为注册不成功
+                    // 1为用户名已被注册
                     if(data == 1){
                     	$('.rnerror').attr('style','display:block');
-                		$('.rnerror').click(function(){
-                			$('.rnerror').attr('style','display:none');
-                		});
+                		setTimeout(function(){
+                            $('.rnerror').attr('style','display:none');
+                        },2000);
                     // 2为注册不成功
                     }else if(data == 2){
                     	alert('注册成功');
                         //跳转到登录页面
                     	$(location).attr('href','/login');
+                    // 3为邮箱已被注册
+                    }else if(data == 3){
+                        $('.enerror').attr('style','display:block');
+                        setTimeout(function(){
+                            $('.enerror').attr('style','display:none');
+                        },2000);
+                    //  4为电话已被注册 
+                    }else if(data == 4){
+                         $('.pnerror').attr('style','display:block');
+                        setTimeout(function(){
+                            $('.pnerror').attr('style','display:none');
+                        },2000);
                     }
                 });
             //阻止表单提交
