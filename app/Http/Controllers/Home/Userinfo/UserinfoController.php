@@ -111,7 +111,7 @@ class UserinfoController extends Controller
         //修改用户信息
         if(DB::table('mall_home_userinfo')->where('uid','=',session('uid'))->update($arr)){
             //同时修改用户表的邮箱
-            DB::table("mall_home_users")->where('id','=',session('uid'))->update(['email'=>$arr['email']]);
+            DB::table("mall_home_users")->where('id','=',session('uid'))->update(['email'=>$arr['email'],'phone'=>$arr['telphone']]);
             return back()->with('success','修改成功!');
         }else{
 
