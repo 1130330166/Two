@@ -174,6 +174,7 @@
         <li><a href="/adminorderunsend">待发货订单</a></li> 
         <li><a href="/adminorderwaitreceipt">待收货订单</a></li> 
         <li><a href="/adminorderreceived">已收货订单</a></li> 
+        <li><a href="/adminorderdelorder">已取消订单</a></li>
         <!-- <li><a href="">退货中订单</a></li>  -->
         <!-- <li><a href="">已退货订单</a></li>  -->
        </ul> 

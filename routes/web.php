@@ -19,10 +19,21 @@ Route::group(["middleware"=>"login"],function(){
 	//购物车
 	//前台订单管理
 	Route::resource("/homeorder","Home\Order\OrderController");
+	//用户已有收货地址情况下选择收货地址生成订单
+	Route::get("/makeorderwithaddress/{aid}","Home\Order\OrderController@makeOrderWithAddress");
+	//前台用户取消未付款订单
+	Route::get("/quxiao/{oid}","Home\Order\OrderController@destroy");
 	//订单详情
 	//个人信息
+	Route::resource("/homeuserinfo","Home\Userinfo\UserinfoController");
+	//加载用户修改头像模板
+	Route::get("/editpic","Home\Userinfo\UserinfoController@editPic");
+	//用户修改头像
+	Route::post("/updatepic","Home\Userinfo\UserinfoController@updatePic");
 	//结算页
-	//支付接口
+	Route::get("/makeorder","Home\Order\OrderController@create");
+	//支付接口支付成功回调地址
+	Route::get("/returnurl","Home\Order\OrderController@returnUrl");
 	//短信接口
 	//忘记密码
 	//前台用户地址管理
@@ -46,7 +57,7 @@ Route::resource('/friendslinks',"Home\FriendsLink\FriendsLinkController");
 //前台Ajax校验友情链接名 URL 联系电话是否唯一
 Route::get("/verifyflink","Home\FriendsLink\FriendsLinkController@verifyflink");
 // 商品列表
-Route::resource("goodslist","Home\Goodslist\GoodslistController");
+Route::resource("/goodslist","Home\Goodslist\GoodslistController");
 //购物车
 Route::resource('/cart','Home\ShopCart\ShopCartController');
 //购物车ajax储存cookie
@@ -117,6 +128,8 @@ Route::group(['middleware'=>'adminlogin'],function(){
 	Route::get("/adminorderwaitreceipt","Admin\Order\OrderController@waitReceipt");
 	//后台加载已收货订单
 	Route::get("/adminorderreceived","Admin\Order\OrderController@received");
+	//后台加载已取消订单
+	Route::get("adminorderdelorder","Admin\Order\OrderController@delOrder");
 
 
 	// 管理员管理

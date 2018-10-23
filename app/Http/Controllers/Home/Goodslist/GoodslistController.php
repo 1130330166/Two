@@ -17,12 +17,14 @@ class GoodslistController extends Controller
     {
         // 获取分类 
         $cates = self::getCatesByPid(0);
+        //获取用户个人信息
+        $userinfo = DB::table("mall_home_userinfo")->where('uid','=',session('uid'))->first();
         // 获取商品数据
         $goods=DB::table("mall_goods")->join('mall_cates','mall_goods.cate_id','=','mall_cates.id')->select('mall_goods.id as id','mall_goods.name as name','mall_cates.id as cid','mall_cates.name as catename','mall_goods.pic','mall_goods.des','mall_goods.num','mall_goods.price','mall_goods.status')->get();
         // var_dump($cates);
         // var_dump($goods);die;
         // 加载商品列表并分配数据
-        return view("Home.Goodslist.index",['goods'=>$goods,'cates'=>$cates]);
+        return view("Home.Goodslist.index",['goods'=>$goods,'cates'=>$cates,'userinfo'=>$userinfo]);
     }
 
     /**
@@ -58,6 +60,11 @@ class GoodslistController extends Controller
         // echo $id;
         // 获取分类导航数据
         $cates = self::getCatesByPid(0);
+        //获取用户个人信息
+        $userinfo = DB::table("mall_home_userinfo")->where('uid','=',session('uid'))->first();
+        //为商品详情页拼接用户头像路径
+        $userinfo->pic = '.'.$userinfo->pic;
+        // var_dump($userinfo);die;
         // 获取商品详情
         $info=DB::table('mall_goods')->where("id",'=',$id)->first();
         $data=DB::table("mall_cates")->select(DB::raw("*,concat(path,',',id) as paths"))->orderBy("paths")->where("id",'=',$info->cate_id)->first();
@@ -75,7 +82,7 @@ class GoodslistController extends Controller
         }
         // var_dump($review);die;
         // 加载模板
-        return view("Home.goodslist.goodsinfo",['cates'=>$cates,'info'=>$info,'pic'=>$pic,'catename'=>$catename,'review'=>$review]);
+        return view("Home.goodslist.goodsinfo",['cates'=>$cates,'info'=>$info,'pic'=>$pic,'catename'=>$catename,'review'=>$review,'userinfo'=>$userinfo]);
     }
 
     /**
@@ -114,6 +121,8 @@ class GoodslistController extends Controller
     // 商品分类模块
     public function goodscates($id){
     	$cates = self::getCatesByPid(0);
+        //获取用户个人信息
+        $userinfo = DB::table("mall_home_userinfo")->where('uid','=',session('uid'))->first();
     	// echo "分类商品详情 : $id";
     	// 获取当前分类名
     	$catess=DB::table("mall_cates")->where("id",'=',$id)->first();
@@ -122,7 +131,7 @@ class GoodslistController extends Controller
     	$goods=DB::select("SELECT * FROM mall_goods WHERE name LIKE '%$catesname%'");
     	// var_dump($goods);die;
     	// var_dump($catesname);die;
-    	return view("Home.goodscates.index",['catesname'=>$catesname,'goods'=>$goods,'cates'=>$cates]);
+    	return view("Home.goodscates.index",['catesname'=>$catesname,'goods'=>$goods,'cates'=>$cates,'userinfo'=>$userinfo]);
     }
     //无限分类递归数据遍历
     public static function getCatesByPid($pid){

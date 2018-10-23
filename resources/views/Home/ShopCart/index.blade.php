@@ -209,7 +209,7 @@
                 <a class="btn btn-outline-secondary" href="/goodslist"><i class="icon-arrow-left"></i>&nbsp;继续购物</a>
             </div>
             <div class="column">
-                <a id="update" class="btn btn-primary" href="#" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="您的购物车" data-toast-message="已更新成功" href="#">更新购物车</a><a class="btn btn-success" href="#">结账</a>
+                <a id="update" class="btn btn-primary" href="#" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="您的购物车" data-toast-message="已更新成功" href="#">更新购物车</a><a class="btn btn-success" href="/makeorder">结账</a>
             </div>
         </div>
         <!-- End Shopping Cart -->

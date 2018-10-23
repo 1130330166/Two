@@ -19,6 +19,8 @@ class IndexController extends Controller
     {
         // 获取公告信息
         $data=DB::table("mall_article")->get();
+        //获取用户详情
+        $userinfo = DB::table('mall_home_userinfo')->where('uid','=',session('uid'))->first();
         // 定义公告编号
         $i=1;
         //加载列表模板
@@ -42,7 +44,7 @@ class IndexController extends Controller
         // dd($list);
         // var_dump($article);die;
         //加载前台首页模板
-        return view("Home.Index.index",["cates"=>$cates,"list"=>$list,'arr'=>$arr,'goods'=>$goods,'data'=>$data,'i'=>$i]);
+        return view("Home.Index.index",["cates"=>$cates,'userinfo'=>$userinfo,"list"=>$list,'arr'=>$arr,'goods'=>$goods,'data'=>$data,'i'=>$i]);
 
     }
 

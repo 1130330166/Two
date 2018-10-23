@@ -127,14 +127,18 @@
                     <ul class="toolbar-dropdown">
                         <li class="sub-menu-user">
                             <div class="user-ava">
-                                <img src="/static/assets/images/reviews/01.jpg" alt="Tony Stark">
+                                @if(!empty($userinfo))
+                                <img src="{{$userinfo->pic}}">
+                                @else
+                                <img src="/static/assets/images/account/default.png">
+                                @endif
                             </div>
                             <div class="user-info">
                                 <h6 class="user-name">{{session('username')}}</h6>
                                 <span class="text-xs text-muted"></span>
                             </div>
                         </li>
-                        <li><a href="javascript:void(0);">个人信息</a></li>
+                        <li><a href="/homeuserinfo">个人信息</a></li>
                         <li><a href="/homeorder">我的订单</a></li>
                         <li><a href="javascript:void(0);">找回密码</a></li>
                         <li><a href="/homeaddress">邮寄地址</a></li>

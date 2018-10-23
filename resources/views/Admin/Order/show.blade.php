@@ -1,7 +1,6 @@
-@extends('Home.HomePublic.public')
+@extends('Admin.AdminPublics.public')
 @section('title','订单详情')
-@section('home')
-<div style="background-color: #36414F; height: 124px;"></div>
+@section('admin')
 
   <!-- 添加成功与否信息显示开始 -->
   @if(session('success'))
@@ -20,13 +19,6 @@
   <!-- 添加成功与否信息显示结束 -->
 
   <!-- Start My Orders -->
-  <div class="container padding-top-1x padding-bottom-3x"> 
-   <div class="row"> 
-
-    <!-- Start Content -->
-    <div class="col-lg-12 "> 
-      <h6 class="text-muted text-normal text-uppercase">订单详情</h6>    
-      <hr class="margin-bottom-1x" /> 
 
       <!-- ************************************************************** -->
         <head>
@@ -105,7 +97,7 @@
 
                         <div class="p-msg">
                           <div class="p-name">
-                            <a href="/goodslist/{{$row->id}}" class="a-link" >{{$row->name}}
+                            <a href="javascript:void(0);" class="a-link" >{{$row->name}}
                           </div>
 
                           <div class="p-extra">
@@ -188,24 +180,30 @@
 
                   <!-- 订单状态操作开始 -->
                   <td width="105">
-                    <form action="/homeorder/{{$data->oid}}" method="post">
+                    <form action="" method="post">
                       <div class="status">
                           @if($data->status == '待付款')
-                            <button class="btn btn-link-info" type="submit" style="font-size: 22px;">去付款</button>
-                            <a href="/quxiao/{{$data->oid}}" style="font-size: 22px;color: orangered" onclick="return confirm('确定取消该订单吗?');">取消订单</a>
+                            <br><span style="font-size: 22px;">待付款</span><br>
+                            <!-- <a href="" style="font-size: 22px;color: orangered" onclick="return confirm('确定取消该订单吗?');">取消订单</a> -->
                           @elseif($data->status == '待发货')
-                            <br><span style="font-size: 22px;">待发货</span>
+
+                            <form action="/adminorder/{{$data->oid}}" method="post">
+                              <br><button type="submit" class="btn btn-info" title="发货"><i class="icon-truck"></i></button>
+                              {{method_field("PUT")}}
+                              {{csrf_field()}}
+                            </form>
+                            <!-- <br><button class="btn btn-info" title="发货"><i class="icon-truck"></i></button> -->
                           @elseif($data->status == '待收货')
-                            <button class="btn btn-link-info" type="submit" style="font-size: 22px;">确认收货</button>
+                            <br><span style="font-size: 22px;">待收货</span>
                           @elseif($data->status == '待评价')
-                            <button class="btn btn-link-info" type="submit" style="font-size: 22px;">去评价</button>
+                            <br><span style="font-size: 22px;">待评价</span>
                           @elseif($data->status == '已评价')
                             <!-- <button class="btn btn-link-info" type="submit" style="font-size: 22px;">申请退货</button> -->
                             <br><span style="font-size: 22px;">已评价</span>
-                          @elseif($data->status == '退货中')
+                          <!-- @elseif($data->status == '退货中')
                             <br><span style="font-size: 22px;">退货中</span>
                           @elseif($data->status == '已退货')
-                            <br><span style="font-size: 22px;">已退货</span>
+                            <br><span style="font-size: 22px;">已退货</span> -->
                           @endif
                       </div>
                       {{method_field("PUT")}}
@@ -221,15 +219,6 @@
 
       <!-- ************************************************************** -->
 
-    </div>
-    <!-- End Content -->
-
-   </div> 
-  </div> 
   <!-- End My Orders --> 
 
-  <!-- Start Back To Top --> 
-  <a class="scroll-to-top-btn" href="#"> <i class="icon-arrow-up"></i> </a> 
-  <!-- End Back To Top --> 
-  <div class="site-backdrop"></div> 
 @endsection

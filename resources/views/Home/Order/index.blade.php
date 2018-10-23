@@ -26,27 +26,33 @@
     <div class="col-lg-4"> 
      <aside class="user-info-wrapper"> 
       <div class="user-cover account-details"> 
-       <div class="info-label" data-toggle="tooltip" title="You currently have 530 Reward Points to spend"> 
+
+       <!-- <div class="info-label" data-toggle="tooltip" title="You currently have 530 Reward Points to spend"> 
         <i class="icon-medal"></i>530 Points 
-       </div> 
+       </div>  -->
+
       </div> 
       <div class="user-info"> 
        <div class="user-avatar"> 
-        <a class="edit-avatar" href="#"></a> 
-        <img src="/static/assets/images/account/user-ava.jpg" alt="User" /> 
+        <a class="edit-avatar" href="/editpic"></a> 
+        @if(!empty($userinfo))
+        <img src="{{$userinfo->pic}}" alt="User" />
+        @else
+        <img src="/static/assets/images/account/default.png" alt="图片加载失败" />
+        @endif
        </div> 
        <div class="user-data"> 
-        <h4>Tony Stark</h4> 
-        <span>Joined February 06, 2018</span> 
+        <h4>{{session('username')}}</h4> 
+        <span>{{date('Y/m/d H:i:s',time())}}</span> 
        </div> 
       </div> 
      </aside> 
      <nav class="list-group"> 
-      <a class="list-group-item" href="account-profile.html"><i class="icon-head"></i>My Profile</a> 
+      <a class="list-group-item" href="/homeuserinfo"><i class="icon-head"></i>个人信息</a> 
       <a class="list-group-item active with-badge" href="/homeorder"><i class="icon-bag"></i>查看订单<span class="badge badge-primary badge-pill">{{count($allorder)}}</span></a> 
       <a class="list-group-item" href="/homeaddress"><i class="icon-map"></i>管理地址</a> 
-      <a class="list-group-item with-badge" href="account-wishlist.html"><i class="icon-heart"></i>我的收藏<span class="badge badge-primary badge-pill">3</span></a> 
-      <a class="list-group-item with-badge" href="account-tickets.html"><i class="icon-tag"></i>优惠卷<span class="badge badge-primary badge-pill">4</span></a> 
+      <a class="list-group-item with-badge" href="javascript:void(0)"><i class="icon-heart"></i>我的收藏</a> 
+      <a class="list-group-item with-badge" href="javascript:void(0)"><i class="icon-tag"></i>优惠卷</a> 
      </nav> 
     </div> 
 

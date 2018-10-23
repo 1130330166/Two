@@ -127,6 +127,8 @@ class ShopCartController extends Controller
                     // var_dump($art);exit;
                 }
                 $cates = self::getCatesByPid(0);
+                //获取用户详情
+                $userinfo = DB::table('mall_home_userinfo')->where('uid','=',session('uid'))->first();
                 //查询商品表
                 $goods = DB::table('mall_goods')->get();
                 //统计有多少件商品
@@ -141,11 +143,13 @@ class ShopCartController extends Controller
                     $random[] = $goods[$rands];
                 }
                 //跳转到首页并分配数据
-                return view('Home.ShopCart.index',['cates'=>$cates,'cookie'=>$cookies,'art'=>$art,'random'=>$random]);
+                return view('Home.ShopCart.index',['cates'=>$cates,'userinfo'=>$userinfo,'cookie'=>$cookies,'art'=>$art,'random'=>$random]);
             }else{
                 // echo 2;exit;
                 //没有商品的情况
                 $cates = self::getCatesByPid(0);
+                //获取用户详情
+                $userinfo = DB::table('mall_home_userinfo')->where('uid','=',session('uid'))->first();
                 //初始化总价格
                 $total = 0;
                 //初始化$art
@@ -164,11 +168,13 @@ class ShopCartController extends Controller
                     $random[] = $goods[$rands];
                 }
                 //跳转到首页并分配数据
-                return view('Home.ShopCart.index',['cates'=>$cates,'cookie'=>$cookies,'art'=>$art,'random'=>$random]);
+                return view('Home.ShopCart.index',['cates'=>$cates,'userinfo'=>$userinfo,'cookie'=>$cookies,'art'=>$art,'random'=>$random]);
             }
         }else{
             // 没有登录的情况下
             $cates = self::getCatesByPid(0);
+            //获取用户详情
+            $userinfo = DB::table('mall_home_userinfo')->where('uid','=',session('uid'))->first();
             //查询商品表
             $goods = DB::table('mall_goods')->get();
             //统计有多少件商品
@@ -197,7 +203,7 @@ class ShopCartController extends Controller
             // var_dump($rands);
             // var_dump($goods);exit;
             //跳转到首页并分配数据
-            return view('Home.ShopCart.index',['cates'=>$cates,'cookie'=>$cookies,'total'=>0,'random'=>$random]);
+            return view('Home.ShopCart.index',['cates'=>$cates,'userinfo'=>$userinfo,'cookie'=>$cookies,'total'=>0,'random'=>$random]);
         }    
     }
 

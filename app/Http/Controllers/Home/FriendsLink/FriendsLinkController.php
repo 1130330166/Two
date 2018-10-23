@@ -17,11 +17,12 @@ class FriendsLinkController extends Controller
     public function index()
     {
         $cates = self::getCatesByPid(0);
+        $userinfo = DB::table("mall_home_userinfo")->where('uid','=',session('uid'))->first();
         //获取上架的友情链接
         $data = DB::table('mall_flink')->where('status','=',1)->where('display','=',1)->get();
 
         //加载友情链接模板 分配数据
-        return view("Home.FriendsLink.index",["cates"=>$cates,'data'=>$data]);
+        return view("Home.FriendsLink.index",["cates"=>$cates,'data'=>$data,'userinfo'=>$userinfo]);
     }
 
     /**

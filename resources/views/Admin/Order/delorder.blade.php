@@ -7,11 +7,11 @@
  <body>
   <div class="mws-panel grid_8"> 
    <div class="mws-panel-header"> 
-    <span><i class="icon-table"></i>后台待收货订单列表</span> 
+    <span><i class="icon-table"></i>后台已取消订单列表</span> 
    </div> 
    <div class="mws-panel-body no-padding"> 
     <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper" role="grid">
-      <form action="/adminorderwaitreceipt" method="get">
+      <form action="/adminorderdelorder" method="get">
      <div class="dataTables_filter" id="DataTables_Table_1_filter">
       <label><input type="text" aria-controls="DataTables_Table_1" name="keywords"  value="{{$request['keywords'] or ''}}"/></label>
       <!-- <input type="submit" value="搜索"> -->
@@ -41,12 +41,12 @@
        @foreach($data as $row)
        <tr class="odd"> 
         <td class="  sorting_1" align="center">{{$row->id}}</td> 
-        <td class=" " align="center">{{$row->oid}}</td>   
+        <td class=" " align="center">{{$row->oid}}</td> 
         <td class=" " align="center">{{$row->status}}</td> 
         <td class=" " align="center">{{$row->addtime}}</td> 
         <td class=" " align="center">{{$row->paytime}}</td> 
 
-        <td class=" " align="center">
+        <td class=" ">
           <form action="/adminorder/{{$row->id}}" method="post">
             <button class="btn btn-inverse" onclick="return confirm('确定删除该订单吗?');"><i class="icon-remove"></i></button>
             {{method_field("DELETE")}}

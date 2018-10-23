@@ -2,6 +2,24 @@
 @section("title","编辑收货地址")
 @section("home")
 <div style="background-color: #36414F;height: 124px;"></div>
+
+  <script type="text/javascript" src="/static/jquery-1.8.3.min.js"></script>
+  
+  <!-- 添加成功与否信息显示开始 -->
+  @if(session('success'))
+  <div class="alert alert-success alert-dismissible fade show text-center margin-bottom-1x">
+      <span class="alert-close" data-dismiss="alert"></span>
+      <p>{{session('success')}}</p>
+  </div>
+  @endif
+
+  @if(session('error'))
+  <div class="alert alert-danger alert-dismissible fade show text-center margin-bottom-1x">
+      <span class="alert-close" data-dismiss="alert"></span>
+      <p>{{session('error')}}</p>
+  </div>
+  @endif
+  <!-- 添加成功与否信息显示结束 -->
   
   <!-- Start Contacts & Shipping Address -->
   <div class="container padding-top-1x padding-bottom-3x"> 

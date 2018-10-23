@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Home\Address;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+
 //引入DB类
 use DB;
 class AddressController extends Controller
@@ -18,6 +19,8 @@ class AddressController extends Controller
     {
         //根据Pid查询所有分类数据传递到公共模板导航栏
         $cates = self::getCatesByPid(0);
+        //获取用户详情
+        $userinfo = DB::table('mall_home_userinfo')->where('uid','=',session('uid'))->first();
 
         //查询该用户所有的收货地址 降序排列[默认地址在首位]isdefault 1为默认
         $data = DB::table("mall_address")->where('uid','=',session('uid'))->orderBy("isdefault","desc")->get();
@@ -29,7 +32,7 @@ class AddressController extends Controller
         
         // var_dump($data);
         //加载模板传递数据
-        return view("Home.Address.address",['data'=>$data,'cates'=>$cates]);
+        return view("Home.Address.address",['data'=>$data,'userinfo'=>$userinfo,'cates'=>$cates]);
     }
 
     /**
@@ -83,6 +86,7 @@ class AddressController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    //加载修改地址模板
     public function edit($id)
     {
         //根据Pid查询所有分类数据传递到公共模板导航栏
@@ -111,17 +115,41 @@ class AddressController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    //修改地址
     public function update(Request $request, $id)
     {
-        //获取修改的值
-        $data = $request->except('_token','_method');
+
+        //根据传递过来的地址ID获取该地址的详细数据
+        $info = DB::table("mall_address")->where("id",'=',$id)->first();
+        //判断用户输入的数据与数据库原有的数据一样[没有修改值,点了修改按钮]
+        if(($request->input('aname') == $info->aname) && ($request->input('postalcode') == $info->postalcode) && ($request->input('phone') == $info->phone) && ($request->input('address') == $info->address)){
+
+            //用户不做任何修改,提交了修改请求,返回修改页面,提示用户
+            return back()->with("error","请修改后再提交哦!");
+        }
+        //判断用户是否将所有输入框清空后提交修改请求
+        if(($request->input('aname') == '') && ($request->input('postalcode') == '') && ($request->input('phone') == '') && ($request->input('address') == '')){
+
+            //用户将输入框清空后提交修改请求,返回修改页面,提示用户
+            return back()->with("error","请输入要修改的信息后提交!");
+        }
+        //判断用户是否输入联系人 是则取原有数据,否则取用户填写的数据
+        $data['aname'] = $request->input('aname') == ''?$info->aname:$request->input('aname');
+        //判断用户是否输入邮编 是则取原有数据,否则取用户填写的数据
+        $data['postalcode'] = $request->input('postalcode') == ''?$info->postalcode:$request->input('postalcode');
+        //判断用户是否输入联系电话 是则取原有数据,否则取用户填写的数据
+        $data['phone'] = $request->input('phone') == ''?$info->phone:$request->input('phone');
+        //判断用户是否输入收货地址 是则取原有数据,否则取用户填写的数据
+        $data['address'] = $request->input('address') == ''?$info->address:$request->input('address');
+        // var_dump($data);exit;
+
         //根据ID更新地址
         if(DB::table('mall_address')->where('id','=',$id)->update($data)){
 
-            return redirect('/homeaddress')->with("success","地址更新成功!");
+            return back()->with("success","地址更新成功!");
         }else{
 
-            return redirect('/homeaddress')->with('error','地址更新失败!');
+            return back()->with('error','地址更新失败!');
         }
     }
 
@@ -131,15 +159,16 @@ class AddressController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    //删除地址操作
     public function destroy($id)
     {
         //根据ID删除指定地址,判断是否成功
         if(DB::table("mall_address")->where('id','=',$id)->delete()){
 
-            return redirect('/homeaddress')->with("success","删除成功!");
+            return back()->with("success","删除成功!");
         }else{
 
-            return redirect('/homeaddress')->with("error","删除失败!");
+            return back()->with("error","删除失败!");
         }
     }
 
@@ -159,24 +188,24 @@ class AddressController extends Controller
                     //重置默认地址成功,更新用户想设置的默认地址
                     if(DB::table("mall_address")->where('id','=',$id)->update(['isdefault'=>1])){
 
-                        return redirect('/homeaddress')->with("success","默认地址更新成功!");
+                        return back()->with("success","默认地址更新成功!");
                     }else{
 
-                        return redirect('/homeaddress')->with("error","默认地址更新失败,请联系客服!");
+                        return back()->with("error","默认地址更新失败,请联系客服!");
                     }
                 }else{
                     //将原来的默认地址重置为普通地址失败!
-                    return redirect('/homeaddress')->with("error","默认地址更新失败,请联系客服!");
+                    return back()->with("error","默认地址更新失败,请联系客服!");
                 }
             }else{
 
                 //该用户地址表下没有默认地址,直接更新用户想设置的默认地址
                 if(DB::table("mall_address")->where('id','=',$id)->update(['isdefault'=>1])){
 
-                    return redirect('/homeaddress')->with("success","默认地址设置成功!");
+                    return back()->with("success","默认地址设置成功!");
                 }else{
 
-                    return redirect('/homeaddress')->with("error","默认地址设置失败,请联系客服!");
+                    return back()->with("error","默认地址设置失败,请联系客服!");
                 }
             }
             
