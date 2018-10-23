@@ -129,19 +129,33 @@ class IndexController extends Controller
     }
     // 公告展示页
     public function article($id){
+        $cates = self::getCatesByPid(0);
         // echo $id;
         $article=DB::table("mall_article")->where("id",'=',$id)->first();
         // var_dump($article);die;
-        return view("Home.Article.index",['article'=>$article]);
+        return view("Home.Article.index",['article'=>$article,'cates'=>$cates]);
     }
     // 首页搜索框
     public function search(Request $request){
+        $cates = self::getCatesByPid(0);
         // $data=$request->except("_token");
         // var_dump($request->all());die;
         $keywords=$request->input("search");
         // var_dump($keywords);die;
         $goods=DB::select("SELECT * FROM mall_goods WHERE name LIKE '%$keywords%' AND status = '1' ");
         // var_dump($goods);die;
-        return view("Home.Search.index",['keywords'=>$keywords,'goods'=>$goods]);
+        return view("Home.Search.index",['keywords'=>$keywords,'goods'=>$goods,'cates'=>$cates]);
+    }
+    // 关于我们_模块
+    public  function about_us(){
+        $cates = self::getCatesByPid(0);
+        // echo 1;die;
+        return view("Home.Extend.about_us",['cates'=>$cates]);
+    }
+    // 我们的团队
+    public  function team(){
+        $cates = self::getCatesByPid(0);
+        // echo 1;die;
+        return view("Home.Extend.team",['cates'=>$cates]);
     }
 }

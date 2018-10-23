@@ -11,8 +11,8 @@
                 <article class="row">
                     <div class="col-md-3 order-md-1">
                         <ul class="post-meta">
-                            <li><i class="icon-clock"></i><a href="blog-single-1.html">&nbsp;发布时间</a></li>
-                            <li><i class="icon-clock"></i><a href="blog-single-1.html">&nbsp;{{$article->time}}</a></li>
+                            <li><i class="icon-clock"></i><a href="javascript:void(0);">&nbsp;发布时间</a></li>
+                            <li><i class="icon-clock"></i><a href="javascript:void(0);">&nbsp;{{$article->time}}</a></li>
                         </ul>
                     </div>
                     <div class="col-md-9 order-md-2 blog-post">

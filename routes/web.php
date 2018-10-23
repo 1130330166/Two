@@ -100,6 +100,10 @@ Route::resource("/review","Home\Review\ReviewController");
 Route::get("/homearticle/{id}","Home\Index\IndexController@article");
 // 前台搜索框
 Route::get("/search","Home\Index\IndexController@search");
+// 关于我们模块
+Route::get("/about_us","Home\Index\IndexController@about_us");
+// 我们的团队
+Route::get("/team","Home\Index\IndexController@team");
 // ---------------前后台路由分割线--------------------
 
 // 后台登录退出

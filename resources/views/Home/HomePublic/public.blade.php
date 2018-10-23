@@ -65,7 +65,7 @@
 <header class="navbar navbar-sticky navbar-ghost">
     <!-- Start Search -->
     <form class="site-search" method="get" action="/search">
-        <input type="text" name="search" placeholder="请 输 入 你 想 要 搜 索 的 产 品" required>
+        <input type="text" name="search" placeholder="请 输 入 你 想 要 搜 索 的 产 品" maxlength="8" required>
         <div class="search-tools">
             <input type="submit" value="搜索" class="btn btn-primary" /> 
             {{csrf_field()}}
@@ -215,12 +215,8 @@
                     <section class="widget widget-links widget-light-skin">
                         <h3 class="widget-title">关于我们</h3>
                         <ul>
-                            <li><a href="javascript:void(0);">我们的公司</a></li>
-                            <li><a href="javascript:void(0);">我们的队伍</a></li>
-                            <li><a href="javascript:void(0);">我们的产品</a></li>
-                            <li><a href="javascript:void(0);">我们的推荐</a></li>
-                            <li><a href="javascript:void(0);">全天候支持</a></li>
-                            <li><a href="javascript:void(0);">隐私政策</a></li>
+                            <li><a href="/about_us">我们的公司</a></li>
+                            <li><a href="/team">我们的队伍</a></li>
                         </ul>
                     </section>
                 </div>
