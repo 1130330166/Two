@@ -18,7 +18,7 @@ class GoodslistController extends Controller
         // 获取分类 
         $cates = self::getCatesByPid(0);
         // 获取商品数据
-        $goods=DB::table("mall_goods")->join('mall_cates','mall_goods.cate_id','=','mall_cates.id')->select('mall_goods.id as id','mall_goods.name as name','mall_cates.id as cid','mall_cates.name as catename','mall_goods.pic','mall_goods.des','mall_goods.num','mall_goods.price')->get();
+        $goods=DB::table("mall_goods")->join('mall_cates','mall_goods.cate_id','=','mall_cates.id')->select('mall_goods.id as id','mall_goods.name as name','mall_cates.id as cid','mall_cates.name as catename','mall_goods.pic','mall_goods.des','mall_goods.num','mall_goods.price','mall_goods.status')->get();
         // var_dump($cates);
         // var_dump($goods);die;
         // 加载商品列表并分配数据
@@ -66,8 +66,16 @@ class GoodslistController extends Controller
         // var_dump($info);
         // var_dump($catename);
         // var_dump($pic);die;
+        // 获取评论信息
+        $review=DB::table("mall_review")->orderBy('time','desc')->get();
+        // var_dump($review);die;
+        // 对用户名进行加密
+        foreach ($review as $key => $value) {
+            $review[$key]->musername= '****'.substr($value->username,3);
+        }
+        // var_dump($review);die;
         // 加载模板
-        return view("Home.goodslist.goodsinfo",['cates'=>$cates,'info'=>$info,'pic'=>$pic,'catename'=>$catename]);
+        return view("Home.goodslist.goodsinfo",['cates'=>$cates,'info'=>$info,'pic'=>$pic,'catename'=>$catename,'review'=>$review]);
     }
 
     /**

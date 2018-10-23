@@ -22,7 +22,7 @@
             <div class="grid-sizer"></div>
             <!-- 商品遍历开始 -->
             @foreach($goods as $v)
-            <div class="grid-item">
+            <div class="grid-item" style="display: {{$v->status=='0'?'none;':'block;'}}">
                 <div class="product-card">
                     <a class="product-thumb" href="/goodslist/{{$v->id}}">
                         <img src="../{{$v->pic}}" style="width: 100%;height:200px">

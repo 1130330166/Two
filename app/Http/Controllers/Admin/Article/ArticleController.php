@@ -41,6 +41,7 @@ class ArticleController extends Controller
         //获取数据
         // dd($request->all());die;
         $data=$request->only('title','des');
+        $data['time']=date('Y-m-d _ H:i:s',time());
         // dd($data);die;
         if(DB::table("mall_article")->insert($data)){
             // echo "ok";
@@ -69,6 +70,7 @@ class ArticleController extends Controller
         // echo $id;
         // 获取数据
         $info=DB::table("mall_article")->where("id",'=',$id)->first();
+        // $info['time']=date('Y-m-d _ H:i:s',time());
         // var_dump($info);die;
         // 加载修改模板并分配数据
         return view("Admin.article.edit",['info'=>$info]);

@@ -30,7 +30,7 @@
   <link rel="stylesheet" type="text/css" href="/static/admins/css/my.css" media="screen" /> 
   <title>@yield('title')</title> 
  </head> 
- <body> 
+ <body>
   <!-- Header --> 
   <div id="mws-header" class="clearfix"> 
    <!-- Logo Container --> 
@@ -215,6 +215,14 @@
         <li><a href="/article/create">添加公告</a></li> 
        </ul> </li>
        <!-- 公告模块结束 -->
+
+        <!-- 评论模块开始 -->
+       <li> <a href="#"><i class="icon-edit"></i> 评论管理</a> 
+       <ul class="closed"> 
+        <li><a href="/adminreview">评论列表</a></li> 
+       </ul> </li>
+       <!-- .评论模块结束 -->
+
      </ul> 
     </div> 
    </div> 

@@ -2,6 +2,30 @@
 @section("title","前台首页")
 @section("home")
 <script type="text/javascript" src="/static/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="static/jquery-1.8.3.min.js"></script>
+<!-- 公告模块样式开始 -->
+<style type="text/css">
+.cls_container{border:1px solid #eee;width:100%;font-size:12px;height:24px;overflow:hidden;background-color: #FEFECC;}
+.cls_container ul{list-style-type:none;margin:0;padding:0;margin-left:32px;}
+.cls_container ul li{height:26px;line-height:26px;width:100%;float:left;display:inline;}
+.myscroll{
+    width:100%;
+    margin: 0 auto;
+}
+</style> 
+<!-- /公告模块样式结束 -->
+<!-- 公告模块开始 -->
+    <div id="myscroll" class="cls_container " align="center">
+        <ul>
+        @foreach($data as $v)
+        <input type="hidden" name="id" value="{{$v->id}}">
+        <li><a href="/homearticle/{{$v->id}}"><font color="#36414F" size="2">{{$i++}} . {{$v->title}}</a></font> <a href="javascript:void(0);" onclick="javascript:turnoff('myscroll')"><font size="2">点击关闭公告显示</a></font>
+        </li>
+        @endforeach
+        </ul>
+        
+    </div>
+    <!-- /公告模块结束 -->
 <!-- End NavBar -->
 <div class="offcanvas-wrapper">
     <!-- Start Hero Content -->
@@ -52,7 +76,7 @@
                 <div class="grid-sizer"></div>
                 <!-- Start 手机 #1 -->
                 @foreach($goods as $v)
-                <div class="grid-item classic">
+                <div class="grid-item classic" style="display: {{$v->status=='0'?'none;':'block;'}}">
                     <div class="product-card">
                         <a class="product-thumb" href="/goodslist/{{$v->id}}">
                             <img src="{{$v->pic}}" style="width: 100%;height:200px">
@@ -114,4 +138,73 @@
                 });
         })
     </script>
+    <!-- 公告滚动脚本开始 -->
+<script type="text/javascript">
+function $(element){
+ if(arguments.length>1){
+  for(var i=0,length=arguments.length,elements=[];i<length;i++){
+   elements.push($(arguments[i]));
+  }
+  return elements;
+ }
+ if(typeof element=="string"){
+  return document.getElementById(element);
+ }else{
+  return element;
+ }
+}
+var Class={
+ create:function(){
+  return function(){
+   this.initialize.apply(this,arguments);
+  }
+ }
+}
+Function.prototype.bind=function(object){
+ var method=this;
+ return function(){
+  method.apply(object,arguments);
+ }
+}
+var Scroll=Class.create();
+Scroll.prototype={
+ initialize:function(element,height){
+  this.element=$(element);
+  this.element.innerHTML+=this.element.innerHTML;
+  this.height=height;
+  this.maxHeight=this.element.scrollHeight/2;
+  this.counter=0;
+  this.scroll();
+  this.timer="";
+  this.element.onmouseover=this.stop.bind(this);
+  this.element.onmouseout=function(){this.timer=setTimeout(this.scroll.bind(this),1000);}.bind(this);
+ },
+ scroll:function(){
+  if(this.element.scrollTop<this.maxHeight){
+   this.element.scrollTop++;
+   this.counter++;
+  }else{
+   this.element.scrollTop=0;
+   this.counter=0;
+  }
+  
+  if(this.counter<this.height){
+   this.timer=setTimeout(this.scroll.bind(this),22);
+  }else{
+   this.counter=0;
+   this.timer=setTimeout(this.scroll.bind(this),3126);
+  }
+ },
+ stop:function(){
+  clearTimeout(this.timer);
+ }
+}
+var myscroll=new Scroll("myscroll",26);
+// 公告点击关闭按钮开始
+function turnoff(obj){
+document.getElementById(obj).style.display="none";
+}
+// 公告点击关闭按钮结束
+</script>
+<!-- /公告滚动脚本结束 -->
 @endsection

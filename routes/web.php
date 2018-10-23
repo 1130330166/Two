@@ -83,7 +83,12 @@ Route::post('/send',"Home\Login\LoginController@send");
 Route::get('/xiugai',"Home\Login\LoginController@xiugai");
 //邮箱忘记密码修改操作
 Route::post('/xiugaicaozuo',"Home\Login\LoginController@xiugaicaozuo");
-
+// 评论模块
+Route::resource("/review","Home\Review\ReviewController");
+// 前台公告模块
+Route::get("/homearticle/{id}","Home\Index\IndexController@article");
+// 前台搜索框
+Route::get("/search","Home\Index\IndexController@search");
 // ---------------前后台路由分割线--------------------
 
 // 后台登录退出
@@ -144,4 +149,6 @@ Route::group(['middleware'=>'adminlogin'],function(){
 	Route::resource("/article","Admin\Article\ArticleController");
 	// 公告ajax批量删除
 	Route::get("/articledel","Admin\Article\ArticleController@ajax");
+	// 评论模块_运用Ajax分页
+	Route::resource("/adminreview","Admin\Review\ReviewController");
 });

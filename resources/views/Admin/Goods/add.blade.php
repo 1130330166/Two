@@ -32,7 +32,7 @@
        <label class="mws-form-label">* 商品分类</label> 
        <div class="mws-form-item">
         <select name="cate_id">
-          <option value="">- - 请选择 - -</option>
+          <option value="0">- - 请选择 - -</option>
           <!-- substr_count()统计某个元素子啊字符串中出现的次数 -->
           <!-- str_repeat()把某个元素重复多少次 -->
            @foreach($data as $v)
@@ -53,7 +53,7 @@
       <div class="mws-form-row"> 
        <label class="mws-form-label">* 商品库存</label> 
        <div class="mws-form-item"> 
-        <input type="text" class="large" name="num" value=""/> 
+        <input type="text" class="large" name="num" value="" maxlength="5" size="5"/> 
        </div> 
       </div>
       <div class="mws-form-inline"> 
@@ -83,7 +83,8 @@
        <div class="mws-form-item"> 
        </div> 
       </div>
-      <script id="editor" type="text/plain" name="des" style="width:1060px;height:100px;"> </script>
+      <!-- 百度编辑器引入__(已插入默认商品模版) -->
+      <script id="editor" type="text/plain" name="des" style="width:1060px;height:100px;"><hr/><p><br/></p><table align="center"><tbody><tr class="firstRow"><td width="240" valign="top" style="word-break: break-all;" align="center"><p><span style="font-size: 14px; color: rgb(127, 127, 127);">商品名称：XXX</span></p></td><td width="240" valign="top" style="word-break: break-all;" align="center"><span style="font-size: 14px; color: rgb(127, 127, 127);">商品编号：XXX</span></td><td width="240" valign="top" style="word-break: break-all;" align="center"><span style="font-size: 14px; color: rgb(127, 127, 127);">商品毛重：XXX</span></td><td width="240" valign="top" style="word-break: break-all;" align="center"><span style="font-size: 14px; color: rgb(127, 127, 127);">商品产地：XXX</span></td></tr><tr><td width="240" valign="top" style="word-break: break-all;" align="center"><span style="font-size: 14px; color: rgb(127, 127, 127);">商品名称：XXX</span></td><td width="240" valign="top" style="word-break: break-all;" align="center"><span style="font-size: 14px; color: rgb(127, 127, 127);">商品名称：XXX</span></td><td width="240" valign="top" style="word-break: break-all;" align="center"><span style="font-size: 14px; color: rgb(127, 127, 127);">商品名称：XXX</span></td><td width="240" valign="top" style="word-break: break-all;" align="center"><span style="font-size: 14px; color: rgb(127, 127, 127);">商品名称：XXX</span></td></tr><tr><td width="240" valign="top" style="word-break: break-all;" align="center"><span style="font-size: 14px; color: rgb(127, 127, 127);">商品名称：XXX</span></td><td width="240" valign="top" style="word-break: break-all;" align="center"><span style="font-size: 14px; color: rgb(127, 127, 127);">商品名称：XXX</span></td><td width="240" valign="top" style="word-break: break-all;" align="center"><span style="font-size: 14px; color: rgb(127, 127, 127);">商品名称：XXX</span></td><td width="240" valign="top" style="word-break: break-all;" align="center"><span style="font-size: 14px; color: rgb(127, 127, 127);">商品名称：XXX</span></td></tr></tbody></table><p><br/></p><p style="text-align: center;">素材插入处(手动居中)</p></script>
       <div class="mws-form-row"> 
        <label class="mws-form-label">* 商品图片</label> 
        <div class="mws-form-item"> 
@@ -116,7 +117,8 @@ var ue = UE.getEditor('editor');
       title = $('input[name=title]').val();
       size = $('input[name=size]').val();
       color = $('input[name=color]').val();
-      if(name == '' || pic == ''|| price==''|| num=='' || des== '' || title== '' || size== '' || color== ''){
+      cate = $('select[name=cate_id]').val();
+      if(name == '' || pic == ''|| price==''|| num=='' || des== '' || title== '' || size== '' || color== '' || cate== '0'){
         alert('请 填 写 必 选 项 ');
         return false;
       }

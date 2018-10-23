@@ -5940,7 +5940,7 @@ video {
 
 .site-search .search-tools {
     position: absolute;
-    top: 50%;
+    top: 40%;
     right: 30px;
     margin-top: -20px;
     z-index: 5
@@ -5968,7 +5968,7 @@ video {
 
 .site-search .search-tools .close-search {
     margin-left: 10px;
-    padding-top: 4px;
+    padding-top: 10px;
     padding-bottom: 10px;
     padding-left: 10px
 }

@@ -1,6 +1,30 @@
 @extends("Home.HomePublic.public")
 @section("home")
 <div style="background-color: #36414F; height: 124px;"></div>
+
+<!-- 评论信息添加成功提示开始 -->
+@if(session('success'))
+  <div class="alert alert-success alert-dismissible fade show text-center margin-bottom-1x">
+      <span class="alert-close" data-dismiss="alert"></span>
+      <p>{{session('success')}}</p>
+  </div> 
+@endif
+<!-- /评论信息添加成功提示结束 -->
+
+<!-- 提示信息的样式开始 -->
+@if (count($errors) > 0)
+<div class="alert alert-danger">
+<div class="mws-form-message error">
+<ul>
+@foreach ($errors->all() as $error)
+<li>{{$error}}</li>
+@endforeach
+</ul>
+</div>
+</div>
+@endif
+<!-- /提示信息的样式结束 -->
+
 <!-- Start Product Content -->
     <div class="container padding-top-1x padding-bottom-3x">
         <div class="row">
@@ -34,14 +58,6 @@
             <!-- Start Product Info -->
             <div class="col-md-6 single-shop">
                 <div class="hidden-md-up"></div>
-                <div class="rating-stars">
-                    <i class="icon-star filled"></i>
-                    <i class="icon-star filled"></i>
-                    <i class="icon-star filled"></i>
-                    <i class="icon-star filled"></i>
-                    <i class="icon-star filled"></i>
-                </div>
-                <span class="text-muted align-middle">&nbsp;&nbsp;5 | 13 客户评论</span>
                 <h2 class="padding-top-1x text-normal with-side">{{$info->name}}</h2>
                 <span class="h2 d-block with-side"><del class="text-muted text-normal">￥ 10999.00</del>&nbsp; ￥ {{$info->price}}</span>
                 <br>
@@ -124,55 +140,90 @@
                     <p>{!!$info->des!!}</p>
                 </div>
                 <div class="tab-pane fade" id="reviews" role="tabpanel">
-                    <!-- Start Review #1 -->
-                    <div class="comment">
-                        <div class="comment-author-ava"><img src="/static/assets/images/reviews/01.jpg" alt="Review Author"></div>
-                        <div class="comment-body">
-                            <div class="comment-header d-flex flex-wrap justify-content-between">
-                                <h4 class="comment-title">————— 好评 —————</h4>
-                                <div class="mb-2">
-                                    <div class="rating-stars"><i class="icon-star filled"></i><i class="icon-star filled"></i><i class="icon-star filled"></i><i class="icon-star filled"></i><i class="icon-star filled"></i></div>
-                                </div>
-                            </div>
-                            <p class="comment-text">这 是 评 价 内 容 !</p>
-                            <div class="comment-footer"><span class="comment-meta">a****n</span></div>
-                        </div>
+                    <!-- 提示信息的样式开始 -->
+                    @if (count($errors) > 0)
+                    <div class="alert alert-danger">
+                    <div class="mws-form-message error">
+                    <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                    </ul>
                     </div>
-                    <!-- End Review #1 -->
-                    <!-- Start Review Form -->
+                    </div>
+                    @endif
+                    <!-- /提示信息的样式结束 -->
+                    <!-- 写入评论开始 -->
                     <h5 class="mb-30 padding-top-1x">撰写评论</h5>
-                    <form class="row" method="post">
+                    <form class="row" method="post" action="/review">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="review_name">Your Name</label>
-                                <input class="form-control form-control-rounded" type="text" id="review_name" required>
+                                <input type="hidden" name="id" value="{{$info->id}}">
+                                <input type="hidden" name="goodsname" value="{{$info->name}}">
+                                 <div class="alert alert-error alert-dismissible fade show text-center margin-bottom-1x nerror" style="display: none">
+                                  <span class="alert-close" data-dismiss="alert"></span>
+                                  <p><font color="red">请 登 录 后 再 操 作 <a href="/login"> 登录</a></font></p>
+                              </div>
+                                <label for="review_name">当 前 用 户</label>
+                                <input class="form-control form-control-rounded" type="text" id="review_name" name="username" value="{{session('username')}}" readonly />
                             </div>
                         </div>
                         
                         
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="review_rating">Your Rate</label>
-                                <select class="form-control form-control-rounded" id="review_rating">
-                                    <option>5 Stars</option>
-                                    <option>4 Stars</option>
-                                    <option>3 Stars</option>
-                                    <option>2 Stars</option>
-                                    <option>1 Star</option>
+                                <label for="review_rating">你 的 评 价</label>
+                                <select class="form-control form-control-rounded" id="review_rating" name="leavel">
+                                    <option value="3">好 评</option>
+                                    <option value="2">中 评</option>
+                                    <option value="1">差 评</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
-                                <label for="review_text">Review </label>
-                                <textarea class="form-control form-control-rounded" id="review_text" rows="8" required></textarea>
+                                <label for="review_text">评 论 内 容 </label>
+                                <textarea class="form-control form-control-rounde" id="review_text" rows="8" name="content" required placeholder="请 填 写 评 论 内 容"></textarea>
                             </div>
                         </div>
                         <div class="col-12 text-right">
-                            <button class="btn btn-outline-primary" type="submit">提 交 评 论</button>
+                            {{csrf_field()}}
+                            <button class="btn btn-outline-primary reviews" type="submit">提 交 评 论</button>
                         </div>
                     </form>
-                    <!-- End Review Form -->
+                    <!-- /写入评论结束 -->
+                    <br>
+                    <hr>
+                    <br>
+                    <h5 class="mb-30 padding-top-1x">评论列表</h5><h6>(最新评论)</h6>
+                    <!-- 评论遍历开始 -->
+                    @foreach($review as $v)
+                    <div class="comment">
+                        <div class="comment-author-ava"><img src="/static/assets/images/reviews/01.jpg" alt="Review Author"></div>
+                        <div class="comment-body">
+                            <div class="comment-header d-flex flex-wrap justify-content-between">
+                                <div class="mb-2">
+                                    @if($v->leavel =='3')
+                                    <div class="rating-stars"><i class="icon-star filled"></i><i class="icon-star filled"></i>
+                                        <i class="icon-star filled"></i>
+                                        <i class="icon-star filled"></i><i class="icon-star filled"></i></div>
+                                    @elseif($v->leavel == '2')
+                                    <div class="rating-stars"><i class="icon-star filled"></i><i class="icon-star filled"></i>
+                                        <i class="icon-star filled"></i></div>
+                                    @elseif($v->leavel == '1')
+                                    <div class="rating-stars"><i class="icon-star filled"></i></div>
+                                    @endif
+                                </div>
+                                <div class="mb-2">
+                                    商品 # <b> {{$v->goodsname}}</b>
+                                </div>
+                            </div>
+                            <p class="comment-text">{{$v->content}}</br></p>
+                            <div class="comment-footer"><span class="comment-meta">{{$v->musername}} &nbsp;&nbsp;&nbsp;&nbsp; 评论时间 : {{$v->time}}</span></div>
+                        </div>
+                    </div>
+                    @endforeach
+                    <!-- /评论遍历结束 -->
                 </div>
             </div>
         </div>
@@ -191,6 +242,19 @@
                 $.get('/addcart',{gid:gid},function(data){
                 });
         })
+        // 验证用户是否登录_评论内容是否填写
+        $(".reviews").click(function(){
+            // alert(1);
+            var name = $('input[name=username]').val();
+            var content = $('input[name=content]').val();
+            // 判断用户名是否登录
+            if(name==""|| content==""){
+                // 更改弹框状态
+                 $('.nerror').attr('style','display:block');
+                //阻止表单跳转
+                return false;
+            }
+        });
     </script>          
 @endsection
 @section("title","商品详情页")

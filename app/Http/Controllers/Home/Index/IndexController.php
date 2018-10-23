@@ -17,7 +17,11 @@ class IndexController extends Controller
      */
     public function index(Request $request)
     {
-
+        // 获取公告信息
+        $data=DB::table("mall_article")->get();
+        // 定义公告编号
+        $i=1;
+        //加载列表模板
         $cates = self::getCatesByPid(0);
         $list = DB::table('mall_guanggao')->get();
         $arr = DB::table('mall_carousel')->where('status','=',1)->get();
@@ -30,14 +34,15 @@ class IndexController extends Controller
         //     $goods[$key]->catename=$catename->name;
         // }
         // 获取商品信息-------------第二种方法
-        $goods=DB::table("mall_goods")->join('mall_cates','mall_goods.cate_id','=','mall_cates.id')->select('mall_goods.id as id','mall_goods.name as name','mall_cates.id as cid','mall_cates.name as catename','mall_goods.pic','mall_goods.des','mall_goods.num','mall_goods.price')->get();
+        $goods=DB::table("mall_goods")->join('mall_cates','mall_goods.cate_id','=','mall_cates.id')->select('mall_goods.id as id','mall_goods.name as name','mall_cates.id as cid','mall_cates.name as catename','mall_goods.pic','mall_goods.des','mall_goods.num','mall_goods.price','mall_goods.status')->get();
         // var_dump($goods);die;
         // dd(count($arr));
         // dd($arr);
         // dd($cates);
         // dd($list);
+        // var_dump($article);die;
         //加载前台首页模板
-        return view("Home.Index.index",["cates"=>$cates,"list"=>$list,'arr'=>$arr,'goods'=>$goods]);
+        return view("Home.Index.index",["cates"=>$cates,"list"=>$list,'arr'=>$arr,'goods'=>$goods,'data'=>$data,'i'=>$i]);
 
     }
 
@@ -119,5 +124,22 @@ class IndexController extends Controller
             $data[] = $value;
         }
         return $data;
+    }
+    // 公告展示页
+    public function article($id){
+        // echo $id;
+        $article=DB::table("mall_article")->where("id",'=',$id)->first();
+        // var_dump($article);die;
+        return view("Home.Article.index",['article'=>$article]);
+    }
+    // 首页搜索框
+    public function search(Request $request){
+        // $data=$request->except("_token");
+        // var_dump($request->all());die;
+        $keywords=$request->input("search");
+        // var_dump($keywords);die;
+        $goods=DB::select("SELECT * FROM mall_goods WHERE name LIKE '%$keywords%' AND status = '1' ");
+        // var_dump($goods);die;
+        return view("Home.Search.index",['keywords'=>$keywords,'goods'=>$goods]);
     }
 }

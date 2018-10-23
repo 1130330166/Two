@@ -28,7 +28,6 @@
     <link rel="stylesheet" media="screen" href="/static/assets/css/style.css">
 </head>
 <body>
-
 <!-- 左侧导航栏开始 -->
 <!-- Start Shop Category Menu -->
 <div class="offcanvas-container" id="shop-categories">
@@ -65,11 +64,12 @@
 <!-- Start NavBar -->
 <header class="navbar navbar-sticky navbar-ghost">
     <!-- Start Search -->
-    <form class="site-search" method="get">
-        <input type="text" name="site_search" placeholder="请输入你想要购买的产品!">
+    <form class="site-search" method="get" action="/search">
+        <input type="text" name="search" placeholder="请 输 入 你 想 要 搜 索 的 产 品" required>
         <div class="search-tools">
-            <span class="clear-search">Clear</span>
-            <span class="close-search"><i class="icon-cross"></i></span>
+            <input type="submit" value="搜索" class="btn btn-primary" /> 
+            {{csrf_field()}}
+            <span class="close-search"><i class="icon-cross">取消</i></span>
         </div>
     </form>
     <!-- End Search -->
@@ -181,16 +181,16 @@
                             <li><span class="opacity-50">周一至周五: </span>09:00 - 18:00</li>
                             <li><span class="opacity-50">周六至周日: </span>10:00 - 15:00</li>
                         </ul>
-                        <a class="social-button shape-circle sb-facebook sb-light-skin" href="#">
+                        <a class="social-button shape-circle sb-facebook sb-light-skin" href="javascript:void(0);">
                             <i class="socicon-facebook"></i>
                         </a>
-                        <a class="social-button shape-circle sb-twitter sb-light-skin" href="#">
+                        <a class="social-button shape-circle sb-twitter sb-light-skin" href="javascript:void(0);">
                             <i class="socicon-twitter"></i>
                         </a>
-                        <a class="social-button shape-circle sb-instagram sb-light-skin" href="#">
+                        <a class="social-button shape-circle sb-instagram sb-light-skin" href="javascript:void(0);">
                             <i class="socicon-googleplus"></i>
                         </a>
-                        <a class="social-button shape-circle sb-instagram sb-light-skin" href="#">
+                        <a class="social-button shape-circle sb-instagram sb-light-skin" href="javascript:void(0);">
                             <i class="socicon-instagram"></i>
                         </a>
                     </section>
@@ -211,12 +211,12 @@
                     <section class="widget widget-links widget-light-skin">
                         <h3 class="widget-title">关于我们</h3>
                         <ul>
-                            <li><a href="#">我们的公司</a></li>
-                            <li><a href="#">我们的队伍</a></li>
-                            <li><a href="#">我们的产品</a></li>
-                            <li><a href="#">我们的推荐</a></li>
-                            <li><a href="#">全天候支持</a></li>
-                            <li><a href="#">隐私政策</a></li>
+                            <li><a href="javascript:void(0);">我们的公司</a></li>
+                            <li><a href="javascript:void(0);">我们的队伍</a></li>
+                            <li><a href="javascript:void(0);">我们的产品</a></li>
+                            <li><a href="javascript:void(0);">我们的推荐</a></li>
+                            <li><a href="javascript:void(0);">全天候支持</a></li>
+                            <li><a href="javascript:void(0);">隐私政策</a></li>
                         </ul>
                     </section>
                 </div>
