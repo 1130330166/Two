@@ -108,9 +108,16 @@ class UserinfoController extends Controller
     {
         //接收用户修改信息
         $arr = $request->except('_token','_method');
+        //判断邮箱是否为空,是就赋值空字符串
+        $arr['email'] = !empty($request->input('email'))?$request->input('email'):'';
+        //判断真实地址是否为空,是就赋值空字符串
+        $arr['telphone'] = !empty($request->input('telphone'))?$request->input('telphone'):'';
+        //判断真实地址是否为空,是就赋值空字符串
+        $arr['raddress'] = !empty($request->input('raddress'))?$request->input('raddress'):'';
+        // var_dump($arr);die;
         //修改用户信息
         if(DB::table('mall_home_userinfo')->where('uid','=',session('uid'))->update($arr)){
-            //同时修改用户表的邮箱
+            //同时修改用户表的邮箱和电话
             DB::table("mall_home_users")->where('id','=',session('uid'))->update(['email'=>$arr['email'],'phone'=>$arr['telphone']]);
             return back()->with('success','修改成功!');
         }else{
