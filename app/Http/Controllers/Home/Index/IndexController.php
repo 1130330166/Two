@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Home\Index;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+//导入redis类
+use Illuminate\Support\Facades\Redis;
 
 //引入DB类
 use DB;
@@ -17,17 +19,12 @@ class IndexController extends Controller
      */
     public function index(Request $request)
     {
-        // 获取公告信息
-        $data=DB::table("mall_article")->get();
+        
+        
         //获取用户详情
         $userinfo = DB::table('mall_home_userinfo')->where('uid','=',session('uid'))->first();
         // 定义公告编号
-        $i=1;
-        //加载列表模板
-        $cates = self::getCatesByPid(0);
-        $list = DB::table('mall_guanggao')->get();
-        $arr = DB::table('mall_carousel')->where('status','=',1)->get();
-        $atr = DB::table('mall_guanggao')->where('id','=',3)->first();
+        $i=1;        
         // 获取商品信息-------------第一种方法
         // $goods=DB::table("mall_goods")->get();
         // // 获取分类名字
@@ -35,14 +32,44 @@ class IndexController extends Controller
         //     $catename=DB::table("mall_cates")->where("id",'=',$value->cate_id)->first();
         //     $goods[$key]->catename=$catename->name;
         // }
-        // 获取商品信息-------------第二种方法
-        $goods=DB::table("mall_goods")->join('mall_cates','mall_goods.cate_id','=','mall_cates.id')->select('mall_goods.id as id','mall_goods.name as name','mall_cates.id as cid','mall_cates.name as catename','mall_goods.pic','mall_goods.des','mall_goods.num','mall_goods.price','mall_goods.status','mall_goods.like')->get();
-        // var_dump($goods);die;
-        // dd(count($arr));
-        // dd($arr);
-        // dd($cates);
-        // dd($list);
-        // var_dump($article);die;
+        //把存在redis的键名加入到一个数组里面
+        $key[] = array('list','cates','arr','goods','data');
+        //遍历数组
+        foreach($key as $k=>$v){
+            // var_dump($v);exit;
+            // 判断键值是否存在redis
+            if(Redis::exists($v[$k])){
+                //在redis拿数据  拿出来的是json字符串
+                $list = Redis::get('list');
+                $cates = Redis::get('cates');
+                $arr = Redis::get('arr');
+                $goods = Redis::get('goods');
+                $data = Redis::get('data');
+                //数组类型转换   当时什么数据类型存的redis就转换成什么类型
+                $list = unserialize($list);
+                $cates = unserialize($cates);
+                $arr = unserialize($arr);
+                $goods = unserialize($goods);
+                $data = unserialize($data);
+            }else{
+                // 获取公告信息
+                $data=DB::table("mall_article")->get();
+                //加载列表模板
+                $cates = self::getCatesByPid(0);
+                //广告模块
+                $list = DB::table('mall_guanggao')->get();
+                //轮播图模块
+                $arr = DB::table('mall_carousel')->where('status','=',1)->get();
+                // 获取商品信息-------------第二种方法
+                $goods=DB::table("mall_goods")->join('mall_cates','mall_goods.cate_id','=','mall_cates.id')->select('mall_goods.id as id','mall_goods.name as name','mall_cates.id as cid','mall_cates.name as catename','mall_goods.pic','mall_goods.des','mall_goods.num','mall_goods.price','mall_goods.status','mall_goods.like')->get();
+                //储存redis
+                Redis::setex('list', 300, serialize($list));
+                Redis::setex('cates', 300, serialize($cates));
+                Redis::setex('arr', 300, serialize($arr));
+                Redis::setex('goods', 300, serialize($goods));
+                Redis::setex('data', 300, serialize($data));
+            }
+        }
         //加载前台首页模板
         return view("Home.Index.index",["cates"=>$cates,'userinfo'=>$userinfo,"list"=>$list,'arr'=>$arr,'goods'=>$goods,'data'=>$data,'i'=>$i]);
 
@@ -159,6 +186,7 @@ class IndexController extends Controller
         return view("Home.Extend.team",['cates'=>$cates]);
     }
 
+    //点赞
     public function up(Request $request){
         // var_dump($request->all());
         $gid = $request->input('gid');

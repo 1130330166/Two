@@ -218,6 +218,7 @@
         <div class="owl-carousel" data-owl-carousel='{ "nav": false, "dots": false, "margin": 30, "responsive": {"0":{"items":1},"576":{"items":2},"768":{"items":3},"991":{"items":4},";1200":{"items":4}} }'>
             <!-- Start Product #1 -->
             @foreach($random as $v)
+            @if($v->status == 1)
             <div class="grid-item">
                 <div class="product-card">
                     <a class="product-thumb" href="/goodslist/{{$v->id}}">
@@ -236,6 +237,7 @@
                     </div>
                 </div>
             </div>
+            @endif
             @endforeach
 
             <!-- End Product #1 -->
