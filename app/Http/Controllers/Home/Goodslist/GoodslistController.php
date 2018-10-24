@@ -126,6 +126,10 @@ class GoodslistController extends Controller
     	$cates = self::getCatesByPid(0);
         //获取用户个人信息
         $userinfo = DB::table("mall_home_userinfo")->where('uid','=',session('uid'))->first();
+        //为商品详情页拼接用户头像路径
+        if($userinfo){
+             $userinfo->pic = '.'.$userinfo->pic;
+        }
     	// echo "分类商品详情 : $id";
     	// 获取当前分类名
     	$catess=DB::table("mall_cates")->where("id",'=',$id)->first();
