@@ -215,6 +215,15 @@
                   <!-- 订单状态操作结束 -->
                 </tr>
                 <!--  其它内容结束   -->
+                <tr><td colspan="3"></td><td><font face="黑体" size="5" color="#36414F">分享订单:</font></td><td colspan="3"><div class="bdsharebuttonbox" data-tag="share_1">
+  <a class="bds_mshare" data-cmd="mshare"></a>
+   <a class="bds_tsina" data-cmd="tsina"></a>
+  <a class="bds_qzone" data-cmd="qzone" href="#"></a>
+   
+  <a class="bds_baidu" data-cmd="baidu"></a>
+  <a class="bds_sqq" data-cmd="sqq"></a>
+    <a class="bds_copy" data-cmd="copy"></a>
+</div></td></tr>
             </tbody>
            
             </table>
@@ -231,5 +240,31 @@
   <!-- Start Back To Top --> 
   <a class="scroll-to-top-btn" href="#"> <i class="icon-arrow-up"></i> </a> 
   <!-- End Back To Top --> 
-  <div class="site-backdrop"></div> 
+  <!-- 分享按钮开始 -->
+<script>
+  window._bd_share_config = {
+    // 这是配置内容
+    common : {
+      bdText : '这是我的购物清单 : @foreach($data->goodsinfo as $row) #{{$row->name}}_{{$row->color}} @endforeach 价格:{{$data->total}}元', 
+      bdDesc : 'Victory_Two_二期项目哔哔大队', 
+      bdUrl : 'www.two.com',   
+      bdPic : 'www.two.com{{$data->goodsinfo[0]->pic}}',
+      bdSign: 'on',
+      bdMini: '1'
+    },
+    // 分享按钮大小设置
+    share : [{
+      "bdSize" : 32
+    }],
+    // 浮窗按钮设置
+    slide : [{     
+      bdImg : 5,
+      bdPos : "right",
+      bdTop : 266,
+      bdMiniList : ['mshare','qzone','tsina','copy']
+    }],
+  }
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+<!-- /分享按钮结束 -->
 @endsection

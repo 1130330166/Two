@@ -41,7 +41,7 @@
 /*--------------------------------------------
 1. Template Fonts
 --------------------------------------------*/
-@import url(../../../../../../fonts.googleapis.com/css�family=Maven+Pro_400,500,700,900.css0");
+@import url(../../../../../../fonts.googleapis.com/css¿family=Maven+Pro_400,500,700,900.css0");
 
 /*--------------------------------------------
 2. Menu Styles
@@ -7951,5 +7951,8 @@ video {
 .shop-promo {
     background-image: url(../images/banners/02.jpg);
 }
-
+/*底部居中*/
+.col-lg-3.col-md-6 {
+    margin: 0px auto;
+}
 

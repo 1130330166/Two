@@ -14,7 +14,7 @@
                 <div class="card text-center">
                     <img class="card-img-top" src="/static/assets/images/team/02.jpg" alt="Team">
                     <div class="card-body">
-                        <h5 class="card-title mb-2">Rick Armstrong</h5>
+                        <h5 class="card-title mb-2">Hunter</h5>
                         <p class="text-muted mb-2">Founder, CEO</p>
                         <div class="social-bar"><a class="social-button shape-circle sb-facebook" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Facebook"><i class="socicon-facebook"></i></a><a class="social-button shape-circle sb-twitter" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Twitter"><i class="socicon-twitter"></i></a><a class="social-button shape-circle sb-google-plus" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Google +"><i class="socicon-googleplus"></i></a></div>
                     </div>
@@ -24,7 +24,7 @@
                 <div class="card text-center">
                     <img class="card-img-top" src="/static/assets/images/team/01.jpg" alt="Team">
                     <div class="card-body">
-                        <h5 class="card-title mb-2">Julia Doe</h5>
+                        <h5 class="card-title mb-2">Doe</h5>
                         <p class="text-muted mb-2">Founder, CTO</p>
                         <div class="social-bar"><a class="social-button shape-circle sb-facebook" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Facebook"><i class="socicon-facebook"></i></a><a class="social-button shape-circle sb-twitter" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Twitter"><i class="socicon-twitter"></i></a><a class="social-button shape-circle sb-google-plus" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Google +"><i class="socicon-googleplus"></i></a></div>
                     </div>
@@ -34,7 +34,7 @@
                 <div class="card text-center">
                     <img class="card-img-top" src="/static/assets/images/team/03.jpg" alt="Team">
                     <div class="card-body">
-                        <h5 class="card-title mb-2">Tony Stark</h5>
+                        <h5 class="card-title mb-2">Turbo</h5>
                         <p class="text-muted mb-2">Founder, CEO</p>
                         <div class="social-bar"><a class="social-button shape-circle sb-facebook" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Facebook"><i class="socicon-facebook"></i></a><a class="social-button shape-circle sb-twitter" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Twitter"><i class="socicon-twitter"></i></a><a class="social-button shape-circle sb-google-plus" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Google +"><i class="socicon-googleplus"></i></a></div>
                     </div>

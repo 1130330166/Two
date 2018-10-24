@@ -174,10 +174,10 @@ class AdminuserController extends Controller
      */
     public function destroy($id)
     {
-        // 删除管理员所分配的角色信息
-        DB::table("mall_user_role")->where("uid",'=',$id)->delete();
         //执行删除
         if(DB::table("mall_admin_users")->where("id",'=',$id)->delete()){
+            // 删除管理员所分配的角色信息
+            DB::table("mall_user_role")->where("uid",'=',$id)->delete();
             return redirect("/adminusers")->with('success','删除成功');
         }else{
             return redirect("/adminusers")->with('error','删除失败');

@@ -225,4 +225,32 @@ document.getElementById(obj).style.display="none";
 // 公告点击关闭按钮结束
 </script>
 <!-- /公告滚动脚本结束 -->
+
+<!-- 分享按钮开始 -->
+<script>
+  window._bd_share_config = {
+    // 这是配置内容
+    common : {
+      bdText : 'This is our two phase._这是我们的项目的_首页', 
+      bdDesc : 'Victory_Two_二期项目哔哔大队', 
+      bdUrl : 'www.two.com',   
+      bdPic : 'www.two.com/static/assets/images/features/02.jpg',
+      bdSign: 'on',
+      bdMini: '1'
+    },
+    // 分享按钮设置
+    share : [{
+      "bdSize" : 2
+    }],
+    // 浮窗按钮设置
+    slide : [{     
+      bdImg : 0,
+      bdPos : "right",
+      bdTop : 266,
+      bdMiniList : ['mshare','qzone','tsina','copy','weixin']
+    }],
+  }
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+<!-- /分享按钮结束 -->
 @endsection

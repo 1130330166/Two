@@ -46,7 +46,7 @@
       <div class="mws-form-row"> 
        <label class="mws-form-label">* 商品价格</label> 
        <div class="mws-form-item"> 
-        <input type="text" class="large" name="price" value=""/> 
+        <input type="text" class="large" name="price" value="" onkeyup="value=value.replace(/[\W]/g,'') "onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))"/> 
        </div> 
       </div>
       <div class="mws-form-inline"> 

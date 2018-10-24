@@ -54,4 +54,35 @@
                 });
         })
     </script>
+
+<!-- 分享按钮开始 -->
+<script>
+  window._bd_share_config = {
+    // 此处添加分享具体设置
+    // 配置内容
+    common : {
+      bdText : '来自 https://www.two.com 的分享商品', 
+      bdDesc : 'Victory_Two_二期项目哔哔大队', 
+      bdUrl : 'www.two.com',   
+      bdPic : 'www.two.com/static/assets/images/features/02.jpg',
+      bdSign: 'on',
+      bdMini: '1'
+    },
+    // 分享按钮设置
+    share : [{
+      "bdSize" : 2
+    }],
+    // 图片分享按钮设置
+    image : [{
+      viewType : 'list',
+      viewPos : 'top',
+      viewColor : 'white',
+      viewSize : '16',
+      viewList : ['mshare','qzone','tsina']
+    }],
+  }
+  // 加载js文件
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+<!-- /分享按钮结束 -->
 @endsection

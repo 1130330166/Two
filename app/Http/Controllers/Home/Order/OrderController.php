@@ -375,7 +375,7 @@ class OrderController extends Controller
      */
     //用户修改订单状态--付款,取消订单,确认收货...
     public function update(Request $request, $id)
-    {
+    {	
         //根据传递过来的订单号查询订单状态
         $data = DB::table("mall_order_info")->where('oid','=',$id)->first();
         //根据订单状态处理订单
@@ -415,6 +415,36 @@ class OrderController extends Controller
         }elseif($data->status == 3){
 
             //状态值为3,用户点击了去评价,加载评价页面
+            //根据订单号查询对应订单信息
+            $orderinfo = DB::table('mall_order_info')->where('oid','=',$id)->first();
+            //去除商品ID最右边的#号然后转换成数组[一个由商品ID组成的数组]
+            $orderinfo->gid = explode('#',rtrim($orderinfo->gid,'#'));
+            //去除商品数量最右边的#号然后转换成数组[一个由商品数量组成的数组]
+            $orderinfo->num = explode('#',rtrim($orderinfo->num,'#'));
+            //根据gid循环查询商品信息,存储到一个数组$arr中
+            for($i=0;$i<count($orderinfo->gid);$i++){
+
+                $arr[$i] = DB::table('mall_goods')->where('id','=',$orderinfo->gid[$i])->get(); 
+            }
+            //根据num查询商品购买数量,存储到数组$arr对应的商品信息中 
+            for($i=0;$i<count($orderinfo->num);$i++){
+
+                $arr[$i][0]->num = $orderinfo->num[$i];
+            }
+            // dd($arr);
+            //将数组$arr做为订单的商品信息存储到$data中
+            foreach($arr as $k => $v){
+                //去掉商品图片路径左边的点,用于模板遍历
+                $v[0]->pic = ltrim($v[0]->pic,'.');
+                //截取商品title
+                $v[0]->title = mb_substr($v[0]->title, 0,30).'...';
+                //将商品信息存储到$data中方便遍历
+                $orderinfo->goodsinfo[$k] = $v[0];
+            }
+            // var_dump($orderinfo);exit;
+            
+            //加载评价模板 分配数据
+            return view("Home.Review.add",['orderinfo'=>$orderinfo]);
         }elseif($data->status == 4){
 
             //状态值为4,用户点击了提交[评价],跳转回订单页
