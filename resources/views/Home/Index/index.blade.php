@@ -85,11 +85,13 @@
                         <h3 class="product-title">类别 : {{$v->catename}}</h3>
                         <h4 class="product-price">¥ {{$v->price}}</h4>
                         <div class="product-buttons">
-                            <button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="Whishlist">
+                            <string style="color:orange;font-size:12px;display:none" class="num">{{$v->like}}</string>
+                            <string style="color:orange;font-size:12px;">{{$v->like>999?"999+":"$v->like"}}</string>
+                            <button class="btn btn-outline-secondary btn-sm "  name="up">
                                 <i class="icon-heart"></i>
                             </button>
                             <div style="display:none">{{$v->id}}</div>
-                            <button class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Product" data-toast-message="successfuly added to cart!" href="#">加 入 购 物 车</button>
+                            <button class="btn btn-outline-primary btn-sm addcart" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Product" data-toast-message="successfuly added to cart!" href="#">加 入 购 物 车</button>
                         </div>
                     </div>
                 </div>
@@ -128,7 +130,7 @@
     <!-- 存储cookie -->
     <script>
         // 获取button按钮单击事件
-        $(":button").click(function(){
+        $(".addcart").click(function(){
             // alert(1);
             //获取gid
             gid = $(this).parent().find('div').html();
@@ -137,6 +139,22 @@
                 $.get('/addcart',{gid:gid},function(data){
                 });
         })
+
+        $('button[name=up]').click(function(){
+            gid = $(this).next().html();
+            like = $(this).prev().prev().html();
+            a = $(this);
+            $.get('/up',{gid:gid,like:like},function(data){
+              if(data){
+                like = parseInt(like)+1;
+                a.prev().prev().html(like);
+                if(like > 999){
+                  like = 999+"+";
+                }
+                a.prev().html(like);
+              }
+            })
+        });
     </script>
     <!-- 公告滚动脚本开始 -->
 <script type="text/javascript">

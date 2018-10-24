@@ -104,6 +104,8 @@ Route::get("/search","Home\Index\IndexController@search");
 Route::get("/about_us","Home\Index\IndexController@about_us");
 // 我们的团队
 Route::get("/team","Home\Index\IndexController@team");
+//点赞
+Route::get('up',"Home\Index\IndexController@up");
 // ---------------前后台路由分割线--------------------
 
 // 后台登录退出

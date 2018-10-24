@@ -36,7 +36,7 @@ class IndexController extends Controller
         //     $goods[$key]->catename=$catename->name;
         // }
         // 获取商品信息-------------第二种方法
-        $goods=DB::table("mall_goods")->join('mall_cates','mall_goods.cate_id','=','mall_cates.id')->select('mall_goods.id as id','mall_goods.name as name','mall_cates.id as cid','mall_cates.name as catename','mall_goods.pic','mall_goods.des','mall_goods.num','mall_goods.price','mall_goods.status')->get();
+        $goods=DB::table("mall_goods")->join('mall_cates','mall_goods.cate_id','=','mall_cates.id')->select('mall_goods.id as id','mall_goods.name as name','mall_cates.id as cid','mall_cates.name as catename','mall_goods.pic','mall_goods.des','mall_goods.num','mall_goods.price','mall_goods.status','mall_goods.like')->get();
         // var_dump($goods);die;
         // dd(count($arr));
         // dd($arr);
@@ -158,4 +158,16 @@ class IndexController extends Controller
         // echo 1;die;
         return view("Home.Extend.team",['cates'=>$cates]);
     }
+
+    public function up(Request $request){
+        // var_dump($request->all());
+        $gid = $request->input('gid');
+        $like['like'] = $request->input('like');
+        $like['like'] += 1;
+        // var_dump($like);exit;
+        if(DB::table('mall_goods')->where('id','=',$gid)->update($like)){
+            return 1;
+        }
+    }
+
 }

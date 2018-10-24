@@ -119,9 +119,6 @@
                         </div>
                     </div>
                     <div class="sp-buttons mt-2 mb-2">
-                        <button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="" data-original-title="Whishlist">
-                            <i class="icon-heart"></i>
-                        </button>
                         <div style="display:none">{{$info->id}}</div>
                         <button class="btn btn-primary" data-toast="" data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Product" data-toast-message="successfuly added to cart!"><i class="icon-bag"></i> 加 入 购 物 车</button>
                     </div>

@@ -33,9 +33,6 @@
                         <del>￥9999.99</del>￥ {{$v->price}}
                     </h4>
                     <div class="product-buttons">
-                        <button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="Whishlist">
-                            <i class="icon-heart"></i>
-                        </button>
                         <div style="display:none">{{$v->id}}</div>
                         <button class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Product" data-toast-message="successfuly added to cart!">加 入 购 物 车</button>
                     </div>
