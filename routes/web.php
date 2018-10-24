@@ -26,6 +26,8 @@ Route::group(["middleware"=>"login"],function(){
 	//订单详情
 	//个人信息
 	Route::resource("/homeuserinfo","Home\Userinfo\UserinfoController");
+	//用户修改个人信息Ajax 校验
+	Route::get("/verifyuserinfo","Home\Userinfo\UserinfoController@verifyUserinfo");
 	//加载用户修改头像模板
 	Route::get("/editpic","Home\Userinfo\UserinfoController@editPic");
 	//用户修改头像

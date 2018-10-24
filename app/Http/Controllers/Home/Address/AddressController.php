@@ -23,7 +23,7 @@ class AddressController extends Controller
         $userinfo = DB::table('mall_home_userinfo')->where('uid','=',session('uid'))->first();
 
         //查询该用户所有的收货地址 降序排列[默认地址在首位]isdefault 1为默认
-        $data = DB::table("mall_address")->where('uid','=',session('uid'))->orderBy("isdefault","desc")->get();
+        $data = DB::table("mall_address")->where('isdel','=',0)->where('uid','=',session('uid'))->orderBy("isdefault","desc")->get();
         //判断邮编是否为空 如果是则赋值为000000
         foreach($data as $k => $v){
             //如果邮编为空则设置为000000 否则取出邮编
@@ -92,7 +92,7 @@ class AddressController extends Controller
         //根据Pid查询所有分类数据传递到公共模板导航栏
         $cates = self::getCatesByPid(0);
         //查询该用户所有地址降序排序
-        $data = DB::table('mall_address')->where('uid','=',session('uid'))->orderBy('isdefault','desc')->get();
+        $data = DB::table('mall_address')->where('isdel','=',0)->where('uid','=',session('uid'))->orderBy('isdefault','desc')->get();
         //判断邮编是否为空 如果是则赋值为000000
         foreach($data as $k => $v){
             //如果邮编为空则设置为000000 否则取出邮编
@@ -100,7 +100,7 @@ class AddressController extends Controller
         }
 
         //根据ID查询要被更新的地址
-        $info = DB::table('mall_address')->where('id','=',$id)->first();
+        $info = DB::table('mall_address')->where('isdel','=',0)->where('id','=',$id)->first();
         //判断邮编是否为空 如果是则赋值为000000
         $info->postalcode = $info->postalcode==''?'000000':$info->postalcode;
         // var_dump($info);exit;
@@ -120,7 +120,7 @@ class AddressController extends Controller
     {
 
         //根据传递过来的地址ID获取该地址的详细数据
-        $info = DB::table("mall_address")->where("id",'=',$id)->first();
+        $info = DB::table("mall_address")->where('isdel','=',0)->where("id",'=',$id)->first();
         //判断用户输入的数据与数据库原有的数据一样[没有修改值,点了修改按钮]
         if(($request->input('aname') == $info->aname) && ($request->input('postalcode') == $info->postalcode) && ($request->input('phone') == $info->phone) && ($request->input('address') == $info->address)){
 
@@ -144,7 +144,7 @@ class AddressController extends Controller
         // var_dump($data);exit;
 
         //根据ID更新地址
-        if(DB::table('mall_address')->where('id','=',$id)->update($data)){
+        if(DB::table('mall_address')->where('isdel','=',0)->where('id','=',$id)->update($data)){
 
             return back()->with("success","地址更新成功!");
         }else{
@@ -162,8 +162,8 @@ class AddressController extends Controller
     //删除地址操作
     public function destroy($id)
     {
-        //根据ID删除指定地址,判断是否成功
-        if(DB::table("mall_address")->where('id','=',$id)->delete()){
+        //根据ID软删除指定地址,判断是否成功
+        if(DB::table("mall_address")->where('id','=',$id)->update(['isdel'=>1])){
 
             return back()->with("success","删除成功!");
         }else{
@@ -180,13 +180,13 @@ class AddressController extends Controller
 
             //ID不为空,用户要设置新的默认地址,先将原来的默认地址设为0,isdefault 0不是默认地址 1是默认地址
             //判断该用户地址表下是否有设置默认地址isdefault=>1
-            if(DB::table("mall_address")->where('isdefault','=',1)->count() > 0){
+            if(DB::table("mall_address")->where('isdel','=',0)->where('isdefault','=',1)->count() > 0){
 
                 //该用户地址表下存在默认地址,先删除默认地址[将原来的默认地址更新为普通地址isdefault=0],后更新
-                if(DB::table("mall_address")->where('isdefault','=',1)->update(['isdefault'=>0])){
+                if(DB::table("mall_address")->where('isdel','=',0)->where('isdefault','=',1)->update(['isdefault'=>0])){
 
                     //重置默认地址成功,更新用户想设置的默认地址
-                    if(DB::table("mall_address")->where('id','=',$id)->update(['isdefault'=>1])){
+                    if(DB::table("mall_address")->where('isdel','=',0)->where('id','=',$id)->update(['isdefault'=>1])){
 
                         return back()->with("success","默认地址更新成功!");
                     }else{
@@ -200,7 +200,7 @@ class AddressController extends Controller
             }else{
 
                 //该用户地址表下没有默认地址,直接更新用户想设置的默认地址
-                if(DB::table("mall_address")->where('id','=',$id)->update(['isdefault'=>1])){
+                if(DB::table("mall_address")->where('isdel','=',0)->where('id','=',$id)->update(['isdefault'=>1])){
 
                     return back()->with("success","默认地址设置成功!");
                 }else{

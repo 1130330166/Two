@@ -232,6 +232,27 @@ class UserinfoController extends Controller
         //
     }
 
+    //用户修改个人信息Ajax 校验
+    public function verifyUserinfo(Request $request)
+    {
+
+        // 获取Ajax 传递过来的手机号
+        $telphone = $request->input('telphone');
+        // 获取Ajax 传递过来的邮箱
+        $email = $request->input('email');
+        //查询数据库判断手机号是否存在
+        if(DB::table('mall_home_userinfo')->where('telphone','=',$telphone)->count() > 0){
+
+            echo 1;
+        }
+        //查询数据库判断邮箱是否存在
+        if(DB::table('mall_home_userinfo')->where('email','=',$email)->count() > 0){
+
+            echo 2;
+        }
+
+    }
+
     //无限分类递归数据遍历
     public static function getCatesByPid($pid){
 

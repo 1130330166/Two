@@ -293,65 +293,74 @@ class OrderController extends Controller
     //订单详情页
     public function show($id)
     {
+        //判断传递过来的订单号是否属于登录的该用户[防止用户在地址栏输入不存在的订单号]
+        if(DB::table('mall_order_info')->where('uid','=',session('uid'))->where('oid','=',$id)->count() > 0){
 
-        //根据接收的订单ID查询订单具体信息
-        $data = DB::table("mall_order_info")->where("oid",'=',$id)->first();
+            //根据接收的订单ID查询订单具体信息
+            $data = DB::table("mall_order_info")->where("oid",'=',$id)->first();
 
-        //去除商品ID最右边的#号然后转换成数组[一个由商品ID组成的数组]
-        $data->gid = explode('#',rtrim($data->gid,'#'));
-        //去除商品数量最右边的#号然后转换成数组[一个由商品数量组成的数组]
-        $data->num = explode('#',rtrim($data->num,'#'));
+            //去除商品ID最右边的#号然后转换成数组[一个由商品ID组成的数组]
+            $data->gid = explode('#',rtrim($data->gid,'#'));
+            //去除商品数量最右边的#号然后转换成数组[一个由商品数量组成的数组]
+            $data->num = explode('#',rtrim($data->num,'#'));
 
-        //根据gid循环查询商品信息,存储到一个数组$arr中
-        for($i=0;$i<count($data->gid);$i++){
+            //根据gid循环查询商品信息,存储到一个数组$arr中
+            for($i=0;$i<count($data->gid);$i++){
 
-            $arr[$i] = DB::table('mall_goods')->where('id','=',$data->gid[$i])->get(); 
+                $arr[$i] = DB::table('mall_goods')->where('id','=',$data->gid[$i])->get(); 
+            }
+            //根据num查询商品购买数量,存储到数组$arr对应的商品信息中 
+            for($i=0;$i<count($data->num);$i++){
+
+                $arr[$i][0]->num = $data->num[$i];
+            }
+            // dd($arr);
+            //将数组$arr做为订单的商品信息存储到$data中
+            foreach($arr as $k => $v){
+                //去掉商品图片路径左边的点,用于模板遍历
+                $v[0]->pic = ltrim($v[0]->pic,'.');
+                //截取商品title
+                $v[0]->title = mb_substr($v[0]->title, 0,30).'...';
+                //将商品信息存储到$data中方便遍历
+                $data->goodsinfo[$k] = $v[0];
+            }
+
+            //新建数组[索引数组格式]对应订单status
+            $arr = ['待付款','待发货','待收货','待评价','已评价'];
+            //转换订单状态显示
+            $data->status = $arr[$data->status];
+            //转换下单时间显示格式
+            $data->addtime = date('Y/m/d H:i:s',$data->addtime);
+            //根据订单信息的aid查询收货地址
+            $address = DB::table('mall_address')->where('id','=',$data->aid)->first();
+            // var_dump($address);
+            // dd($data);die;
+
+            /*//根据接收的订单ID===>$id连表查询订单具体信息
+            $data = DB::select("SELECT o.oid,o.status,o.addtime,g.pic,g.des,g.price,i.num FROM mall_order AS o,mall_goods AS g,mall_order_info AS i WHERE o.oid={$id} AND i.oid=o.oid AND i.gid=g.id");
+                                              
+            var_dump($data);exit;*/
+
+            /*$order = DB::table("mall_order")->where('oid','=',$id)->first();
+            $order_info = DB::table("mall_order_info")->where('oid','=',$order->oid)->get();
+            // var_dump($order_info);exit;
+            foreach($order_info as $k => $v){
+
+                $goods[$k] = DB::table("mall_goods")->where('id','=',$v->gid)->first();
+            }
+            var_dump($order);
+            var_dump($order_info);
+            var_dump($goods);exit;*/
+            
+            //加载订单详情模板
+            return view("Home.Order.show",['data'=>$data,'address'=>$address]);
+        }else{
+
+            //地址栏传递过来的订单号不属于该用户,返回
+            return back();
+            
         }
-        //根据num查询商品购买数量,存储到数组$arr对应的商品信息中 
-        for($i=0;$i<count($data->num);$i++){
-
-            $arr[$i][0]->num = $data->num[$i];
-        }
-        // dd($arr);
-        //将数组$arr做为订单的商品信息存储到$data中
-        foreach($arr as $k => $v){
-            //去掉商品图片路径左边的点,用于模板遍历
-            $v[0]->pic = ltrim($v[0]->pic,'.');
-            //截取商品title
-            $v[0]->title = mb_substr($v[0]->title, 0,30).'...';
-            //将商品信息存储到$data中方便遍历
-            $data->goodsinfo[$k] = $v[0];
-        }
-
-        //新建数组[索引数组格式]对应订单status
-        $arr = ['待付款','待发货','待收货','待评价','已评价'];
-        //转换订单状态显示
-        $data->status = $arr[$data->status];
-        //转换下单时间显示格式
-        $data->addtime = date('Y/m/d H:i:s',$data->addtime);
-        //根据订单信息的aid查询收货地址
-        $address = DB::table('mall_address')->where('id','=',$data->aid)->first();
-        // var_dump($address);
-        // dd($data);die;
-
-        /*//根据接收的订单ID===>$id连表查询订单具体信息
-        $data = DB::select("SELECT o.oid,o.status,o.addtime,g.pic,g.des,g.price,i.num FROM mall_order AS o,mall_goods AS g,mall_order_info AS i WHERE o.oid={$id} AND i.oid=o.oid AND i.gid=g.id");
-                                          
-        var_dump($data);exit;*/
-
-        /*$order = DB::table("mall_order")->where('oid','=',$id)->first();
-        $order_info = DB::table("mall_order_info")->where('oid','=',$order->oid)->get();
-        // var_dump($order_info);exit;
-        foreach($order_info as $k => $v){
-
-            $goods[$k] = DB::table("mall_goods")->where('id','=',$v->gid)->first();
-        }
-        var_dump($order);
-        var_dump($order_info);
-        var_dump($goods);exit;*/
         
-        //加载订单详情模板
-        return view("Home.Order.show",['data'=>$data,'address'=>$address]);
         
     }
 
