@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Home\FriendsLink;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+//导入redis类
+use Illuminate\Support\Facades\Redis;
 use DB;
 
 class FriendsLinkController extends Controller
@@ -16,13 +18,30 @@ class FriendsLinkController extends Controller
     //查询审核通过并上架的友情链接遍历显示到前台
     public function index()
     {
-        $cates = self::getCatesByPid(0);
+        // $cates = self::getCatesByPid(0);
         $userinfo = DB::table("mall_home_userinfo")->where('uid','=',session('uid'))->first();
         //获取上架的友情链接
-        $data = DB::table('mall_flink')->where('status','=',1)->where('display','=',1)->get();
+        // $data = DB::table('mall_flink')->where('status','=',1)->where('display','=',1)->get();
+
+        $arr = ['cates','friendslinks'];
+        // 遍历数组
+        foreach($arr as $k => $v){
+            // 判断redis中是否存在当前键值的值
+            if(Redis::exists($v[$k])){
+                //如果存在,取出反序列化
+                $$v[$k] = Redis::get($v[$k]);
+                $$v[$k] = unserialize($$v[$k]);
+            }else{
+                //如果不存在,序列化成字符串后存进redis
+                $cates = self::getCatesByPid(0);
+                $friendslinks = DB::table('mall_flink')->where('status','=',1)->where('display','=',1)->get();
+                Redis::setex('cates',300,serialize($cates));
+                Redis::setex('friendslinks',300,serialize($friendslinks));
+            }
+        }
 
         //加载友情链接模板 分配数据
-        return view("Home.FriendsLink.index",["cates"=>$cates,'data'=>$data,'userinfo'=>$userinfo]);
+        return view("Home.FriendsLink.index",["cates"=>$cates,'friendslinks'=>$friendslinks,'userinfo'=>$userinfo]);
     }
 
     /**

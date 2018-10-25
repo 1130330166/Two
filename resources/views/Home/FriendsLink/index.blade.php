@@ -21,8 +21,8 @@
     <h3 class="padding-top-2x">友情链接</h3>
 
     <!-- 遍历上架的友情链接开始 -->
-    @if(!empty($data))
-    @foreach($data as $row)
+    @if(!empty($friendslinks))
+    @foreach($friendslinks as $row)
     <a href="{{$row->lurl}}" class="btn btn-link-info">{{$row->lname}}</a>
     @endforeach
     @endif
