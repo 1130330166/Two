@@ -5,7 +5,7 @@
  <body>
   <div class="mws-panel grid_8"> 
    <div class="mws-panel-header"> 
-    <span>管理员添加</span> 
+    <span>管理员添加 &nbsp; <font color="red">(默认分配普通管理员)</font></span> 
    </div> 
    <div class="mws-panel-body no-padding"> 
     <form class="mws-form" action="/adminusers" method="post">

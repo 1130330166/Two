@@ -97,14 +97,21 @@ class AdminuserController extends Controller
         }else{
         // 除去token添加进数据库
         $data=$request->except('_token');
+        $name=$request['name'];
+        // var_dump($name);die;
         // 密码加密,引用Hash
         $data['password']=Hash::make($data['password']);
         // dd($data);
         // 写入数据库
         if(DB::table('mall_admin_users')->insert($data)){
-            return redirect("adminusers")->with('success',"添加成功");
-        }else{
-       return redirect("/adminuser/create")->with('error','添加失败');
+            // 赋予新添加的管理员__默认角色为普通管理员开始
+            $str=DB::table("mall_admin_users")->where("name",'=',$name)->first();
+            // var_dump($str);die;
+            $id=$str->id;
+            if(DB::select("INSERT INTO mall_user_role (uid,rid) values ($id,'1')")){
+            }
+            // 赋予默认角色为普通管理员结束
+        return redirect("adminusers")->with('success',"添加成功");
         }
     }
 }
@@ -174,10 +181,11 @@ class AdminuserController extends Controller
      */
     public function destroy($id)
     {
-        //执行删除
-        if(DB::table("mall_admin_users")->where("id",'=',$id)->delete()){
-            // 删除管理员所分配的角色信息
-            DB::table("mall_user_role")->where("uid",'=',$id)->delete();
+        // 执行删除
+        // 第一步先删除管理员分配的角色
+        if(DB::table("mall_user_role")->where("uid",'=',$id)->delete()){
+            // 第二步删除管理员
+            DB::table("mall_admin_users")->where("id",'=',$id)->delete();
             return redirect("/adminusers")->with('success','删除成功');
         }else{
             return redirect("/adminusers")->with('error','删除失败');
