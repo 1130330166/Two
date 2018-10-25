@@ -89,6 +89,9 @@ class GoodslistController extends Controller
         //为商品详情页拼接用户头像路径
         if($userinfo){
              $userinfo->pic = '.'.$userinfo->pic;
+        }else{
+            $userinfo = (object)[];
+            $userinfo->pic = './static/assets/images/account/default.png';
         }
         
         // 获取商品详情
@@ -152,6 +155,9 @@ class GoodslistController extends Controller
         //为商品详情页拼接用户头像路径
         if($userinfo){
              $userinfo->pic = '.'.$userinfo->pic;
+        }else{
+            $userinfo = (object)[];
+            $userinfo->pic = './static/assets/images/account/default.png';
         }
     	// echo "分类商品详情 : $id";
     	// 获取当前分类名
