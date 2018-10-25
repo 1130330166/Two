@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Home\Goodslist;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
+//导入redis类
+use Illuminate\Support\Facades\Redis;
 class GoodslistController extends Controller
 {
     /**
@@ -15,16 +17,37 @@ class GoodslistController extends Controller
     // 商品分类主页
     public function index()
     {
-        // 获取分类 
-        $cates = self::getCatesByPid(0);
         //获取用户个人信息
         $userinfo = DB::table("mall_home_userinfo")->where('uid','=',session('uid'))->first();
-        // 获取商品数据
-        $goods=DB::table("mall_goods")->join('mall_cates','mall_goods.cate_id','=','mall_cates.id')->select('mall_goods.id as id','mall_goods.name as name','mall_cates.id as cid','mall_cates.name as catename','mall_goods.pic','mall_goods.des','mall_goods.num','mall_goods.price','mall_goods.status')->get();
+        // ------------------------------redis操作-------------------------
+        // 把redis里面的键名放到一个数组里
+        $redis[] = array('goodslist','catess');
+        foreach($redis as $key=>$value){
+            if(Redis::exists($value[$key])){
+                // 从redis拿到储存数据,如果数据没有或者过期重新到数据库拿值
+                $goodslist = Redis::get('goodslist');
+                $catess = Redis::get('catess');
+                // ------数据类型转换
+                // 反序列化unserialize():将redis序列化后的"字符串数据"恢复为"内存数据"
+                // 这里是将json类型恢复原数据类型
+                $goodslist = unserialize($goodslist);
+                $catess = unserialize($catess);
+            }else{
+                // 获取分类数据
+                $catess = self::getCatesByPid(0);
+                // 获取商品数据
+                $goodslist=DB::table("mall_goods")->join('mall_cates','mall_goods.cate_id','=','mall_cates.id')->select('mall_goods.id as id','mall_goods.name as name','mall_cates.id as cid','mall_cates.name as catename','mall_goods.pic','mall_goods.num','mall_goods.price','mall_goods.status')->get();
+                // 从数据库拿值存储进redis里面
+                // 序列化serialize():将"内存数据"转换为"字符串"保存
+                Redis::setex('goodslist', 300, serialize($goodslist));
+                Redis::setex('catess', 300, serialize($catess));
+                // Setex命令__用来key设置值及其过期时间
+            }
+        }
         // var_dump($cates);
         // var_dump($goods);die;
         // 加载商品列表并分配数据
-        return view("Home.Goodslist.index",['goods'=>$goods,'cates'=>$cates,'userinfo'=>$userinfo]);
+        return view("Home.Goodslist.index",['goods'=>$goodslist,'cates'=>$catess,'userinfo'=>$userinfo]);
     }
 
     /**
