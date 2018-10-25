@@ -172,4 +172,6 @@ Route::group(['middleware'=>'adminlogin'],function(){
 	Route::get("/articledel","Admin\Article\ArticleController@ajax");
 	// 评论模块_运用Ajax分页
 	Route::resource("/adminreview","Admin\Review\ReviewController");
+	//清空redis缓存
+	Route::get("/updateredis","Admin\Admin\AdminController@updateRedis");
 });

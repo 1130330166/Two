@@ -41,6 +41,7 @@
     </div> 
    </div> 
    <!-- User Tools (notifications, logout, profile, change password) --> 
+   <div style="color: #c3c3c3;float: right;line-height: 60px"><a href="/updateredis" class=" btn btn-success icon-loading">更新缓存</a></div>
    <div id="mws-user-tools" class="clearfix"> 
     <!-- Notifications --> 
     <div id="mws-user-notif" class="mws-dropdown-menu"> 

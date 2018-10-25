@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Admin\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+//导入redis类
+use Illuminate\Support\Facades\Redis;
 class AdminController extends Controller
 {
     /**
@@ -82,5 +83,13 @@ class AdminController extends Controller
     public function destroy($id)
     {
         //
+    }
+    // 更新redis缓存
+    public function updateRedis(){
+        // 清空redis缓存
+        if(Redis::flushdb()){
+        //加载后台模板
+        return back()->with("success","缓存更新成功");
+    }
     }
 }
