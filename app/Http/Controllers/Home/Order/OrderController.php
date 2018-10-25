@@ -104,56 +104,64 @@ class OrderController extends Controller
     {
         //查询分配公共导航栏分类数据
         $cates = self::getCatesByPid(0);
-        //根据session 的uid 获取当前用户的收货地址
-        $address = DB::table("mall_address")->where('uid','=',session('uid'))->orderBy("isdefault","desc")->get();
-        // var_dump($address);
-        //判断该用户的收货地址是否为空
-        if(count($address) == 0){
+        //判断该用户购物车中是否有商品
+        if(DB::table('mall_cart')->where('uid','=',session('uid'))->count('gid') > 0){
 
-            //该用户地址表为空,查询购物车表中的商品遍历并加载添加地址和备注的模板
-            //根据session('uid')[登录用户的ID]查询购物车表
-            $car = DB::table("mall_cart")->where("uid",'=',session('uid'))->get();
-            // var_dump($car);
-            // 购物车总价格
-            $total = 0;
-            //根据购物车商品ID查询商品信息
-            foreach($car as $key => $value){
-                // 根据商品ID查询具体商品
-                $goods[$key] = DB::table("mall_goods")->where('id','=',$value->gid)->first();
-                // 将购物车中对应商品的数量放到商品信息中
-                $goods[$key]->num = $value->num;
-                // 计算购物车总价
-                $total += $value->price*$value->num;
+            //当前用户购物车内有商品
+            //根据session 的uid 获取当前用户的收货地址
+            $address = DB::table("mall_address")->where('uid','=',session('uid'))->orderBy("isdefault","desc")->get();
+            // var_dump($address);
+            //判断该用户的收货地址是否为空
+            if(count($address) == 0){
+
+                //该用户地址表为空,查询购物车表中的商品遍历并加载添加地址和备注的模板
+                //根据session('uid')[登录用户的ID]查询购物车表
+                $car = DB::table("mall_cart")->where("uid",'=',session('uid'))->get();
+                // var_dump($car);
+                // 购物车总价格
+                $total = 0;
+                //根据购物车商品ID查询商品信息
+                foreach($car as $key => $value){
+                    // 根据商品ID查询具体商品
+                    $goods[$key] = DB::table("mall_goods")->where('id','=',$value->gid)->first();
+                    // 将购物车中对应商品的数量放到商品信息中
+                    $goods[$key]->num = $value->num;
+                    // 计算购物车总价
+                    $total += $value->price*$value->num;
+                }
+
+                // var_dump($goods);exit;
+                // 加载模板传递数据
+                return view('Home.Order.emptyaddressadd',['goods'=>$goods,'total'=>$total]);
+            }else{
+
+                //根据session('uid')获取该用户的所有收货地址
+                $address = DB::table("mall_address")->where('uid','=',session('uid'))->orderBy('isdefault','desc')->get();
+                //根据session('uid')[登录用户的ID]查询购物车表
+                $car = DB::table("mall_cart")->where("uid",'=',session('uid'))->get();
+                // 购物车总价格
+                $total = 0;
+                //根据购物车商品ID查询商品信息
+                foreach($car as $key => $value){
+                    // 根据商品ID查询具体商品
+                    $goods[$key] = DB::table("mall_goods")->where('id','=',$value->gid)->first();
+                    // 将购物车中对应商品的数量放到商品信息中
+                    $goods[$key]->num = $value->num;
+                    // 计算购物车总价
+                    $total += $value->price*$value->num;
+                }
+                // var_dump($car);
+                // var_dump($address);exit;
+
+                //加载模板传递数据
+                return view("Home.Order.hasaddressadd",['address'=>$address,'goods'=>$goods,'total'=>$total]);
             }
-
-            // var_dump($goods);exit;
-            // 加载模板传递数据
-            return view('Home.Order.emptyaddressadd',['goods'=>$goods,'total'=>$total]);
         }else{
 
-            //根据session('uid')获取该用户的所有收货地址
-            $address = DB::table("mall_address")->where('uid','=',session('uid'))->orderBy('isdefault','desc')->get();
-            //根据session('uid')[登录用户的ID]查询购物车表
-            $car = DB::table("mall_cart")->where("uid",'=',session('uid'))->get();
-            // 购物车总价格
-            $total = 0;
-            //根据购物车商品ID查询商品信息
-            foreach($car as $key => $value){
-                // 根据商品ID查询具体商品
-                $goods[$key] = DB::table("mall_goods")->where('id','=',$value->gid)->first();
-                // 将购物车中对应商品的数量放到商品信息中
-                $goods[$key]->num = $value->num;
-                // 计算购物车总价
-                $total += $value->price*$value->num;
-            }
-            // var_dump($car);
-            // var_dump($address);exit;
-
-            //加载模板传递数据
-            return view("Home.Order.hasaddressadd",['address'=>$address,'goods'=>$goods,'total'=>$total]);
+            //当前用户购物车内没有商品,返回购物车页
+            return redirect('/cart');
         }
         
-        // return view("Home.Order.add");
     }
 
     /**
